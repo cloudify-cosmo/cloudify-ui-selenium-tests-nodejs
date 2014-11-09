@@ -1,4 +1,4 @@
 {
-    "rootUrl" : "http://localhost",
-    "seleniumServerUrl" : "http://localhost"
+    "cloudifyUiIp" : "cosmo.gsdev.info",
+    "seleniumServerUrl" : "http://localhost:4444/wd/hub"
 }
