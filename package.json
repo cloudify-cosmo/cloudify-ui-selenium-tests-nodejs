@@ -3,6 +3,7 @@
     "jshint-stylish": "^1.0.0",
     "lodash": "^2.4.1",
     "log4js": "^0.6.21",
-    "selenium-webdriver": "~2.44.0"
+    "selenium-webdriver": "~2.44.0",
+    "q": "~1.0.1"
   }
 }
