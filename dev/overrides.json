@@ -1,7 +1,0 @@
-{
-    "cloudifyUiIp" : "15.125.81.39",
-    "selenium" : {
-        "serverUrl" : "http://pc-lab58:4444/wd/hub"
-
-    }
-}
