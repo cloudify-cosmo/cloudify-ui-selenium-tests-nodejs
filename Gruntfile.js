@@ -7,6 +7,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         jshint: {
             options: {
+                reporter: require('jshint-stylish'),
                 jshintrc: '.jshintrc'
             },
             all: [
@@ -14,12 +15,12 @@ module.exports = function (grunt) {
             ]
         },
         jasmine_node: {
+            reporter: require('jshint-stylish'),
             all: ['src/suites']
         }
     });
 
     grunt.registerTask('test', function () {
-
         var tasks = [
             'jshint',
             'jasmine_node'
@@ -27,6 +28,8 @@ module.exports = function (grunt) {
 
         grunt.task.run(tasks);
     });
+
+    grunt.registerTask('jasmine_node', 'jasmine_node');
 
     grunt.registerTask('default', [
         'jshint'
