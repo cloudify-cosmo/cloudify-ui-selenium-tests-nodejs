@@ -2,7 +2,7 @@
 //var logger = require('log4js').getLogger('Gruntfile');
 
 module.exports = function (grunt) {
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
         jshint: {
@@ -15,7 +15,6 @@ module.exports = function (grunt) {
             ]
         },
         jasmine_node: {
-            reporter: require('jshint-stylish'),
             all: ['src/suites']
         }
     });
