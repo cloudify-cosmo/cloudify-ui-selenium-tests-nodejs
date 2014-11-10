@@ -1,9 +1,8 @@
+'use strict';
 
 
-
-var logger = require('log4js').getLogger('Page');
-config = require('../config');
-driver = require('../driver').get();
+var config = require('../config');
+var driver = require('../driver').get();
 
 /**
  *

@@ -1,3 +1,4 @@
+'use strict';
 
 var q= require('q');
 var driver = require('../driver').get();
@@ -7,10 +8,9 @@ var css = require('selenium-webdriver').By.css;
 
 /**
  *
- * @param callback
  * @returns promise - function( href value )
  */
-exports.getSpecLink = function( callback ){
+exports.getSpecLink = function( ){
     var deferred = q.defer();
     // todo : add class to each link so we can know which is which
     driver.findElement(css('#footer #smallFooter  .links  li:nth-child(3) a')).then(function(element){

@@ -1,7 +1,7 @@
+'use strict';
 
 
-
-var components = require('../../components');
+require('../../components');
 
 require('./testLayout');
 

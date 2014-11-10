@@ -1,3 +1,4 @@
+'use strict';
 /**
 
  Selenium driver for our use

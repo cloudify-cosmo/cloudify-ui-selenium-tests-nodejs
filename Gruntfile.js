@@ -11,7 +11,8 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc'
             },
             all: [
-                'Gruntfile.js'
+                'Gruntfile.js',
+                'src/**/*.js'
             ]
         },
         jasmine_node: {
@@ -20,16 +21,9 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('test', function () {
-        var tasks = [
-            'jshint',
-            'jasmine_node'
-        ];
+    grunt.registerTask('test', [ 'jasmine_node' ]);
 
-        grunt.task.run(tasks);
-    });
+    grunt.registerTask('build', [ 'jshint' ]);
 
-    grunt.registerTask('default', [
-        'jshint'
-    ]);
+    grunt.registerTask('default', [ 'jshint', 'test' ]);
 };
