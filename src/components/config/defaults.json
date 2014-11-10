@@ -1,5 +1,6 @@
 {
     "cloudifyUiIp" : "cosmo.gsdev.info",
+    "timeout" : 300000,
     "selenium" : {
         "serverUrl" : "http://localhost:4444/wd/hub",
         "browserType" : "chrome"

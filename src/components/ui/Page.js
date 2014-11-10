@@ -2,7 +2,7 @@
 
 
 var config = require('../config');
-var driver = require('../driver').get();
+var driver = require('../driver');
 
 /**
  *
@@ -23,7 +23,7 @@ function getPath(relative){
 }
 
 function get( relative ){
-    driver.get(getPath(relative));
+    driver.get().get(getPath(relative));
 }
 
 

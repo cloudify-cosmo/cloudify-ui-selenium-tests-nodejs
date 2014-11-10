@@ -16,6 +16,12 @@ module.exports = function (grunt) {
             ]
         },
         jasmine_node: {
+            options: {
+                specNameMatcher: 'spec',
+                extensions: 'js'
+
+            },
+
             all: ['src/suites']
         }
     });

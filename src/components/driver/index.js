@@ -9,6 +9,23 @@
 
 /**
  *
+ *
+ *
+ * This is a wrapper for selenium's driver.
+ *
+ * We need this small wrapper so we can generate a driver 'beforeEach' and 'afterEach'.
+ *
+ * in order to use this wrapper, your test should do the following :
+ *
+ * var driver = require('./driver'); ==> this is not selenium's driver! this is our wrapper.
+ * driver.get() ==> will get you the selenium's instance. now you can do what you want with it.
+ *
+ * Please note you cannot write
+ *
+ * require('./driver').get(); because when the system loads the driver is not yet initialized!
+ *
+ *
+ *
  * @param opts {
  *
  *          'seleniumServerUrl' : 'http://localhost/wd/hub',
@@ -50,8 +67,9 @@ exports.get = function(){
 };
 
 exports.quit = function(){
-    logger.info('quitting driver. this will take 10 seconds');
-    driver.quit();
+    logger.info('quitting driver');
+    return driver.quit( );
+
 
 };
 
