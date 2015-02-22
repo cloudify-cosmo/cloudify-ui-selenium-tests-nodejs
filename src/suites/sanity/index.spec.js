@@ -3,7 +3,7 @@
 var components = require('../../components');
 var logger = require('log4js').getLogger('index.spec');
 
-describe('sanity suite', function () {
+describe('Sanity suite', function () {
     this.timeout(components.config.timeout);
 
     beforeEach(function () {
@@ -20,6 +20,7 @@ describe('sanity suite', function () {
         });
     });
 
+    require('./testBlueprints');
     require('./testLayout');
     require('./testLayout2');
 
