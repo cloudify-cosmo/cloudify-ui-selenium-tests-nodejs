@@ -21,7 +21,6 @@ describe('Sanity suite', function () {
     });
 
     require('./testBlueprints');
-    //require('./testLayout');
-    //require('./testLayout2');
+    require('./testDeployments');
 
 });
