@@ -1,4 +1,7 @@
 {
+  "name": "cloudify-ui-selenium-tests-nodejs",
+  "version": "0.0.1",
+  "description": "system tests for cloudify-ui",
   "dependencies": {
     "async": "^0.9.0",
     "grunt": "~0.4.2",
@@ -14,5 +17,8 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-mocha-test": "^0.12.7",
     "mocha": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
   }
 }
