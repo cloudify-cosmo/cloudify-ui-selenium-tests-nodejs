@@ -4,6 +4,7 @@ var q = require('q');
 var logger = require('log4js').getLogger('Blueprints');
 var Actions = require('./Actions');
 var Page = require('./Page');
+var Monitoring = require('./Monitoring');
 
 /**
  * Create new instance of Action
@@ -22,5 +23,15 @@ exports.actions = function(){
 exports.page = function() {
     var deferred = q.defer();
     deferred.resolve(new Page());
+    return deferred.promise;
+};
+
+/**
+ * Create new instance of Monitoring
+ * @returns {promise}
+ */
+exports.monitoring = function() {
+    var deferred = q.defer();
+    deferred.resolve(new Monitoring());
     return deferred.promise;
 };
