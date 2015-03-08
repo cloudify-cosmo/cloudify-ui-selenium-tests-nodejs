@@ -35,4 +35,8 @@ exports.loadDeployments = function () {
     get('deployments');
 };
 
+exports.loadEvents = function() {
+    get('logs');
+};
+
 

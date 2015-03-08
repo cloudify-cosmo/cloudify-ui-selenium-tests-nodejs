@@ -91,14 +91,15 @@ var Page = function() {
                 return gauge.getText().then(function(status){
                     logger.info('App Status:', status + '%');
                     if(status === '100') {
-                        deferred.resolve(null);
                         return true;
                     }
                     else {
                         return false;
                     }
                 });
-            }, 420000).thenCatch(function(){ // it should complete the install within 7 min
+            }, 900000).then(function(){
+                deferred.resolve(null);
+            }).thenCatch(function(){ // it should complete the install within 15 min
                 deferred.resolve('Install failed!');
             });
         });

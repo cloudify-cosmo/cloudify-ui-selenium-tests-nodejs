@@ -23,5 +23,6 @@ describe('Sanity suite', function () {
     require('./testBlueprints');
     require('./testDeployments');
     require('./testMonitoring');
+    require('./testEvents');
 
 });

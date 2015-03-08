@@ -3,7 +3,6 @@
 var assert = require('assert');
 var components = require('../../components');
 var logger = require('log4js').getLogger('testMonitoring');
-var async = require('async');
 
 describe('Monitoring', function () {
 
@@ -11,7 +10,7 @@ describe('Monitoring', function () {
         // load the deployments screen
         components.ui.page.loadDeployments();
 
-        // get new instance on deployment page
+        // get new instance of deployment page
         components.ui.deployments.page().then(function(page){
             // select the first deployment from the list
             page.selectByPosition(1).then(function(deploymentRow){
