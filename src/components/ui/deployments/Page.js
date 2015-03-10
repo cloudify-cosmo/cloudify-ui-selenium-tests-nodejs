@@ -106,6 +106,11 @@ var Page = function() {
         return deferred.promise;
     };
 
+    /**
+     * Switch tabs
+     * @param {string} section - tab label text
+     * @returns {promise}
+     */
     this.switchTab = function(section) {
         var deferred = q.defer();
         driver.get().findElements(css('#deployment-header .buttons-group.sections button')).then(function(tabs){
@@ -127,6 +132,54 @@ var Page = function() {
                     });
                 })(tabs[i]);
             }
+        });
+        return deferred.promise;
+    };
+
+    /**
+     * Get topology hosts list
+     * @returns {promise}
+     */
+    this.getTopologyHosts = function() {
+        var deferred = q.defer();
+        driver.get().findElements(css('.bpContainer > div > .box')).then(function(hosts){
+            deferred.resolve(hosts);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     * Get networks list
+     * @returns {promise}
+     */
+    this.getNetworks = function(){
+        var deferred = q.defer();
+        driver.get().findElements(css('.networksContainer > .network')).then(function(networks){
+            deferred.resolve(networks);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     * Get nodes list
+     * @returns {promise}
+     */
+    this.getNodes = function(){
+        var deferred = q.defer();
+        driver.get().findElements(css('.nodesTable .gs-table tbody')).then(function(networks){
+            deferred.resolve(networks);
+        });
+        return deferred.promise;
+    };
+
+    /**
+     * Get executions list
+     * @returns {promise}
+     */
+    this.getExecutions = function(){
+        var deferred = q.defer();
+        driver.get().findElements(css('.executions .gs-table tbody')).then(function(networks){
+            deferred.resolve(networks);
         });
         return deferred.promise;
     };
