@@ -3,6 +3,7 @@ set -e
 set -x
 
 if [ ! -f /usr/bin/node ];then
+    echo "installing node"
     NODEJS_VERSION=0.10.35
     NODEJS_HOME=/opt/nodejs
     sudo mkdir -p $NODEJS_HOME
@@ -16,9 +17,17 @@ else
 fi
 
 if [ ! -f /usr/bin/git ]; then
+    echo "installing git"
     sudo apt-get install -y git
 else
     echo "git already installed"
+fi
+
+if [ ! -f /usr/bin/java ]; then
+    echo "installing java"
+    sudo apt-get install -y openjdk-7-jre-headless
+else
+    echo "java already installed"
 fi
 
 SYSTEM_TESTS_FOLDER=system-tests
