@@ -16,10 +16,16 @@ module.exports = function (grunt) {
             ]
         },
         protractor:{
-            all:{
+            develop:{
                 options: {
                     configFile:'protractor.conf.js'
                 }
+            },
+            automatic:{
+                options: {
+                    configFile: 'automatic.conf.js'
+                }
+
             }
         },
         protractor_webdriver:{
@@ -29,11 +35,11 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('test', [ 'mochaSelenium:all' ]);
+    grunt.registerTask('test', [ 'protractor_webdriver','protractor:automatic' ]);
 
     grunt.registerTask('build', [ 'jshint' ]);
 
     grunt.registerTask('default', [ 'build' ]);
 
-    grunt.registerTask('protract',[ 'jshint', 'protractor_webdriver','protractor']);
+    grunt.registerTask('protract',[ 'jshint','protractor_webdriver','protractor:develop']);
 };
