@@ -1,8 +1,8 @@
 'use strict';
 
 
-var config = require('../config');
-var driver = require('../driver');
+var config = require('../config/index');
+var driver = require('../driver/index');
 
 /**
  *

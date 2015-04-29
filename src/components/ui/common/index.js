@@ -1,0 +1,1 @@
+exports.TabNavigation = require('./TabNavigation');

@@ -29,7 +29,7 @@ describe('Monitoring', function () {
                                         monitoring.getCharts().then(function(panels) {
                                             // check each panel, failed when you find the first panel without data points
                                             monitoring.checkPanels(panels).then(function(err){
-                                                if(err) logger.error(err);
+                                                if(err){ logger.error(err); }
                                                 assert.equal(err, null, err);
                                                 done();
                                             }).catch(function(e) {

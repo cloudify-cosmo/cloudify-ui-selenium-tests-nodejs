@@ -1,7 +1,7 @@
 'use strict';
 
 var q = require('q');
-var logger = require('log4js').getLogger('Blueprints');
+//var logger = require('log4js').getLogger('Blueprints');
 var Actions = require('./Actions');
 var Page = require('./Page');
 var Monitoring = require('./Monitoring');

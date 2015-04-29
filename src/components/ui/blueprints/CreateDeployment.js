@@ -1,7 +1,7 @@
 'use strict';
 
 var q = require('q');
-var driver = require('../../driver');
+var driver = require('../../driver/index');
 var logger = require('log4js').getLogger('Blueprints.CreateDeployments');
 var css = require('selenium-webdriver').By.css;
 

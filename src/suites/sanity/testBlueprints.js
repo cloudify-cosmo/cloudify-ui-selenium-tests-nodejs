@@ -23,7 +23,7 @@ describe('Blueprints', function () {
                             upload.save().then(function () {
                                 // check if the blueprint uploaded successfully
                                 upload.isUploadSuccessful().then(function (err) {
-                                    if (err) logger.error(err);
+                                    if (err) { logger.error(err); }
                                     assert.equal(err, null, err);
                                     done();
                                 }).catch(function (e) {
@@ -161,7 +161,7 @@ describe('Blueprints', function () {
                         createDeployment.setParams().then(function(){
                             // deploy new deployment
                             createDeployment.deploy().then(function(err){
-                                if(err) logger.error(err);
+                                if(err){ logger.error(err); }
                                 assert.equal(err, null, err);
                                 done();
                             }).catch(function(e) {

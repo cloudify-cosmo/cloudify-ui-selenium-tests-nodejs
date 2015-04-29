@@ -3,7 +3,7 @@
 var assert = require('assert');
 var components = require('../../components');
 var logger = require('log4js').getLogger('testDeployments');
-var async = require('async');
+//var async = require('async');
 
 describe('Deployments', function () {
 
@@ -124,20 +124,20 @@ describe('Deployments', function () {
                                     actions.selectAction(header, 'install').then(function(){
                                         // click on play button
                                         actions.playAction(header).then(function(err){
-                                            if(err) logger.error(err);
+                                            if(err){ logger.error(err); }
                                             else {
                                                 // on the confirmation dialog choose 'Confim'
                                                 actions.playConfirmation('Confirm').then(function(){
                                                     // check if the install complete successfully
                                                     page.isInstallSuccessful().then(function(err){
                                                         logger.info('isInstallSuccessful:', err);
-                                                        if(err) logger.error(err);
+                                                        if(err){ logger.error(err); }
                                                         assert.equal(err, null, err);
                                                         done();
                                                     }).catch(function(e) {
                                                         done(e);
                                                     });
-                                                })
+                                                });
                                             }
                                         }).catch(function(e) {
                                             done(e);

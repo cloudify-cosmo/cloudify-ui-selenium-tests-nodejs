@@ -1,7 +1,7 @@
 'use strict';
 
 var q = require('q');
-var driver = require('../../driver');
+var driver = require('../../driver/index');
 var logger = require('log4js').getLogger('Deployments.Monitoring');
 var css = require('selenium-webdriver').By.css;
 var async = require('async');
@@ -31,7 +31,7 @@ var Monitoring = function() {
                 });
             }, 100000).thenCatch(function(){
                 deferred.resolve(false);
-            })
+            });
         });
         return deferred.promise;
     };
@@ -62,23 +62,23 @@ var Monitoring = function() {
         async.each(panels, function(panel, callback){
             panel.findElement(css('.panel-content .datapoints-warning')).then(function(warning){
                 driver.get().wait(function(){
-                    return warning.isDisplayed().then(function(){
+                    return warning.isDisplayed().then(function( displayed ){
                         if(displayed) {
                             return false;
                         }
                         else {
                             return true;
                         }
-                    })
+                    });
                 }, 200000).then(function(){
                     callback();
                 }).thenCatch(function(){
                     callback('No datapoints or Datapoints outside time range');
-                })
+                });
             }).thenCatch(function(){
                 logger.info('warning element not found, all ok!');
                 callback();
-            })
+            });
         }, function(err){
             deferred.resolve(err);
         });

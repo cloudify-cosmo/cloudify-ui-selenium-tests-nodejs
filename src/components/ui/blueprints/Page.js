@@ -1,9 +1,10 @@
 'use strict';
 
 var q = require('q');
-var driver = require('../../driver');
+var driver = require('../../driver/index');
 var logger = require('log4js').getLogger('Blueprints.Page');
 var css = require('selenium-webdriver').By.css;
+
 
 /**
  * Blueprint page
@@ -66,21 +67,22 @@ var Page = function() {
         driver.get().findElements(css('#blueprint-header .buttons-group.sections button')).then(function(tabs){
             var count = 0;
             var findTab = false;
+            function handleTab(tab){
+                tab.getText().then(function(tabText){
+                    count++;
+                    if(tabText === section) {
+                        findTab = true;
+                        tab.click().then(function(){
+                            deferred.resolve();
+                        });
+                    }
+                    if(!findTab && count === tabs.length) {
+                        deferred.resolve('Unable to find any tab match for you request');
+                    }
+                });
+            }
             for(var i = 0; i < tabs.length; i++) {
-                (function(tab){
-                    tab.getText().then(function(tabText){
-                        count++;
-                        if(tabText === section) {
-                            findTab = true;
-                            tab.click().then(function(){
-                                deferred.resolve();
-                            });
-                        }
-                        if(!findTab && count === tabs.length) {
-                            deferred.resolve('Unable to find any tab match for you request');
-                        }
-                    });
-                })(tabs[i]);
+                handleTab(tabs[i]);
             }
         });
         return deferred.promise;

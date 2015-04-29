@@ -2,7 +2,7 @@
 //var logger = require('log4js').getLogger('Gruntfile');
 
 module.exports = function (grunt) {
-    require('matchdep').filterAll('grunt-*').forEach(grunt.loadNpmTasks);
+    require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
         jshint: {
@@ -15,15 +15,16 @@ module.exports = function (grunt) {
                 'src/**/*.js'
             ]
         },
-        mochaTest: {
-            sanity: {
+        protractor:{
+            all:{
                 options: {
-                    reporter: 'spec',
-                    captureFile: 'results.txt', // Optionally capture the reporter output to a file
-                    quiet: false, // Optionally suppress output to standard out (defaults to false)
-                    clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
-                },
-                src: ['src/suites/sanity/index.spec.js']
+                    configFile:'protractor.conf.js'
+                }
+            }
+        },
+        protractor_webdriver:{
+            start:{
+
             }
         }
     });
@@ -32,5 +33,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [ 'jshint' ]);
 
-    grunt.registerTask('default', [ 'jshint', 'test' ]);
+    grunt.registerTask('default', [ 'build' ]);
+
+    grunt.registerTask('protract',[ 'jshint', 'protractor_webdriver','protractor']);
 };

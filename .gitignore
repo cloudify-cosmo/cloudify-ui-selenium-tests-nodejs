@@ -31,3 +31,5 @@ node_modules
 .idea
 node_modules
 dev
+
+build/vagrant/.vagrant
