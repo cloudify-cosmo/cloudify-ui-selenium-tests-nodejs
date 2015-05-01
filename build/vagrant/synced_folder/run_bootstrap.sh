@@ -8,4 +8,4 @@ cfy init
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ''
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-cfy bootstrap -v -p blueprint.yaml -i inputs.yaml --install-plugins
+cfy bootstrap -v -p blueprint.yaml -i inputs.yaml --install-plugins --no-teardown
