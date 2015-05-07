@@ -30,14 +30,24 @@ else
     echo "java already installed"
 fi
 
+if [ ! -f /usr/bin/grunt ]; then
+    echo "installing grunt and phantom"
+    sudo npm install -g grunt-cli phantomjs
+
+else
+    echo "grunt and phantom already installed"
+fi
+
 SYSTEM_TESTS_FOLDER=system-tests
 rm -rf $SYSTEM_TESTS_FOLDER || echo "folder does not exist"
 git clone https://github.com/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs.git $SYSTEM_TESTS_FOLDER
 cd $SYSTEM_TESTS_FOLDER
-sudo npm install -g grunt-cli phantomjs
+
+
 sudo npm cache clean
 npm install
 
+export PROTRACTOR_BASE_URL=http://localhost
 
 grunt test
 
