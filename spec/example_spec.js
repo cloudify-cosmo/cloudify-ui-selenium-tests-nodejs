@@ -4,7 +4,7 @@ var logger = require('log4js').getLogger('example_spec');
 var components = require('../src/components');
 
 describe('blueprints page', function(){
-    it('should list all blueprints', function(done){
+    xit('should list all blueprints', function(done){
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprints page test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -13,7 +13,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should create a deployment', function(done) {
+    xit('should create a deployment', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start create deployment test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -35,7 +35,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should delete a blueprint', function(done) {
+    xit('should delete a blueprint', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start delete blueprint test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -46,7 +46,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should go into blueprint and verify all section exists', function(done){
+    xit('should go into blueprint and verify all section exists', function(done){
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -57,17 +57,20 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should open node details panel when clicking on node in topology section', function() {
+    it('should open node details panel when clicking on node in topology section', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
         components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Topology');
+        components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod_host');
+        components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Properties');
+        components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Relationships');
 
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should open node details panel when clicking on node in network section', function() {
+    xit('should open node details panel when clicking on node in network section', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -77,7 +80,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should open node details panel when clicking on node in nodes section', function() {
+    xit('should open node details panel when clicking on node in nodes section', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -87,7 +90,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should show files tree in source section', function() {
+    xit('should show files tree in source section', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -97,7 +100,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should show file content when clicking on file in source view', function() {
+    xit('should show file content when clicking on file in source view', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
         components.ui.LoginPage.goTo().login('user1','pass1');
@@ -110,7 +113,7 @@ describe('blueprints page', function(){
 
 xdescribe('deployments page', function(){
 
-    it('should delete a deployment', function() {
+    it('should delete a deployment', function(done) {
         browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start create deployment test');
         components.ui.LoginPage.goTo().login('user1','pass1');

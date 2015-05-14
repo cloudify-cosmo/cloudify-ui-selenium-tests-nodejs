@@ -1,6 +1,8 @@
 'use strict';
 
 var common = require('../common');
+exports.Topology = require('../general/Topology');
+exports.FloatingPanel = require('../general/FloatingPanel');
 
 /**
  * @description
