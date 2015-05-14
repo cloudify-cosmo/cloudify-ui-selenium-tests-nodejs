@@ -6,7 +6,6 @@ exports.getBlueprints = function(){
     return element.all(by.repeater('blueprint in blueprints'));
 };
 
-
 /**
  *
  * @description returns a promise the fulfills with the first blueprint found according to opts specification.
@@ -37,5 +36,17 @@ exports.getBlueprint = function( opts ){
 exports.goToBlueprint = function( opts ){
     return exports.getBlueprint(opts).then(function(blueprint){
         return blueprint.element(by.css('.name')).click();
+    });
+};
+
+exports.createDeployment = function(opts) {
+    return exports.getBlueprint(opts).then(function(blueprint){
+        return blueprint.element(by.css('.deploy-button')).click();
+    });
+};
+
+exports.deleteBlueprint = function(opts) {
+    return exports.getBlueprint(opts).then(function(blueprint){
+        return blueprint.element(by.css('.delete-button')).click();
     });
 };

@@ -4,6 +4,7 @@ var q = require('q');
 var driver = require('../driver/index');
 var logger = require('log4js').getLogger('Layout');
 var css = require('selenium-webdriver').By.css;
+var common = require('./common');
 
 /**
  *
@@ -19,4 +20,8 @@ exports.getSpecLink = function(){
         });
     });
     return deferred.promise;
+};
+
+exports.goToView = function(viewName) {
+    return common.SideMenu().goTo(viewName);
 };
