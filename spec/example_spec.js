@@ -103,11 +103,12 @@ describe('blueprints page', function(){
 
 describe('deployments page', function(){
 
+    beforeEach(function(done) {
+        components.ui.common.TestUtils.beforeEach(done, 'Deployments');
+    });
+
     it('should delete a deployment', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start create deployment test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
-        components.ui.layout.goToView('Deployments');
         components.ui.deployments.IndexPage.goToDeployment({id: 'deployment_to_delete'});
         components.ui.deployments.IndexPage.deleteDeployment();
 
