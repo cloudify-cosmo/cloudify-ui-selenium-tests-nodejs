@@ -121,13 +121,12 @@ describe('Hosts page:', function() {
     var deploymentsOpts = {base: element(by.name('deployments')), optionName: 'deployment1'};
 
     beforeEach(function(done) {
-        components.ui.common.TestUtils.beforeEach(done);
+        components.ui.common.TestUtils.beforeEach(done, 'Hosts');
     });
 
     it('should list all hosts', function(done) {
         logger.trace('start hosts page list all hosts test');
 
-        components.ui.layout.goToView('Hosts');
         components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
         components.ui.hosts.IndexPage.show();
 
@@ -136,7 +135,6 @@ describe('Hosts page:', function() {
     });
 
     it('should list all hosts for deployment', function(done) {
-        components.ui.layout.goToView('Hosts');
         components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
         components.ui.hosts.IndexPage.selectDropdownOption(deploymentsOpts);
         components.ui.hosts.IndexPage.show();
@@ -146,7 +144,6 @@ describe('Hosts page:', function() {
     });
 
     it('should search for a host', function(done) {
-        components.ui.layout.goToView('Hosts');
         components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
         components.ui.hosts.IndexPage.show();
         components.ui.hosts.IndexPage.search('mongod');
