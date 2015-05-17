@@ -14,3 +14,7 @@ exports.selectDropdownOption = function(opts) {
 exports.search = function (criteia) {
     element(by.model('searchFilter')).sendKeys(criteia);
 };
+
+exports.getNumOfHosts = function() {
+    return element.all(by.css('.gs-table tbody')).count();
+};
