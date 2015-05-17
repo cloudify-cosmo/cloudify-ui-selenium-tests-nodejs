@@ -4,19 +4,19 @@ var logger = require('log4js').getLogger('example_spec');
 var components = require('../src/components');
 
 describe('blueprints page', function(){
+    beforeEach(function(done) {
+        components.ui.common.TestUtils.beforeEach(done);
+    });
+
     it('should list all blueprints', function(done){
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprints page test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         var blueprints = components.ui.blueprints.IndexPage.getBlueprints();
         expect(blueprints.length).toBe(2);
         browser.sleep(1000).then(function(){ done(); });
     });
 
     it('should create a deployment', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start create deployment test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.CreateDeployment.setOptions({
             name: 'deployment1',
             params: {
@@ -36,9 +36,7 @@ describe('blueprints page', function(){
     });
 
     it('should delete a blueprint', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start delete blueprint test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.deleteBlueprint({'name' : 'blueprint_to_delete'});
         components.ui.blueprints.DeleteBlueprint.clickCancel();
         components.ui.blueprints.IndexPage.deleteBlueprint({'name' : 'blueprint_to_delete'});
@@ -47,9 +45,7 @@ describe('blueprints page', function(){
     });
 
     it('should go into blueprint and verify all section exists', function(done){
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'blueprint_to_deploy'});
         components.ui.blueprints.BlueprintPage.goToSection('Network');
         components.ui.blueprints.BlueprintPage.goToSection('Nodes');
@@ -58,9 +54,7 @@ describe('blueprints page', function(){
     });
 
     it('should open node details panel when clicking on node in topology section', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Topology');
         components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod_host');
@@ -71,9 +65,7 @@ describe('blueprints page', function(){
     });
 
     it('should open node details panel when clicking on node in network section', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Network');
 
@@ -81,9 +73,7 @@ describe('blueprints page', function(){
     });
 
     it('should open node details panel when clicking on node in nodes section', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Nodes');
 
@@ -91,9 +81,7 @@ describe('blueprints page', function(){
     });
 
     it('should show files tree in source section', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Source');
 
@@ -101,9 +89,7 @@ describe('blueprints page', function(){
     });
 
     it('should show file content when clicking on file in source view', function(done) {
-        browser.manage().timeouts().pageLoadTimeout(10000);
         logger.trace('start blueprint sections test');
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Source');
 
@@ -123,4 +109,22 @@ describe('deployments page', function(){
 
         browser.sleep(1000).then(function(){ done(); });
     });
+});
+
+describe('Hosts page:', function() {
+
+    beforeEach(function(done) {
+        components.ui.common.TestUtils.beforeEach(done);
+    });
+
+    it('should list all hosts', function(done) {
+        logger.trace('start hosts page list all hosts test');
+
+        //components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
+        //components.ui.blueprints.BlueprintPage.goToSection('Source');
+
+        browser.sleep(1000).then(function(){ done(); });
+
+    });
+
 });

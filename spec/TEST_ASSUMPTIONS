@@ -1,0 +1,15 @@
+Tests make several assumptions
+//------------------------------------------
+// blueprints
+//------------------------------------------
+
+//------------------------------------------
+// deployments
+//------------------------------------------
+
+//------------------------------------------
+// hosts
+//------------------------------------------
+1. a deployed deployment called 'nodecellar1' based on nodecellar blueprint (see resources folder for the blueprint)
+
+
