@@ -120,8 +120,9 @@ describe('Hosts page:', function() {
     it('should list all hosts', function(done) {
         logger.trace('start hosts page list all hosts test');
 
-        //components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
-        //components.ui.blueprints.BlueprintPage.goToSection('Source');
+        components.ui.layout.goToView('Hosts');
+        components.ui.common.actions.selectDropdownOption({base: $('[name=blueprints]'), optionName: 'nodecellar1'});
+        components.ui.hosts.IndexPage.show();
 
         browser.sleep(1000).then(function(){ done(); });
 
