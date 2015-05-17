@@ -60,6 +60,7 @@ describe('blueprints page', function(){
         components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod_host');
         components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Properties');
         components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Relationships');
+        components.ui.blueprints.BlueprintPage.FloatingPanel.close();
 
         browser.sleep(1000).then(function(){ done(); });
     });
@@ -68,6 +69,8 @@ describe('blueprints page', function(){
         logger.trace('start blueprint sections test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Network');
+        components.ui.blueprints.BlueprintPage.getSubnets();
+        components.ui.blueprints.BlueprintPage.getRouters();
 
         browser.sleep(1000).then(function(){ done(); });
     });
@@ -76,11 +79,12 @@ describe('blueprints page', function(){
         logger.trace('start blueprint sections test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Nodes');
+        components.ui.blueprints.BlueprintPage.NodesTable.clickNode('mongod');
 
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should show files tree in source section', function(done) {
+    xit('should show files tree in source section', function(done) {
         logger.trace('start blueprint sections test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Source');
@@ -88,7 +92,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should show file content when clicking on file in source view', function(done) {
+    xit('should show file content when clicking on file in source view', function(done) {
         logger.trace('start blueprint sections test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Source');

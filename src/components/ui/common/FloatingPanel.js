@@ -1,6 +1,6 @@
 'use strict';
 
-var common = require('../common');
+var common = require('index');
 
 /**
  * @description
@@ -9,4 +9,8 @@ var common = require('../common');
  */
 exports.goToSection = function( sectionName ){
     return common.TabNavigation( $('.buttons-group .buttons-group')).goTo(sectionName);
+};
+
+exports.close = function() {
+    return element.all(by.css('.properties-panel .close-properties-button')).click();
 };
