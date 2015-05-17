@@ -117,6 +117,9 @@ describe('deployments page', function(){
 
 describe('Hosts page:', function() {
 
+    var blueprintsOpts = {base: element(by.name('blueprints')), optionName: 'nodecellar1'};
+    var deploymentsOpts = {base: element(by.name('deployments')), optionName: 'deployment1'};
+
     beforeEach(function(done) {
         components.ui.common.TestUtils.beforeEach(done);
     });
@@ -125,8 +128,28 @@ describe('Hosts page:', function() {
         logger.trace('start hosts page list all hosts test');
 
         components.ui.layout.goToView('Hosts');
-        components.ui.common.actions.selectDropdownOption({base: $('[name=blueprints]'), optionName: 'nodecellar1'});
+        components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
         components.ui.hosts.IndexPage.show();
+
+        browser.sleep(1000).then(function(){ done(); });
+
+    });
+
+    it('should list all hosts for deployment', function(done) {
+        components.ui.layout.goToView('Hosts');
+        components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
+        components.ui.hosts.IndexPage.selectDropdownOption(deploymentsOpts);
+        components.ui.hosts.IndexPage.show();
+
+        browser.sleep(1000).then(function(){ done(); });
+
+    });
+
+    it('should search for a host', function(done) {
+        components.ui.layout.goToView('Hosts');
+        components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
+        components.ui.hosts.IndexPage.show();
+        components.ui.hosts.IndexPage.search('mongod');
 
         browser.sleep(1000).then(function(){ done(); });
 

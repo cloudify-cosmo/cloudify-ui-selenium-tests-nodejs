@@ -10,6 +10,7 @@ Tests make several assumptions
 //------------------------------------------
 // hosts
 //------------------------------------------
-1. a deployed deployment called 'nodecellar1' based on nodecellar blueprint (see resources folder for the blueprint)
+1. a blueprint called 'nodecellar1' based on nodecellar blueprint (see resources folder for the blueprint)
+2. a deployed deployment called 'deployment1' based on nodecellar1 blueprint
 
 
