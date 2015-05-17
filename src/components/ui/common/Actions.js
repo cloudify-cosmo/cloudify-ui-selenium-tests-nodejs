@@ -7,12 +7,18 @@ var logger = require('log4js').getLogger('Actions');
  *
  * @param {object} opts contains information to find the option in the dropdown
  * @param {string} opts.optionName the name of the option
+ * @param {string} opts.repeater the dropdown repeater (optional - defaults to 'option in options').
  * @param {object} opts.base the base element (the dropdown)
  *
  */
 exports.selectDropdownOption = function( opts ) {
     logger.trace('selecting dropdown by', opts.optionName );
-    opts.base.all(by.repeater('option in options')).filter(function(option) {
+
+    if (!opts.repeater) {
+        opts.repeater = 'option in options';
+    }
+
+    opts.base.all(by.repeater(opts.repeater)).filter(function(option) {
         return option.getText().then(function (text) {
             return text === opts.optionName;
         });
