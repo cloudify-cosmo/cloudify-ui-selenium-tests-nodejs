@@ -1,11 +1,16 @@
 'use strict';
 
 var logger = require('log4js').getLogger('DeploymentIndexPage');
+var utils = require('../common/TestUtils');
 
 exports.getDeployments = function(){
     return element.all(by.repeater('deployment in deployments'));
 };
 
+exports.beforeEach = function(done) {
+    utils.beforeEach('Deployments');
+    done();
+};
 
 /**
  *

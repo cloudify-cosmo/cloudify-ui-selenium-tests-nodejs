@@ -5,7 +5,7 @@ var components = require('../src/components');
 
 describe('blueprints page', function(){
     beforeEach(function(done) {
-        components.ui.common.TestUtils.beforeEach(done);
+        components.ui.blueprints.IndexPage.beforeEach(done);
     });
 
     it('should list all blueprints', function(done){
@@ -99,7 +99,7 @@ describe('blueprints page', function(){
 
 xdescribe('deployments page', function(){
     beforeEach(function(done) {
-        components.ui.common.TestUtils.beforeEach(done);
+        components.ui.deployments.IndexPage.beforeEach(done, 'Deployments');
     });
 
     it('should delete a deployment', function(done) {
@@ -115,7 +115,7 @@ xdescribe('deployments page', function(){
 describe('Hosts page:', function() {
 
     beforeEach(function(done) {
-        components.ui.common.TestUtils.beforeEach(done, 'Hosts');
+        components.ui.hosts.IndexPage.beforeEach(done, 'Hosts');
     });
 
     it('should list all hosts', function(done) {
@@ -146,6 +146,14 @@ describe('Hosts page:', function() {
         expect(components.ui.hosts.IndexPage.getNumOfHosts()).toBe(1);
 
         browser.sleep(1000).then(function(){ done(); });
+
+    });
+
+});
+
+describe('Events page:', function() {
+
+    beforeEach(function(done) {
 
     });
 });
