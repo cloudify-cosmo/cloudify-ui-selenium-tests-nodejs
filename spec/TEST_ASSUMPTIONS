@@ -8,6 +8,7 @@ Tests make several assumptions
 //------------------------------------------
 // deployments
 //------------------------------------------
+1. a deployed deployment called 'deployment_to_delete' based on nodecellar1 blueprint
 
 //------------------------------------------
 // hosts
