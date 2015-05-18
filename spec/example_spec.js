@@ -118,9 +118,6 @@ describe('deployments page', function(){
 
 describe('Hosts page:', function() {
 
-    var blueprintsOpts = {base: element(by.name('blueprints')), optionName: 'nodecellar1'};
-    var deploymentsOpts = {base: element(by.name('deployments')), optionName: 'deployment1'};
-
     beforeEach(function(done) {
         components.ui.common.TestUtils.beforeEach(done, 'Hosts');
     });
@@ -128,7 +125,7 @@ describe('Hosts page:', function() {
     it('should list all hosts', function(done) {
         logger.trace('start hosts page list all hosts test');
 
-        components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
+        components.ui.hosts.IndexPage.selectBlueprint('nodecellar1');
         components.ui.hosts.IndexPage.show();
         expect(components.ui.hosts.IndexPage.getNumOfHosts()).not.toBe(0);
 
@@ -137,8 +134,8 @@ describe('Hosts page:', function() {
     });
 
     it('should list all hosts for deployment', function(done) {
-        components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
-        components.ui.hosts.IndexPage.selectDropdownOption(deploymentsOpts);
+        components.ui.hosts.IndexPage.selectBlueprint('nodecellar1');
+        components.ui.hosts.IndexPage.selectDeployment('deployment1');
         components.ui.hosts.IndexPage.show();
         expect(components.ui.hosts.IndexPage.getNumOfHosts()).not.toBe(0);
 
@@ -147,7 +144,7 @@ describe('Hosts page:', function() {
     });
 
     it('should search for a host', function(done) {
-        components.ui.hosts.IndexPage.selectDropdownOption(blueprintsOpts);
+        components.ui.hosts.IndexPage.selectBlueprint('nodecellar1');
         components.ui.hosts.IndexPage.show();
         components.ui.hosts.IndexPage.search('mongod');
         expect(components.ui.hosts.IndexPage.getNumOfHosts()).toBe(1);
