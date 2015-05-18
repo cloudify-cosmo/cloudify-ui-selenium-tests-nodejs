@@ -7,7 +7,7 @@ var DEPLOY_BLUEPRINT_NAME = 'blueprint_to_deploy';
 var DELETE_BLUEPRINT_NAME = 'blueprint_to_delete';
 var NEW_DEPLOYMENT_NAME = 'new_deployment';
 
-xdescribe('blueprints page', function(){
+describe('blueprints page', function(){
     beforeEach(function(done) {
         components.ui.blueprints.IndexPage.beforeEach(done);
     });
