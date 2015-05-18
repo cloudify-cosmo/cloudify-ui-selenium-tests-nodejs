@@ -54,7 +54,7 @@ describe('blueprints page', function(){
     });
 
     it('should open node details panel when clicking on node in topology section', function(done) {
-        logger.trace('start blueprint sections test');
+        logger.trace('start blueprint topology section  test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Topology');
         components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod_host');
@@ -66,17 +66,17 @@ describe('blueprints page', function(){
     });
 
     it('should open node details panel when clicking on node in network section', function(done) {
-        logger.trace('start blueprint sections test');
+        logger.trace('start blueprint network section test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Network');
-        components.ui.blueprints.BlueprintPage.getSubnets();
-        components.ui.blueprints.BlueprintPage.getRouters();
+        components.ui.blueprints.BlueprintPage.Network.getSubnets();
+        components.ui.blueprints.BlueprintPage.Network.getRouters();
 
         browser.sleep(1000).then(function(){ done(); });
     });
 
     it('should open node details panel when clicking on node in nodes section', function(done) {
-        logger.trace('start blueprint sections test');
+        logger.trace('start blueprint node section test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Nodes');
         components.ui.blueprints.BlueprintPage.NodesTable.clickNode('mongod');
@@ -84,31 +84,27 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    xit('should show files tree in source section', function(done) {
-        logger.trace('start blueprint sections test');
+    it('should show files tree in source section and selected file content', function(done) {
+        logger.trace('start blueprint source section test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
         components.ui.blueprints.BlueprintPage.goToSection('Source');
-
-        browser.sleep(1000).then(function(){ done(); });
-    });
-
-    xit('should show file content when clicking on file in source view', function(done) {
-        logger.trace('start blueprint sections test');
-        components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'nodecellar1'});
-        components.ui.blueprints.BlueprintPage.goToSection('Source');
+        components.ui.blueprints.BlueprintPage.Source.getTree();
+        components.ui.blueprints.BlueprintPage.Source.selectFile('openstack-blueprint.yaml');
+        components.ui.blueprints.BlueprintPage.Source.getFileTitle('openstack-blueprint.yaml');
+        components.ui.blueprints.BlueprintPage.Source.getFileContent();
 
         browser.sleep(1000).then(function(){ done(); });
     });
 });
 
-describe('deployments page', function(){
-
+xdescribe('deployments page', function(){
     beforeEach(function(done) {
-        components.ui.common.TestUtils.beforeEach(done, 'Deployments');
+        components.ui.common.TestUtils.beforeEach(done);
     });
 
     it('should delete a deployment', function(done) {
         logger.trace('start create deployment test');
+        components.ui.layout.goToView('Deployments');
         components.ui.deployments.IndexPage.goToDeployment({id: 'deployment_to_delete'});
         components.ui.deployments.IndexPage.deleteDeployment();
 
@@ -152,5 +148,4 @@ describe('Hosts page:', function() {
         browser.sleep(1000).then(function(){ done(); });
 
     });
-
 });
