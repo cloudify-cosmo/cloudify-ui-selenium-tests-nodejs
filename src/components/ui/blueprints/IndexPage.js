@@ -1,6 +1,12 @@
 'use strict';
 
 var logger = require('log4js').getLogger('IndexPage');
+var utils = require('../common/TestUtils');
+
+exports.beforeEach = function(done) {
+    utils.beforeEach();
+    done();
+};
 
 exports.getBlueprints = function(){
     return element.all(by.repeater('blueprint in blueprints'));
