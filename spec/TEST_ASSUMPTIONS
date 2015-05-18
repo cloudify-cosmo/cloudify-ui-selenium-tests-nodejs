@@ -2,6 +2,8 @@ Tests make several assumptions
 //------------------------------------------
 // blueprints
 //------------------------------------------
+1. a blueprint called 'blueprint_to_deploy' based on nodecellar blueprint (see resources folder for the blueprint)
+2. a blueprint called 'blueprint_to_delete' based on nodecellar blueprint (see resources folder for the blueprint)
 
 //------------------------------------------
 // deployments
