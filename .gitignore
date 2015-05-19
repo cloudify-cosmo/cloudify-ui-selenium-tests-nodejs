@@ -35,3 +35,4 @@ dev
 build/vagrant/.vagrant
 build/vagrant/util
 build/vagrant/aws
+test_result

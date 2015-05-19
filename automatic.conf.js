@@ -7,6 +7,17 @@ exports.config = {
         'spec/*_spec.js'
     ],
 
+    onPrepare:function( ){
+        //For junit output reports
+        var reporters = require('jasmine-reporters');
+        var capsPromise = browser.getCapabilities();
+        capsPromise.then(function (caps) {
+            var browserName = caps.caps_.browserName.toUpperCase();
+            var browserVersion = caps.caps_.version;
+            var prePendStr = browserName + "-" + browserVersion + "-";
+            jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter('test_result', true, true, prePendStr));
+        });
+    },
 
     capabilities: {
         'browserName': 'phantomjs',

@@ -21,7 +21,7 @@
   "devDependencies": {
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-mocha-test": "^0.12.7",
-    "mocha": "^2.1.0"
+    "jasmine-reporters": "~1.0.2"
   },
   "scripts": {
     "install": "node ./node_modules/protractor/bin/webdriver-manager update"
