@@ -33,3 +33,5 @@ node_modules
 dev
 
 build/vagrant/.vagrant
+build/vagrant/util
+build/vagrant/aws
