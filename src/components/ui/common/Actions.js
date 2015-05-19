@@ -14,6 +14,9 @@ var logger = require('log4js').getLogger('Actions');
 exports.selectDropdownOption = function( opts ) {
     logger.trace('selecting dropdown by', opts.optionName );
 
+    var openBtn = opts.base.all(by.css('.msArrow'));
+    openBtn.click();
+
     if (!opts.repeater) {
         opts.repeater = 'option in options';
     }
@@ -25,4 +28,21 @@ exports.selectDropdownOption = function( opts ) {
     }).then(function(filtered) {
         filtered[0].click();
     });
+};
+
+/**
+ * @description unchecks all dropdown options according to the opts specification
+ *
+ * @param {object} opts contains information to find the option in the dropdown
+ * @param {object} opts.base the base element (the dropdown)
+ *
+ */
+exports.uncheckAllDropdownOptions = function(opts) {
+    logger.trace('unselecting all options');
+
+    var openBtn = opts.base.all(by.css('.msArrow'));
+    openBtn.click();
+
+    opts.base.all(by.css('[checked=checked]')).click();
+
 };

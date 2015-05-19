@@ -10,7 +10,7 @@ exports.beforeEach = function(done) {
 };
 
 exports.show = function() {
-    element.all(by.css('.gs-btn')).click();
+    element(by.css('.filters .gs-btn')).click();
 };
 
 exports.search = function (criteia) {
