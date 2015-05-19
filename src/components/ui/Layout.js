@@ -23,5 +23,6 @@ exports.getSpecLink = function(){
 };
 
 exports.goToView = function(viewName) {
+    logger.trace('changing view to ' + viewName);
     return common.SideMenu().goTo(viewName);
 };

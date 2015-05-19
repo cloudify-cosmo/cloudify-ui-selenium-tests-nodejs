@@ -1,15 +1,15 @@
 'use strict';
 
-var logger = require('log4js').getLogger('IndexPage');
+var logger = require('log4js').getLogger('BlueprintIndexPage');
 var utils = require('../common/TestUtils');
 
 exports.beforeEach = function(done) {
-    utils.beforeEach();
+    utils.beforeEach('Blueprints');
     done();
 };
 
 exports.getBlueprints = function(){
-    return element.all(by.repeater('blueprint in blueprints'));
+    return element.all(by.css('.gs-table tbody'));
 };
 
 /**
@@ -29,7 +29,7 @@ exports.getBlueprint = function( opts ){
     var deferred = protractor.promise.defer();
     exports.getBlueprints().filter(function(blueprint){
            return blueprint.element(by.css('.name')).getText().then(function( text ){
-                return text === opts.name;
+               return text === opts.name;
            });
         }).then(function(filtered){
             deferred.fulfill(filtered[0]);
@@ -41,18 +41,18 @@ exports.getBlueprint = function( opts ){
 
 exports.goToBlueprint = function( opts ){
     return exports.getBlueprint(opts).then(function(blueprint){
-        return blueprint.element(by.css('.name')).click();
+        return blueprint.all(by.css('.name')).click();
     });
 };
 
 exports.createDeployment = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
-        return blueprint.element(by.css('.deploy-button')).click();
+        return blueprint.all(by.css('.deploy-button')).click();
     });
 };
 
 exports.deleteBlueprint = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
-        return blueprint.element(by.css('.delete-button')).click();
+        return blueprint.all(by.css('.delete-button')).click();
     });
 };

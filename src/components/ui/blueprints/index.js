@@ -3,4 +3,4 @@
 exports.IndexPage = require('./IndexPage');
 exports.BlueprintPage = require('./BlueprintPage');
 exports.CreateDeployment = require('./CreateDeployment');
-exports.DeleteBlueprint = require('./deleteBlueprint');
+exports.DeleteBlueprint = require('./DeleteBlueprint');

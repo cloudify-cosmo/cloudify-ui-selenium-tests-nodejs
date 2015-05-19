@@ -1,6 +1,6 @@
 'use strict';
 
-var common = require('index');
+var TabNavigation = require('./TabNavigation');
 
 /**
  * @description
@@ -8,7 +8,7 @@ var common = require('index');
  * @param sectionName
  */
 exports.goToSection = function( sectionName ){
-    return common.TabNavigation( $('.buttons-group .buttons-group')).goTo(sectionName);
+    return new TabNavigation( $('.buttons-group .buttons-group')).goTo(sectionName);
 };
 
 exports.close = function() {
