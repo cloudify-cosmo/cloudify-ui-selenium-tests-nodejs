@@ -16,8 +16,8 @@ exports.config = {
 
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
-    //baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://192.168.41.111',
-    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://127.0.0.1',
+    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://192.168.41.111',
+    //baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://127.0.0.1',
 
     jasmineNodeOpts: {
         onComplete: null,

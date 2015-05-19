@@ -34,7 +34,7 @@ describe('Hosts page:', function () {
         components.ui.hosts.IndexPage.selectBlueprint('nodecellar1');
         components.ui.hosts.IndexPage.show();
         components.ui.hosts.IndexPage.search('mongod');
-        expect(components.ui.hosts.IndexPage.getNumOfHosts()).toBe(1);
+        expect(components.ui.hosts.IndexPage.getNumOfHosts()).not.toBe(0);
 
         browser.sleep(1000).then(function(){ done(); });
 
