@@ -3,7 +3,7 @@
 var logger = require('log4js').getLogger('blueprints_spec');
 var components = require('../src/components');
 
-var DEPLOY_BLUEPRINT_NAME = 'blueprint_to_deploy';
+var DEPLOY_BLUEPRINT_NAME = 'nodecellar1';
 var DELETE_BLUEPRINT_NAME = 'blueprint_to_delete';
 var NEW_DEPLOYMENT_NAME = 'new_deployment';
 
@@ -15,7 +15,7 @@ describe('blueprints page', function(){
     it('should list all blueprints', function (done) {
         logger.trace('start blueprints page test');
         var blueprints = components.ui.blueprints.IndexPage.getBlueprints();
-        expect(blueprints.length).toBe(2);
+        expect(blueprints.count()).toBe(2);
         browser.sleep(1000).then(function(){ done(); });
     });
 
@@ -50,7 +50,7 @@ describe('blueprints page', function(){
 
     it('should go into blueprint and verify all section exists', function (done) {
         logger.trace('start blueprint sections test');
-        components.ui.blueprints.IndexPage.goToBlueprint({'name' : 'blueprint_to_deploy'});
+        components.ui.blueprints.IndexPage.goToBlueprint({'name' : DEPLOY_BLUEPRINT_NAME});
         components.ui.blueprints.BlueprintPage.goToSection('Network');
         components.ui.blueprints.BlueprintPage.goToSection('Nodes');
         components.ui.blueprints.BlueprintPage.goToSection('Source');
