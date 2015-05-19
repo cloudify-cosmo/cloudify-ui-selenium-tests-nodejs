@@ -3,7 +3,7 @@
 var logger = require('log4js').getLogger('blueprints_spec');
 var components = require('../src/components');
 
-var DEPLOY_BLUEPRINT_NAME = 'nodecellar1';
+var DEPLOY_BLUEPRINT_NAME = 'blueprint_to_deploy';
 var DELETE_BLUEPRINT_NAME = 'blueprint_to_delete';
 var NEW_DEPLOYMENT_NAME = 'new_deployment';
 
