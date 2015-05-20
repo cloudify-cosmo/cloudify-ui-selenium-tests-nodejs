@@ -3,7 +3,7 @@ sudo apt-get update -y
 ./install_prereq.sh
 
 ## bootstrap
-
+source /etc/ENVIRONMENT_VARIABLES.sh || echo "no environment variables file.. skipping.. "
 sudo npm -g install cloudify-cosmo/cloudify-installer --ignore-scripts
 export INSTALL_SYSTEM_TESTS_REQ=true
 

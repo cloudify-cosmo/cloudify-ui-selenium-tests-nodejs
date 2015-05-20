@@ -11,14 +11,9 @@ npm install
 
 export PROTRACTOR_BASE_URL=http://localhost
 
-if [ ! -f test_type ];then
-    echo "test_type file is not there. using default"
+if [ "$TEST_TYPE" = "" ];then
     TEST_TYPE="test"
-else
-    echo "test_type file exists"
-    TEST_TYPE=`cat test_type`
 fi
-
 echo "TEST_TYPE is $TEST_TYPE"
 
 grunt $TEST_TYPE
