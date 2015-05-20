@@ -3,7 +3,7 @@
 var logger = require('log4js').getLogger('deployments_spec');
 var components = require('../src/components');
 
-var INSTALLED_DEPLOYMENT_NAME = 'installed_deployment';
+//var INSTALLED_DEPLOYMENT_NAME = 'installed_deployment';
 
 xdescribe('deployments page', function () {
     beforeEach(function (done) {
