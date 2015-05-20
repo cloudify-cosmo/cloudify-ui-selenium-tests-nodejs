@@ -30,6 +30,12 @@ module.exports = function (grunt) {
                     configFile: 'automatic.conf.js'
                 }
 
+            },
+            applitools:{
+                options: {
+                    configFile: 'applitools.conf.js'
+                }
+
             }
         },
         protractor_webdriver:{
@@ -40,6 +46,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [ 'protractor_webdriver','protractor:automatic' ]);
+
+    grunt.registerTask('applitools', [ 'protractor_webdriver','protractor:applitools' ]);
 
     grunt.registerTask('build', [ 'jshint' ]);
 
