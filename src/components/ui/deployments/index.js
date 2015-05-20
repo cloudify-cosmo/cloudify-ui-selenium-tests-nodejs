@@ -5,7 +5,7 @@ var q = require('q');
 var Actions = require('./Actions');
 var Page = require('./Page');
 var Monitoring = require('./Monitoring');
-exports.DeleteBlueprint = require('./DeleteBlueprint');
+exports.DeleteDeployment = require('./DeleteDeployment');
 exports.IndexPage = require('./IndexPage');
 
 /**

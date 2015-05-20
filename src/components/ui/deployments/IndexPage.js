@@ -3,13 +3,13 @@
 var logger = require('log4js').getLogger('DeploymentIndexPage');
 var utils = require('../common/TestUtils');
 
-exports.getDeployments = function(){
-    return element.all(by.repeater('deployment in deployments'));
-};
-
 exports.beforeEach = function(done) {
     utils.beforeEach('Deployments');
     done();
+};
+
+exports.getDeployments = function(){
+    return element.all(by.css('#deploymentTable tbody'));
 };
 
 /**
@@ -40,12 +40,12 @@ exports.getDeployment = function( opts ){
 
 exports.goToDeployment = function( opts ){
     return exports.getDeployment(opts).then(function(deployment){
-        return deployment.element(by.css('.id')).click();
+        return deployment.all(by.css('.id')).click();
     });
 };
 
 exports.deleteDeployment = function(opts) {
     return exports.getDeployment(opts).then(function(deployment){
-        return deployment.element(by.css('.delete')).click();
+        return deployment.all(by.css('.delete')).click();
     });
 };
