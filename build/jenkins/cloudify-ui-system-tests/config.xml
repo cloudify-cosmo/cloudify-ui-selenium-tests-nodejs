@@ -44,7 +44,6 @@
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
             <relativeTargetDir>vagrant-automation-machines</relativeTargetDir>
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
         </extensions>
       </hudson.plugins.git.GitSCM>
       <hudson.scm.SubversionSCM plugin="subversion@1.54">
@@ -71,11 +70,15 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo &quot;user is $USER&quot;
+      <command>echo &quot;user is $USER&quot;;
 mkdir -p /tmp/automations
 
 DIR=$( cd &quot;$( dirname &quot;${BASH_SOURCE[0]}&quot; )&quot; &amp;&amp; pwd )
@@ -84,17 +87,28 @@ TESTS=&quot;$DIR/system-tests&quot;
 VCONFIG=&quot;$DIR/vagrant-config&quot;
 
 export CONFIG_FILE=$VCONFIG/vagrant_config.json
-cp -f $VCONFIG/keyFile.pem /tmp/automations/cloudify-ui-system-test.pem
+cp -f $VCONFIG/openstack-keyfile.pem /tmp/automations/openstack-keyfile.pem
 
 cp -Rf $TESTS/build/vagrant/* $VAM/
 
-export VAGRANT_HOME=&quot;~/.vagrant_aws&quot;
-cd $VAM/aws
+FAILED=&quot;false&quot;
+export VAGRANT_HOME=&quot;~/.vagrant_openstack&quot;
+cd $VAM/openstack
 vagrant destroy -f || echo &quot;no need to teardown the machine because it was not running&quot;
-vagrant up --provider=aws || echo &quot;something is wrong&quot;
-vagrant destroy -f || echo &quot;could not tear down the machine&quot;</command>
+vagrant up --provider=openstack || FAILED=&quot;true&quot;
+vagrant destroy -f || echo &quot;could not tear down the machine&quot;
+
+if [ &quot;$FAILED&quot; = &quot;true&quot; ];then 
+    failed is true so I write here something that will cause the build to fail
+fi</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.11">
+      <recipients>cloudify-ui@gigaspaces.flowdock.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
   <buildWrappers/>
 </project>

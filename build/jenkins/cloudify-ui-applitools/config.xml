@@ -71,11 +71,17 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * * </spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo &quot;user is $USER&quot;
+      <command>set -e 
+
+echo &quot;user is $USER&quot;
 mkdir -p /tmp/automations
 
 
@@ -92,10 +98,22 @@ cp -Rf $TESTS/build/vagrant/* $VAM/
 export VAGRANT_HOME=&quot;~/.vagrant_aws&quot;
 cd $VAM/aws
 vagrant destroy -f || echo &quot;no need to teardown the machine because it was not running&quot;
-vagrant up --provider=aws || echo &quot;something is wrong&quot;
-vagrant destroy -f || echo &quot;could not tear down the machine&quot;</command>
+vagrant up --provider=aws || FAILURE=&quot;true&quot;
+vagrant destroy -f || echo &quot;could not tear down the machine&quot;
+
+if [ &quot;$FAILURE&quot; = &quot;true&quot; ];then
+   echo &quot;look at vagrant provision output&quot;
+   exit 1
+   someunknownthingiethatwillfailjenkins
+fi</command>
     </hudson.tasks.Shell>
   </builders>
-  <publishers/>
+  <publishers>
+    <hudson.tasks.Mailer plugin="mailer@1.11">
+      <recipients>cloudify-ui@gigaspaces.flowdock.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
   <buildWrappers/>
 </project>
