@@ -5,6 +5,8 @@ var q = require('q');
 var Actions = require('./Actions');
 var Page = require('./Page');
 var Monitoring = require('./Monitoring');
+exports.DeleteDeployment = require('./DeleteDeployment');
+exports.IndexPage = require('./IndexPage');
 
 /**
  * Create new instance of Action

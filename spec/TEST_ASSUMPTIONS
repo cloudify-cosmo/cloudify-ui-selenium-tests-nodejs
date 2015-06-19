@@ -1,0 +1,20 @@
+Tests make several assumptions
+//------------------------------------------
+// blueprints
+//------------------------------------------
+1. a blueprint called 'blueprint_to_deploy' based on nodecellar blueprint (see resources folder for the blueprint)
+2. a blueprint called 'blueprint_to_delete' based on nodecellar blueprint (see resources folder for the blueprint)
+
+//------------------------------------------
+// deployments
+//------------------------------------------
+1. a deployed deployment called 'deployment_to_delete' based on nodecellar1 blueprint
+2. a deployed & installed deployment called 'installed_deployment' based on nodecellar1 blueprint
+
+//------------------------------------------
+// hosts
+//------------------------------------------
+1. a blueprint called 'nodecellar1' based on nodecellar blueprint (see resources folder for the blueprint)
+2. a deployed deployment called 'deployment1' based on nodecellar1 blueprint
+
+

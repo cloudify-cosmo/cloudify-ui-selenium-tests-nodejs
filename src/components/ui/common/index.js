@@ -1,1 +1,10 @@
 exports.TabNavigation = require('./TabNavigation');
+exports.SideMenu = require('./SideMenu');
+exports.TestUtils = require('./TestUtils');
+exports.actions = require('./Actions');
+exports.TestUtils = require('./TestUtils');
+exports.NodesTable = require('./NodesTable');
+exports.Network = require('./Network');
+exports.Source = require('./Source');
+exports.Topology = require('./Topology');
+exports.FloatingPanel = require('./FloatingPanel');
