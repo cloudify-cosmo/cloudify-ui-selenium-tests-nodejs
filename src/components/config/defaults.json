@@ -20,8 +20,8 @@
         "sanity" : {
             "blueprints_spec": {
                 "blueprints": {
-                    "blueprintToRead": "node-app",
-                    "blueprintToDeploy" : "node-app"
+                    "blueprintToRead": "cloudify-ui",
+                    "blueprintToDeploy" : "cloudify-ui"
                 }
             }
         }
