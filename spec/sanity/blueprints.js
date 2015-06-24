@@ -6,9 +6,13 @@ var components = require('../../src/components/index');
 describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
 
+    var newDeploymentName = "new-deployment-" + new Date().getTime();
+
+    beforeEach(function(){
+        components.ui.LoginPage.goTo().login('user1','pass1');
+    });
 
     it('should go into blueprint and verify all section exists', function (done) {
-        components.ui.LoginPage.goTo().login('user1','pass1');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
         components.ui.blueprints.BlueprintPage.goToSection('Network');
         components.ui.blueprints.BlueprintPage.goToSection('Nodes');
@@ -16,33 +20,29 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    //
-    //it('should list all blueprints', function (done) {
-    //    logger.trace('start blueprints page test');
-    //    var blueprints = components.ui.blueprints.IndexPage.getBlueprints();
-    //    expect(blueprints.count()).toBe(2);
-    //    browser.sleep(1000).then(function(){ done(); });
-    //});
-    //
-    //it('should create a deployment', function (done) {
-    //    logger.trace('start create deployment test');
-    //    components.ui.blueprints.CreateDeployment.setOptions({
-    //        name: NEW_DEPLOYMENT_NAME,
-    //        params: {
-    //            'image': 'c6d36e11-f4d5-4221-b6e8-4e97914c67e9',
-    //            'agent_user': 'ubuntu',
-    //            'flavor': 'ba4e08fd-e4c5-4233-a906-f1bb31cb659d'
-    //        }
-    //    });
-    //    components.ui.blueprints.IndexPage.createDeployment({'name' : DEPLOY_BLUEPRINT_NAME});
-    //    components.ui.blueprints.CreateDeployment.clickCancel();
-    //    components.ui.blueprints.IndexPage.createDeployment({'name' : DEPLOY_BLUEPRINT_NAME});
-    //    components.ui.blueprints.CreateDeployment.setName(NEW_DEPLOYMENT_NAME);
-    //    components.ui.blueprints.CreateDeployment.clickOnRaw();
-    //    components.ui.blueprints.CreateDeployment.setParams();
-    //    components.ui.blueprints.CreateDeployment.deploy();
-    //    browser.sleep(1000).then(function(){ done(); });
-    //});
+
+
+    it('should create a deployment', function (done) {
+        logger.trace('start create deployment test');
+
+        components.ui.blueprints.IndexPage.createDeployment({'name' : testConf.blueprints.blueprintToDeploy});
+        //components.ui.blueprints.CreateDeployment.clickCancel(); // lets test cancel on the way!
+        //components.ui.blueprints.IndexPage.createDeployment({'name' : testConf.blueprints.blueprintToDeploy});
+        components.ui.blueprints.CreateDeployment.setName(newDeploymentName);
+        //components.ui.blueprints.CreateDeployment.clickOnRaw();
+        //components.ui.blueprints.CreateDeployment.setParams();
+
+        //todo: verify we are in deployment url
+        components.ui.blueprints.CreateDeployment.deploy();
+        browser.sleep(1000).then(function(){ done(); });
+
+    });
+
+    it('should upload and delete a blueprint', function(){
+        // todo
+        //done();
+    });
+
     //
     //it('should delete a blueprint', function (done) {
     //    logger.trace('start delete blueprint test');

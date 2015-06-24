@@ -1,22 +1,8 @@
 'use strict';
 
-var q = require('q');
-var logger = require('log4js').getLogger('Blueprints.CreateDeployments');
-var options = {};
 
-/**
- * Set Options
- * @param {string} opt.name - deployment name
- * @param {array} opt.params - array of params to inject in create deployment dialog
- * @returns {UploadBlueprint}
- */
-exports.setOptions = function(opt) {
-    logger.info('setOptions');
-    var deferred = q.defer();
-    options = opt;
-    deferred.resolve();
-    return deferred.promise;
-};
+//var logger = require('log4js').getLogger('Blueprints.CreateDeployments');
+
 
 /**
  * Set deployment name on create deployment dialog
@@ -26,8 +12,7 @@ exports.setName = function(name) {
     return element(by.model('deployment_id')).sendKeys(name);
 };
 
-/**
- * Click on 'Raw' tab on create deployment dialog
+/** Click on 'Raw' tab on create deployment dialog
  */
 exports.clickOnRaw = function() {
     element.all(by.css('#deployDialogContainer .deployInputs .deployBtns button')).then(function(btns) {
@@ -39,8 +24,8 @@ exports.clickOnRaw = function() {
  * Set Deployment Params
  * @returns {promise}
  */
-exports.setParams = function() {
-    return element(by.model('rawString')).clear().sendKeys(JSON.stringify(options.params));
+exports.setParams = function( params ) {
+    return element(by.model('rawString')).clear().sendKeys(JSON.stringify(params));
 };
 
 /**

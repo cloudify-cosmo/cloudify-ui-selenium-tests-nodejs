@@ -20,7 +20,8 @@
         "sanity" : {
             "blueprints_spec": {
                 "blueprints": {
-                    "blueprintToRead": "node-app"
+                    "blueprintToRead": "node-app",
+                    "blueprintToDeploy" : "node-app"
                 }
             }
         }

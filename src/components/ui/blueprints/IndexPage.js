@@ -41,7 +41,7 @@ exports.goToBlueprint = function( opts ){
 
 exports.createDeployment = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
-        return blueprint.all(by.css('.deploy-button')).click();
+        return blueprint.element(by.css('.deploy-button')).click();
     });
 };
 

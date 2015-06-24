@@ -13,20 +13,17 @@
  * @constructor
  */
 
-module.exports = function SideMenu() {
-
-    return {
-        getViews : function(){
-            return element.all( by.css('#left-side-menu li a'));
-        },
-        goTo : function( viewName ){
-            var views = this.getViews().filter(function (view) {
-                return view.getText().then(function (text) {
-                    return text === viewName;
-                });
+module.exports = {
+    getViews: function () {
+        return element.all(by.css('#left-side-menu li a'));
+    },
+    goTo: function (viewName) {
+        var views = this.getViews().filter(function (view) {
+            return view.getText().then(function (text) {
+                return text === viewName;
             });
-            expect(views.count()).toBe(1,'view ' + viewName + ' should exist');
-            views.click();
-        }
-    };
+        });
+        expect(views.count()).toBe(1, 'view ' + viewName + ' should exist');
+        views.click();
+    }
 };
