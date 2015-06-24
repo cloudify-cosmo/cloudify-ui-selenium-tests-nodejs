@@ -2,12 +2,6 @@
 
 //var logger = require('log4js').getLogger('IndexPage');
 var actions = require('../common/Actions');
-var utils = require('../common/TestUtils');
-
-exports.beforeEach = function(done) {
-    utils.beforeEach('Hosts');
-    done();
-};
 
 exports.show = function() {
     element(by.css('.filters .gs-btn')).click();

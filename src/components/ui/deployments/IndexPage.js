@@ -1,12 +1,6 @@
 'use strict';
 
 var logger = require('log4js').getLogger('DeploymentIndexPage');
-var utils = require('../common/TestUtils');
-
-exports.beforeEach = function(done) {
-    utils.beforeEach('Deployments');
-    done();
-};
 
 exports.getDeployments = function(){
     return element.all(by.css('#deploymentTable tbody'));

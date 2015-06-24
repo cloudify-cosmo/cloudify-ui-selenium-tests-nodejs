@@ -1,15 +1,28 @@
 {
-    "cloudifyUiIp" : "cosmo.gsdev.info",
-    "timeout" : 300000,
-    "selenium" : {
-        "serverUrl" : "http://localhost:4444/wd/hub",
-        "browserType" : "chrome"
+    "cloudifyUiIp": "cosmo.gsdev.info",
+    "timeout": 300000,
+    "selenium": {
+        "serverUrl": "http://localhost:4444/wd/hub",
+        "browserType": "chrome"
     },
     "blueprint": {
-      "name": "nodecellar"
+        "name": "nodecellar"
     },
     "deployment": {
-      "name": "nodecellarDeployment",
-      "params": ["ubuntu", "flavor-id", "image-id"]
+        "name": "nodecellarDeployment",
+        "params": [
+            "ubuntu",
+            "flavor-id",
+            "image-id"
+        ]
+    },
+    "tests" : {
+        "sanity" : {
+            "blueprints_spec": {
+                "blueprints": {
+                    "blueprintToRead": "node-app"
+                }
+            }
+        }
     }
 }

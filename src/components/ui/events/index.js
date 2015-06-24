@@ -1,3 +1,3 @@
 'use strict';
 
-exports.IndexPage = require('./IndexPage');
+exports.page = require('./EventsPage');

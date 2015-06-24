@@ -1,12 +1,7 @@
 'use strict';
 
 var logger = require('log4js').getLogger('BlueprintIndexPage');
-var utils = require('../common/TestUtils');
 
-exports.beforeEach = function(done) {
-    utils.beforeEach('Blueprints');
-    done();
-};
 
 exports.getBlueprints = function(){
     return element.all(by.css('.gs-table tbody'));
