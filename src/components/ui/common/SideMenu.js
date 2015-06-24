@@ -20,7 +20,7 @@ module.exports = {
     goTo: function (viewName) {
         var views = this.getViews().filter(function (view) {
             return view.getText().then(function (text) {
-                return text === viewName;
+                return text.toLowerCase() === viewName.toLowerCase();
             });
         });
         expect(views.count()).toBe(1, 'view ' + viewName + ' should exist');

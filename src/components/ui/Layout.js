@@ -23,3 +23,5 @@ exports.goToView = function(viewName) {
     logger.trace('changing view to ' + viewName);
     return common.SideMenu.goTo(viewName);
 };
+
+exports.goToBlueprints = function(){ return common.SideMenu.goTo('blueprints'); };

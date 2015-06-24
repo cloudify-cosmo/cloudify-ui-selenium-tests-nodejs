@@ -2,4 +2,4 @@
 
 
 exports.config = require('./config');
-exports.ui = require('./ui/index');
+exports.ui = require('./ui');

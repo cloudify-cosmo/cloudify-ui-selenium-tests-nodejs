@@ -38,22 +38,17 @@ describe('blueprints page', function(){
 
     });
 
-    it('should upload and delete a blueprint', function(){
+    it('should upload and delete a blueprint', function(done){
         // todo
         //done();
+        var uploadedBlueprint = { blueprint_id: 'uploaded-' + new Date().getTime(), 'blueprint_filename' : 'singlehost-blueprint.yaml', 'blueprint_location':'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip' };
+        components.ui.blueprints.IndexPage.uploadBlueprint(uploadedBlueprint);
+        components.ui.blueprints.IndexPage.waitForUploadDone({name: uploadedBlueprint.blueprint_id});
+        components.ui.layout.goToBlueprints();
+        components.ui.blueprints.IndexPage.deleteBlueprint({name: uploadedBlueprint.blueprint_id});
+        browser.sleep(1000).then(function(){ done(); });
     });
 
-    //
-    //it('should delete a blueprint', function (done) {
-    //    logger.trace('start delete blueprint test');
-    //    components.ui.blueprints.IndexPage.deleteBlueprint({'name' : DELETE_BLUEPRINT_NAME});
-    //    components.ui.blueprints.DeleteBlueprint.clickCancel();
-    //    components.ui.blueprints.IndexPage.deleteBlueprint({'name' : DELETE_BLUEPRINT_NAME});
-    //    components.ui.blueprints.DeleteBlueprint.clickConfirm();
-    //    browser.sleep(1000).then(function(){ done(); });
-    //});
-    //
-    //
     //it('should open node details panel when clicking on node in topology section', function(done) {
     //    logger.trace('start blueprint topology section test');
     //    components.ui.blueprints.IndexPage.goToBlueprint({'name' : DEPLOY_BLUEPRINT_NAME});

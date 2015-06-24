@@ -52,5 +52,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [ 'build' ]);
 
-    grunt.registerTask('protract',[ 'jshint','protractor_webdriver','protractor:develop']);
+    grunt.registerTask('protract',[ 'protractor_webdriver','protractor:develop']);
 };
