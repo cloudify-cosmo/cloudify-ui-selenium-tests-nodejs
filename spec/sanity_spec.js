@@ -1,3 +1,5 @@
+'use strict';
+
 var logger = require('log4js').getLogger('sanity_spec');
 
 describe('sanity suite', function(){

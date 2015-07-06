@@ -6,7 +6,7 @@ var components = require('../../src/components/index');
 describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
 
-    var newDeploymentName = "new-deployment-" + new Date().getTime();
+    var newDeploymentName = 'new-deployment-' + new Date().getTime();
 
     beforeEach(function(){
         components.ui.LoginPage.goTo().login('user1','pass1');

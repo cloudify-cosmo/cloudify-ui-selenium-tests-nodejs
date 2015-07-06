@@ -15,7 +15,9 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'src/**/*.js'
+                'src/**/*.js',
+                'spec/**/*.js',
+                'spec_design/**/*.js'
             ]
         },
         protractor:{
