@@ -40,26 +40,8 @@ fi
 if [ ! -f /usr/bin/grunt ]; then
     echo "installing grunt and phantom"
     sudo npm install -g grunt-cli
-    # sudo npm install -g phantomjs # not using anymore since protractor team is against it
+    sudo npm install -g phantomjs
 
 else
     echo "grunt and phantom already installed"
 fi
-
-# using chrome in headless mode since phantomjs is not fully supported
-# https://github.com/angular/protractor/blob/master/docs/browser-setup.md#setting-up-phantomjs
-if [ !  -f /usr/bin/google-chrome ];then
-    echo "installing chrome"
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    sudo apt-get update -y
-    sudo apt-get install google-chrome-stable -y
-else
-    echo "chrome already installed"
-fi
-
-sudo apt-get install xvfb x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic -y
-
-echo "starting headless display"
-Xvfb :99 &
-export DISPLAY=:99
