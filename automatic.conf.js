@@ -20,7 +20,7 @@ exports.config = {
     },
 
     capabilities: {
-        'browserName': 'phantomjs',
+        'browserName': 'chrome',
         'platform': 'ANY',
         'version': '',
         'chromeOptions': {'args': ['--disable-extensions']}

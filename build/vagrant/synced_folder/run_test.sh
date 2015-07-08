@@ -10,6 +10,7 @@ sudo npm cache clean
 npm install
 
 export PROTRACTOR_BASE_URL=http://localhost
+echo "export PROTRACTOR_BASE_URL=http://localhost" >> /home/ubuntu/.profile
 
 if [ "$TEST_TYPE" = "" ];then
     TEST_TYPE="test"
