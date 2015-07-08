@@ -17,7 +17,7 @@ module.exports = function TabNavigation(base) {
 
     return {
         getSections : function(){
-            return base.all(by.css('button'));
+            return base.all(by.css('a'));
         },
         goTo : function( sectionName ){
             var sections = this.getSections().filter(function (section) {
