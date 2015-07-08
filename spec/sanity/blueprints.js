@@ -34,6 +34,8 @@ describe('blueprints page', function(){
 
         //todo: verify we are in deployment url
         components.ui.blueprints.CreateDeployment.deploy();
+        browser.sleep(3000);
+        expect(browser.getCurrentUrl()).toContain('/deployment/');
         browser.sleep(1000).then(function(){ done(); });
 
     });
