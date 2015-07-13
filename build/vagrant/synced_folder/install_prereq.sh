@@ -39,7 +39,8 @@ fi
 
 if [ ! -f /usr/bin/grunt ]; then
     echo "installing grunt and phantom"
-    sudo npm install -g grunt-cli phantomjs
+    sudo npm install -g grunt-cli
+    sudo npm install -g phantomjs
 
 else
     echo "grunt and phantom already installed"
