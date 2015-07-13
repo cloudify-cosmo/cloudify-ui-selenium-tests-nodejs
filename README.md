@@ -17,3 +17,15 @@ How to run with local UI for faster performance
 
 3. Modify protractor.conf.js:
     baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://127.0.0.1',
+
+
+##Notes
+###Make sure you have phantomjs installed before running grunt applitools:
+```
+sudo npm install -g phantomjs
+```
+
+###Make sure you have set the environment variable APPLITOOLS_KEY
+```
+export APPLITOOLS_KEY="YOUR_PRIVATE_APPLITOOLS_KEY"
+```
