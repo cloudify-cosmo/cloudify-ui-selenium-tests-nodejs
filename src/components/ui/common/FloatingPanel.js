@@ -1,5 +1,6 @@
 'use strict';
 
+var logger = require('log4js').getLogger('blueprints_spec');
 var TabNavigation = require('./TabNavigation');
 
 /**
@@ -8,9 +9,10 @@ var TabNavigation = require('./TabNavigation');
  * @param sectionName
  */
 exports.goToSection = function( sectionName ){
-    return new TabNavigation( $('.buttons-group .buttons-group')).goTo(sectionName);
+    logger.trace('go to section ' + sectionName);
+    return new TabNavigation( '.buttons-group', 'button').goTo(sectionName);
 };
 
 exports.close = function() {
-    return element.all(by.css('.properties-panel .close-properties-button')).click();
+    return element.all(by.css('[floating-blueprint-node-panel] > .properties-panel .close-properties-button')).click();
 };

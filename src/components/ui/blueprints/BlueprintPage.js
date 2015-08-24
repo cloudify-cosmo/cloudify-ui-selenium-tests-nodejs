@@ -13,5 +13,5 @@ exports.Source = common.Source;
  * @param sectionName
  */
 exports.goToSection = function( sectionName ){
-    return common.TabNavigation($('.sections')).goTo(sectionName);
+    return common.TabNavigation('.sections', 'a').goTo(sectionName);
 };

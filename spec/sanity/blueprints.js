@@ -51,17 +51,17 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    //it('should open node details panel when clicking on node in topology section', function(done) {
-    //    logger.trace('start blueprint topology section test');
-    //    components.ui.blueprints.IndexPage.goToBlueprint({'name' : DEPLOY_BLUEPRINT_NAME});
-    //    components.ui.blueprints.BlueprintPage.goToSection('Topology');
-    //    components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod_host');
-    //    components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Properties');
-    //    components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Relationships');
-    //    components.ui.blueprints.BlueprintPage.FloatingPanel.close();
-    //
-    //    browser.sleep(1000).then(function(){ done(); });
-    //});
+    it('should open node details panel when clicking on node in topology section', function(done) {
+        logger.trace('start blueprint topology section test');
+        components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
+        components.ui.blueprints.BlueprintPage.goToSection('Topology');
+        components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod');
+        components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Properties');
+        components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Relationships');
+        components.ui.blueprints.BlueprintPage.FloatingPanel.close();
+
+        browser.sleep(1000).then(function(){ done(); });
+    });
     //
     //it('should open node details panel when clicking on node in network section', function (done) {
     //    logger.trace('start blueprint network section test');
