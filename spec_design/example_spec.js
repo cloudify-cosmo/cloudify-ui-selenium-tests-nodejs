@@ -9,19 +9,9 @@ eyes.setApiKey(process.env.APPLITOOLS_KEY);
 describe('cloudify-ui layout', function(){
     var init = false;
 
-    function isInitialized()
-    {
+    beforeEach(function(){
         if(!init){
             init = true;
-            return false;
-        }
-        else{
-            return true
-        }
-    }
-
-    beforeEach(function(){
-        if(!isInitialized()){
             eyes.setMatchLevel('Layout');
             eyes.open(browser, 'Cloudify UI', 'Sanity Suite', {width: 1920, height: 1080});
         }
