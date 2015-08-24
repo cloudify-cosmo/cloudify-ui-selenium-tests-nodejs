@@ -35,13 +35,19 @@ exports.getBlueprint = function( opts ){
 
 exports.goToBlueprint = function( opts ){
     return exports.getBlueprint(opts).then(function(blueprint){
-        return blueprint.all(by.css('.name')).click();
+        return browser.executeScript('window.scrollTo(0, document.body.scrollHeight);').then(function(){
+            return blueprint.all(by.css('.name')).click();
+        });
     });
 };
 
 exports.createDeployment = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
-        return blueprint.element(by.css('.deploy-button')).click();
+        return  browser.executeScript('window.scrollTo(0, document.body.scrollHeight);').then(function(){
+            return blueprint.element(by.css('[dropdown-toggle]')).click().then(function(){
+                return blueprint.element(by.css('li:first-child')).click()
+            });
+        });
     });
 };
 /**
@@ -82,7 +88,11 @@ exports.waitForUploadDone = function( opts ){
 
 exports.deleteBlueprint = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
-        blueprint.element(by.css('.delete-button')).click();
-        return element(by.css('[ng-click="confirmDelete()"]')).click();
+        return  browser.executeScript('window.scrollTo(0, document.body.scrollHeight);').then(function(){
+            return blueprint.element(by.css('[dropdown-toggle]')).click().then(function(){
+                blueprint.element(by.css('li:nth-child(2)')).click();
+                return element(by.css('[ng-click="confirmDelete()"]')).click();
+            });
+        });
     });
 };
