@@ -10,7 +10,7 @@ var TabNavigation = require('./TabNavigation');
  */
 exports.goToSection = function( sectionName ){
     logger.trace('go to section ' + sectionName);
-    return new TabNavigation( '.buttons-group', 'button').goTo(sectionName);
+    return new TabNavigation( $('[floating-blueprint-node-panel] > .properties-panel .buttons-group')).goTo(sectionName);
 };
 
 exports.close = function() {

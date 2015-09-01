@@ -29,15 +29,23 @@ describe('blueprints page', function(){
         //components.ui.blueprints.CreateDeployment.clickCancel(); // lets test cancel on the way!
         //components.ui.blueprints.IndexPage.createDeployment({'name' : testConf.blueprints.blueprintToDeploy});
         components.ui.blueprints.CreateDeployment.setName(newDeploymentName);
-        //components.ui.blueprints.CreateDeployment.clickOnRaw();
-        //components.ui.blueprints.CreateDeployment.setParams();
-
-        //todo: verify we are in deployment url
+        components.ui.blueprints.CreateDeployment.clickOnRaw();
+        components.ui.blueprints.CreateDeployment.setParams(components.config.tests.sanity.blueprints_spec.deployment);
         components.ui.blueprints.CreateDeployment.deploy();
+
         browser.sleep(3000);
         expect(browser.getCurrentUrl()).toContain('/deployment/');
         browser.sleep(1000).then(function(){ done(); });
+    });
 
+    it('should show deploy dialog after default button pressed', function (done) {
+
+        logger.trace('start create deployment with default button test');
+
+        components.ui.blueprints.IndexPage.createDeploymentWithDefaultBtn({'name' : testConf.blueprints.blueprintToDeploy});
+        expect(element(by.css('#deployDialogContainer')).isPresent()).toBe(true);
+
+        browser.sleep(500).then(function(){ done(); });
     });
 
     it('should upload and delete a blueprint', function(done){

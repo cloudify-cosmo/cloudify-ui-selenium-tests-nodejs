@@ -9,16 +9,15 @@
  *         TabNavigation( $('.buttons-group.sections') ).goTo( 'Topology' );
  *     </code>
  * </pre>
- * @param baseSelector base selector for component
- * @param elementSelector element selector for Tab links
+ * @param base - base element for component
  * @constructor
  */
 
-module.exports = function TabNavigation(baseSelector, elementSelector) {
+module.exports = function TabNavigation(base) {
 
     return {
         getSections : function(){
-            return element.all(by.css(baseSelector + ' ' + elementSelector));
+            return base.all(by.css('a, button'));
         },
         goTo : function( sectionName ){
             var sections = this.getSections().filter(function (section) {

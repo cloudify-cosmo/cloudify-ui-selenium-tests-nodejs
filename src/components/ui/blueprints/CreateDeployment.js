@@ -15,7 +15,7 @@ exports.setName = function(name) {
 /** Click on 'Raw' tab on create deployment dialog
  */
 exports.clickOnRaw = function() {
-    element.all(by.css('#deployDialogContainer .deployInputs .deployBtns button')).then(function(btns) {
+    element.all(by.css('#deployDialogContainer .deployInputs .buttons-group button')).then(function(btns) {
         btns[1].click();
     });
 };
