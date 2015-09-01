@@ -63,7 +63,7 @@ describe('blueprints page', function(){
         logger.trace('start blueprint topology section test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
         components.ui.blueprints.BlueprintPage.goToSection('Topology');
-        components.ui.blueprints.BlueprintPage.Topology.clickNode('mongod');
+        components.ui.blueprints.BlueprintPage.Topology.clickNode(testConf.blueprints.propertiesPanel.nodeToClick);
         components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Properties');
         components.ui.blueprints.BlueprintPage.FloatingPanel.goToSection('Relationships');
         components.ui.blueprints.BlueprintPage.FloatingPanel.close();
