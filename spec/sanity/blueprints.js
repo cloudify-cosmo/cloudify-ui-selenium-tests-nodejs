@@ -14,9 +14,9 @@ describe('blueprints page', function(){
 
     it('should go into blueprint and verify all section exists', function (done) {
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
-        components.ui.blueprints.BlueprintPage.goToNetwork('Network');
-        components.ui.blueprints.BlueprintPage.goToNodes('Nodes');
-        components.ui.blueprints.BlueprintPage.goToSource('Source');
+        components.ui.blueprints.BlueprintPage.goToNetwork();
+        components.ui.blueprints.BlueprintPage.goToNodes();
+        components.ui.blueprints.BlueprintPage.goToSource();
         browser.sleep(1000).then(function(){ done(); });
     });
 
@@ -55,7 +55,15 @@ describe('blueprints page', function(){
         components.ui.blueprints.IndexPage.uploadBlueprint(uploadedBlueprint);
         components.ui.blueprints.IndexPage.waitForUploadDone({name: uploadedBlueprint.blueprint_id});
         components.ui.layout.goToBlueprints();
+        var elementsBeforeDeletion;
+        element.all(by.css('tbody')).then(function(els){
+            elementsBeforeDeletion = els.length;
+        });
         components.ui.blueprints.IndexPage.deleteBlueprint({name: uploadedBlueprint.blueprint_id});
+        // check if the blueprints list was refreshed without the deleted blueprint
+        element.all(by.css('tbody')).then(function(elementsAfterDeletion){
+            expect(elementsBeforeDeletion).toEqual(elementsAfterDeletion.length + 1);
+        });
         browser.sleep(1000).then(function(){ done(); });
     });
 
