@@ -1,6 +1,7 @@
 'use strict';
 
 var logger = require('log4js').getLogger('DeploymentIndexPage');
+var common = require('../common');
 
 exports.getDeployments = function(){
     return element.all(by.css('#deploymentTable tbody'));
@@ -23,7 +24,7 @@ exports.getDeployment = function( opts ){
     var deferred = protractor.promise.defer();
     exports.getDeployments().filter(function(deployment){
         return deployment.element(by.css('.id')).getText().then(function( text ){
-            return text === opts.name;
+            return text === opts.id;
         });
     }).then(function(filtered){
         deferred.fulfill(filtered[0]);
@@ -40,6 +41,6 @@ exports.goToDeployment = function( opts ){
 
 exports.deleteDeployment = function(opts) {
     return exports.getDeployment(opts).then(function(deployment){
-        return deployment.all(by.css('.delete')).click();
+        new common.ActionsDropdown(deployment).clickMenuOption('Delete');
     });
 };

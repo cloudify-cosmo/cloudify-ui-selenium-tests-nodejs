@@ -1,5 +1,5 @@
 
 require('./blueprints');
-//require('./deployments');
+require('./deployments');
 //require('./events');
 //require('./hosts');

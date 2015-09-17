@@ -1,6 +1,5 @@
-/**
- * Created by krzysztof on 31.08.15.
- */
+'use strict';
+
 module.exports = function ActionsDropdown(base) {
 
     return {
