@@ -16,31 +16,54 @@
             "image-id"
         ]
     },
-    "tests" : {
-        "sanity" : {
+    "tests": {
+        "sanity": {
             "blueprints_spec": {
                 "blueprints": {
                     "blueprintToRead": "cloudify-ui",
-                    "blueprintToDeploy" : "cloudify-ui",
-                    "propertiesPanel" : {
-                        "nodeToClick": "mongod"
-                    },
+                    "blueprintToDeploy": "cloudify-ui",
+                    "nodeToClick": "mongod",
                     "sections": {
-                        "topology" : "Topology",
-                        "network" : "Network",
-                        "nodes" : "Nodes",
-                        "source" : "Source"
+                        "topology": "Topology",
+                        "network": "Network",
+                        "nodes": "Nodes",
+                        "source": "Source"
                     },
                     "panel_sections": {
-                        "general" : "general",
-                        "properties" : "properties",
-                        "relationships" : "relationships"
+                        "general": "general",
+                        "properties": "properties",
+                        "relationships": "relationships"
                     }
                 },
                 "deployment": {
                     "agent_private_key_path": "root/.ssh/id_rsa",
                     "agent_user": "vagrant",
-                    "host_ip":"10.10.1.10"
+                    "host_ip": "10.10.1.10"
+                }
+            },
+            "deployments_spec": {
+                "deployment": {
+                    "deploymentToRead": {
+                        "id": "installed_deployment"
+                    },
+                    "deploymentToDelete": {
+                        "id": "deployment_to_delete"
+                    },
+                    "nodeToClick": "mongod",
+                    "sections": {
+                        "topology": "Topology",
+                        "network": "Network",
+                        "nodes": "Nodes",
+                        "executions": "Executions",
+                        "inputs_outputs": "Inputs & Outputs",
+                        "source": "Source",
+                        "monitoring": "Monitoring"
+                    },
+                    "panel_sections": {
+                        "general": "general",
+                        "properties": "properties",
+                        "relationships": "relationships"
+                    }
                 }
             }
         }

@@ -27,8 +27,8 @@ module.exports = function TabNavigation(base) {
                     // todo: resign from getText checking because it's dependent on translation
                     return section.getText().then(function(text){
                         return attrEq || text === sectionName;
-                    })
-                })
+                    });
+                });
             });
             expect(sections.count()).toBe(1, 'section ' + sectionName + ' should exist');
             sections.click();

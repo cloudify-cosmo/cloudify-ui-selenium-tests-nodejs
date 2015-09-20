@@ -51,7 +51,7 @@ describe('blueprints page', function(){
     it('should upload and delete a blueprint', function(done){
         // todo
         //done();
-        var uploadedBlueprint = { blueprint_id: 'uploaded-' + new Date().getTime(), 'blueprint_filename' : 'singlehost-blueprint.yaml', 'blueprint_location':'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip' };
+        var uploadedBlueprint = { blueprint_id: 'uploaded-' + new Date().getTime(), 'blueprint_filename' : 'simple-blueprint.yaml', 'blueprint_location':'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip' };
         components.ui.blueprints.IndexPage.uploadBlueprint(uploadedBlueprint);
         components.ui.blueprints.IndexPage.waitForUploadDone({name: uploadedBlueprint.blueprint_id});
         components.ui.layout.goToBlueprints();
@@ -71,7 +71,7 @@ describe('blueprints page', function(){
         logger.trace('start blueprint topology section test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
         components.ui.blueprints.BlueprintPage.goToTopology();
-        components.ui.blueprints.BlueprintPage.Topology.clickNode(testConf.blueprints.propertiesPanel.nodeToClick);
+        components.ui.blueprints.BlueprintPage.Topology.clickNode(testConf.blueprints.nodeToClick);
         components.ui.blueprints.BlueprintPage.PropertiesPanel.goToProperties();
         components.ui.blueprints.BlueprintPage.PropertiesPanel.goToRelationships();
         components.ui.blueprints.BlueprintPage.PropertiesPanel.close();
