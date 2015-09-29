@@ -5,7 +5,7 @@ set -x
 export NO_COLOR="--no-color"
 
 cd /vagrant
-sudo apt-get update -y
+# sudo apt-get update -y
 ./install_prereq.sh
 
 ## bootstrap
