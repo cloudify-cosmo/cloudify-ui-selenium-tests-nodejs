@@ -1,3 +1,17 @@
+var capabilities = {
+    'browserName': 'chrome',
+    'chromeOptions': {'args': ['--disable-extensions']}
+};
+
+
+if (process.env.BROWSER_TYPE = 'PhantomJS') {
+    capabilities = {
+        'browserName': 'phantomjs',
+        'platform': 'ANY',
+        'version': '',
+        'chromeOptions': {'args': ['--disable-extensions']}
+    }
+}
 
 exports.config = {
     // The address of a running selenium server.
@@ -9,10 +23,9 @@ exports.config = {
     ],
 
 
-    capabilities: {
-        'browserName': 'chrome',
-        'chromeOptions': {'args': ['--disable-extensions']}
-    },
+    capabilities: capabilities,
+
+    allScriptsTimeout: 600000,
 
 
     // A base URL for your application under test. Calls to protractor.get()
@@ -24,7 +37,7 @@ exports.config = {
         isVerbose: false,
         showColors: true,
         includeStackTrace: true,
-        defaultTimeoutInterval: 20000,
-        allScriptsTimeout: 20000
+        defaultTimeoutInterval: 600000,
+        allScriptsTimeout: 600000
     }
 };

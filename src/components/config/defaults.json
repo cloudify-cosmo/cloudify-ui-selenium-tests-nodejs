@@ -20,8 +20,8 @@
         "sanity": {
             "blueprints_spec": {
                 "blueprints": {
-                    "blueprintToRead": "cloudify-ui",
-                    "blueprintToDeploy": "cloudify-ui",
+                    "blueprintToRead": "nodecellar1",
+                    "blueprintToDeploy": "nodecellar1",
                     "nodeToClick": "mongod",
                     "sections": {
                         "topology": "Topology",

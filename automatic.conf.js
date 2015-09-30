@@ -30,12 +30,14 @@ exports.config = {
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
     baseUrl: process.env.PROTRACTOR_BASE_URL || '10.10.1.10',
+    allScriptsTimeout: 600000,
 
     jasmineNodeOpts: {
         onComplete: null,
         isVerbose: false,
         showColors: true,
         includeStackTrace: true,
-        defaultTimeoutInterval: 20000
+        defaultTimeoutInterval: 600000,
+        allScriptsTimeout: 600000
     }
 };

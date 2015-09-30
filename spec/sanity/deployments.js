@@ -29,11 +29,16 @@ describe('deployments page', function () {
             browser.sleep(1000);
             components.ui.deployments.IndexPage.deleteDeployment(testConf.deployment.deploymentToDelete);
             components.ui.deployments.DeleteDeployment.clickConfirm();
-            browser.sleep(3000);
-            expect(components.ui.deployments.IndexPage.getDeployments().count()).toEqual(countBeforeDeletion - 1);
+
+
+            browser.wait(function(){
+                return components.ui.deployments.IndexPage.getDeployments().count().then(function(count){
+                    return count === countBeforeDeletion - 1;
+                });
+            },120000);
             browser.sleep(1000).then(done);
 
-        });
+        }, 150000);
 
     });
 

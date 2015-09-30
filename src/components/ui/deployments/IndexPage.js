@@ -27,6 +27,7 @@ exports.getDeployment = function( opts ){
             return text === opts.id;
         });
     }).then(function(filtered){
+        expect(filtered.length > 0).toBe(true, 'deployment ' + JSON.stringify(opts) + ' should exist');
         deferred.fulfill(filtered[0]);
     });
 

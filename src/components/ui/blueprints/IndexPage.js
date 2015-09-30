@@ -27,6 +27,7 @@ exports.getBlueprint = function( opts ){
             return text === opts.name;
         });
     }).then(function(filtered){
+        expect(filtered.length > 0).toBe(true, 'blueprint ' + JSON.stringify(opts) + ' should exist');
         deferred.fulfill(filtered[0]);
     });
 
@@ -35,6 +36,7 @@ exports.getBlueprint = function( opts ){
 
 exports.goToBlueprint = function( opts ){
     return exports.getBlueprint(opts).then(function(blueprint){
+        expect(!!blueprint).toBe(true, 'blueprint ' + JSON.stringify(opts) + ' should exist');
         return blueprint.all(by.css('.name a')).click();
     });
 };
