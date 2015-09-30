@@ -23,7 +23,10 @@ else
     echo "node already installed"
 fi
 
-sudo yum install -y bzip2 # for phantomjs https://github.com/Medium/phantomjs/issues/92
+# for phantomjs https://github.com/Medium/phantomjs/issues/92
+# https://www.centos.org/forums/viewtopic.php?t=21181
+sudo yum install -y bzip2 gcc-c++
+
 
 if [ ! -f /usr/bin/git ]; then
     echo "installing git"
