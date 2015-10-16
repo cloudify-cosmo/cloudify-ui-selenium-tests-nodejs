@@ -21,7 +21,7 @@ describe('deployments page', function () {
     });
 
     it('should delete a deployment', function (done) {
-        logger.trace('start create deployment test');
+        logger.trace('start delete deployment test');
         components.ui.deployments.IndexPage.getDeployments().count().then(function (countBeforeDeletion) {
 
             components.ui.deployments.IndexPage.deleteDeployment(testConf.deployment.deploymentToDelete);

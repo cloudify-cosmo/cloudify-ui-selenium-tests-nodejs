@@ -12,7 +12,47 @@ describe('blueprints page', function(){
         components.ui.LoginPage.goTo().login('user1','pass1');
     });
 
+    it('should switch to page 2 and show it\'s contents', function(done){
+
+        components.ui.blueprints.IndexPage.getBlueprints().getText().then(function(pageOneBlueprints){
+            components.ui.blueprints.IndexPage.goToPage(2);
+            components.ui.blueprints.IndexPage.getBlueprints().getText().then(function(pageNewBlueprints){
+                expect(pageNewBlueprints).not.toEqual(pageOneBlueprints);
+                expect(pageNewBlueprints.length).toBeGreaterThan(0);
+                expect(browser.getCurrentUrl()).toContain('pageNobp1=2');
+                browser.sleep(1000).then(function(){ done(); });
+            });
+        });
+    });
+
+    it('should sort blueprints by name', function(done){
+
+        // after first sort it should be ascending
+        components.ui.blueprints.IndexPage.sortOn('id');
+        components.ui.blueprints.IndexPage.getColumn('name').getText().then(function(blueprints){
+            var sorted = blueprints.slice().sort();
+            expect(blueprints).toEqual(sorted);
+            expect(browser.getCurrentUrl()).toContain('sortBybp1=id');
+            expect(browser.getCurrentUrl()).toContain('reversebp1=false');
+        });
+
+        // after second sort should be reversed
+        components.ui.blueprints.IndexPage.sortOn('id');
+        components.ui.blueprints.IndexPage.getColumn('name').getText().then(function(blueprints){
+            var sorted = blueprints.slice().sort().reverse();
+            expect(blueprints).toEqual(sorted);
+            expect(browser.getCurrentUrl()).toContain('sortBybp1=id');
+            expect(browser.getCurrentUrl()).toContain('reversebp1=true');
+        });
+
+        browser.sleep(1000).then(function(){ done(); });
+
+    });
+
+
+
     it('should go into blueprint and verify all section exists', function (done) {
+        components.ui.blueprints.IndexPage.sortOn('id');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
         components.ui.blueprints.BlueprintPage.goToNetwork();
         components.ui.blueprints.BlueprintPage.goToNodes();

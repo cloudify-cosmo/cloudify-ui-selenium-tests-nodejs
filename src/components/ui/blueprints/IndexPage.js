@@ -95,3 +95,20 @@ exports.deleteBlueprint = function(opts) {
         return element(by.css('[ng-click="confirmDelete()"]')).click();
     });
 };
+
+exports.getColumn = function(columnName) {
+    return element.all(by.css('.gs-table tbody td.' + columnName));
+};
+
+exports.goToPage = function(num){
+
+    element(by.id('pagination')).getLocation().then(function(location){
+        return browser.executeScript('window.scrollTo(0,'+location.y+');')
+    }).then(function() {
+        element(by.css('#pagination nav ul li:nth-child(0n+'+num+') a')).click();
+    });
+};
+
+exports.sortOn = function(columnName){
+    return element(by.css('[st-sort='+columnName)).click();
+};

@@ -3,8 +3,7 @@ var capabilities = {
     'chromeOptions': {'args': ['--disable-extensions']}
 };
 
-
-if (process.env.BROWSER_TYPE = 'PhantomJS') {
+if (process.env.BROWSER_TYPE == 'PhantomJS') {
     capabilities = {
         'browserName': 'phantomjs',
         'platform': 'ANY',
@@ -12,6 +11,7 @@ if (process.env.BROWSER_TYPE = 'PhantomJS') {
         'chromeOptions': {'args': ['--disable-extensions']}
     }
 }
+process.env.PROTRACTOR_BASE_URL = 'http://10.10.1.10';
 
 exports.config = {
     // The address of a running selenium server.
