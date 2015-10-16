@@ -10,5 +10,8 @@ describe('sanity suite', function(){
     });
 
 
-    require('./sanity');
+    // possible values:
+    // ./sanity
+    // ./blueprints
+    require(process.env.SUITE || './sanity');
 });
