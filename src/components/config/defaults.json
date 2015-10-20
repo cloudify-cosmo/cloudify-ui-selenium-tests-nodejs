@@ -42,6 +42,11 @@
                 }
             },
             "deployments_spec": {
+                "delete_deployment" : {
+                    "blueprint_to_deploy" : {
+                        "id" : "nodecellar1"
+                    }
+                },
                 "deployment": {
                     "deploymentToRead": {
                         "id": "installed_deployment"

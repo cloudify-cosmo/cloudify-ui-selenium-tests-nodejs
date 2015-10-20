@@ -6,8 +6,7 @@ module.exports = function ActionsDropdown(base) {
         clickDefaultAction: function () {
             return base.element(by.css('#split-button')).click();
         },
-        clickMenuOption: function (option) {
-
+        getMenuOption: function(option, required ){
             // open the dropdown list
             return base.element(by.css('[dropdown-toggle]'))
                 .click()
@@ -16,11 +15,18 @@ module.exports = function ActionsDropdown(base) {
                         return el.getText().then(function (text) {
                             return text === option;
                         });
+                    }).then(function( items ){
+                        if ( required ){
+                            expect(items.length).toBe(1,'expect action' + option + ' to exist');
+                        }
+                        return items.length > 0 ? items[0] : undefined;
                     });
-                })
-                .then(function(filtered){
-                    return filtered[0].click();
                 });
+        },
+        clickMenuOption: function (option) {
+            return this.getMenuOption(option).then(function (item) {
+                return item.click();
+            });
         }
     };
 };

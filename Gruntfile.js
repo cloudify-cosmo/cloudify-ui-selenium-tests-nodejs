@@ -21,9 +21,11 @@ module.exports = function (grunt) {
             ]
         },
         protractor:{
+
             develop:{
                 options: {
-                    configFile:'protractor.conf.js'
+                    configFile:'protractor.conf.js',
+                    args : { suite: '<%= suite %>' }
                 }
             },
             automatic:{
@@ -54,5 +56,13 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [ 'build' ]);
 
-    grunt.registerTask('protract',[ 'protractor_webdriver','protractor:develop']);
+    grunt.registerTask('protract',function( suite ){
+        suite = suite || 'sanity';
+        grunt.config.data.suite = suite;
+
+        console.log(grunt.template.process('<%= suite %>'));
+
+        grunt.task.run(['protractor_webdriver', 'protractor:develop']);
+
+    }); // [ 'protractor_webdriver','protractor:develop']);
 };

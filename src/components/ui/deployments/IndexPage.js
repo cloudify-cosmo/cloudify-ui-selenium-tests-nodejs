@@ -19,24 +19,24 @@ exports.getDeployments = function(){
  * @param {string} opts.id the name of the deployment
  * @returns {webdriver.promise.Deferred.promise|*}
  */
-exports.getDeployment = function( opts ){
+exports.getDeployment = function( opts, optional ){
     logger.trace('getting deployment by ', opts );
-    var deferred = protractor.promise.defer();
-    exports.getDeployments().filter(function(deployment){
+    return exports.getDeployments().filter(function(deployment){
         return deployment.element(by.css('.id')).getText().then(function( text ){
             return text === opts.id;
         });
     }).then(function(filtered){
-        expect(filtered.length > 0).toBe(true, 'deployment ' + JSON.stringify(opts) + ' should exist');
-        deferred.fulfill(filtered[0]);
+        if ( !optional ) {
+            expect(filtered.length).toBe(1, 'deployment ' + JSON.stringify(opts) + ' should exist');
+        }
+        return filtered.length > 0 ? filtered[0] : undefined;
     });
 
-    return deferred.promise;
 };
 
 exports.goToDeployment = function( opts ){
     return exports.getDeployment(opts).then(function(deployment){
-        return deployment.all(by.css('.id')).click();
+        return deployment.element(by.css('.id a')).click();
     });
 };
 
@@ -45,3 +45,5 @@ exports.deleteDeployment = function(opts) {
         new common.ActionsDropdown(deployment).clickMenuOption('Delete');
     });
 };
+
+

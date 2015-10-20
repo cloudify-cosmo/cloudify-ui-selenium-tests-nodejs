@@ -19,21 +19,26 @@ exports.getBlueprints = function(){
  * @param {string} opts.name the name of the blueprint
  * @returns {webdriver.promise.Deferred.promise|*}
  */
-exports.getBlueprint = function( opts ){
+exports.getBlueprint = function( opts, optional ){
     logger.trace('getting blueprint by ', opts );
-    var deferred = protractor.promise.defer();
-    exports.getBlueprints().filter(function(blueprint){
+    return exports.getBlueprints().filter(function(blueprint){
         return blueprint.element(by.css('.name')).getText().then(function( text ){
             return text === opts.name;
         });
     }).then(function(filtered){
-        expect(filtered.length > 0).toBe(true, 'blueprint ' + JSON.stringify(opts) + ' should exist');
-        deferred.fulfill(filtered[0]);
+        if ( !optional ) {
+            expect(filtered.length).toBe(1, 'blueprint ' + JSON.stringify(opts) + ' should exist');
+        }
+        return filtered[0];
     });
-
-    return deferred.promise;
 };
 
+/**
+ *
+ * @param {object} opts
+ * @param {string} opts.name
+ * @returns {*}
+ */
 exports.goToBlueprint = function( opts ){
     return exports.getBlueprint(opts).then(function(blueprint){
         expect(!!blueprint).toBe(true, 'blueprint ' + JSON.stringify(opts) + ' should exist');

@@ -4,12 +4,15 @@ var capabilities = {
 };
 
 
-if (process.env.BROWSER_TYPE = 'PhantomJS') {
-    capabilities = {
-        'browserName': 'phantomjs',
-        'platform': 'ANY',
-        'version': '',
-        'chromeOptions': {'args': ['--disable-extensions']}
+
+if ( !!process.env.BROWSER_TYPE ) {
+    if ( process.env.BROWSER_TYPE.toLowerCase() === 'phantomjs') {
+        capabilities = {
+            'browserName': 'phantomjs',
+            'platform': 'ANY',
+            'version': '',
+            'chromeOptions': {'args': ['--disable-extensions']}
+        }
     }
 }
 
@@ -18,9 +21,11 @@ exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
 
     // Spec patterns are relative to the location of this config.
-    specs: [
-        'spec/*_spec.js'
-    ],
+
+    suites: {
+        sanity: [ 'spec/normalize.js', 'spec/sanity/**' ],
+        custom: [ 'spec/normalize.js', process.env.CFY_SPEC ]
+    },
 
 
     capabilities: capabilities,
@@ -30,7 +35,7 @@ exports.config = {
 
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
-    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://127.0.0.1:9001',
+    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://localhost:1616',
 
     jasmineNodeOpts: {
         onComplete: null,

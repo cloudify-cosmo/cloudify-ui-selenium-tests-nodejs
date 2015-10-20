@@ -5,6 +5,8 @@ var common = require('../common');
 var components = require('../../index');
 var testConf = components.config.tests.sanity.deployments_spec;
 
+var logger = require('log4js').getLogger('DeploymentPage');
+
 exports.Topology = common.Topology;
 
 /**
@@ -114,6 +116,34 @@ exports.goToSource = function () {
 
 exports.goToMonitoring = function () {
     goToSection(testConf.deployment.sections.monitoring);
+};
+
+
+
+exports.waitForInitializingToStop = function(){
+
+    browser.wait(function(){ // make sure we are in deployments
+        return browser.getCurrentUrl().then(function(url){
+            return url.indexOf('deployment') >= 0;
+        });
+    },60000);
+
+    browser.sleep(2000).then(function(){
+        logger.info('url shows deployments');
+    });
+
+    browser.wait(function(){ // wait for initializing to finish
+        return $('body').getText().then(function( text ){
+
+            return text.toLowerCase().indexOf('initializing') <  0;
+        });
+    }, 80000 ).then(function(){
+        $('body').getText().then(function(text){
+            logger.info('body text is ' + text);
+        });
+        logger.info('deployment is ready for deletion');
+    });
+
 };
 
 /**

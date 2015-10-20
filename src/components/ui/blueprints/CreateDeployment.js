@@ -23,10 +23,13 @@ exports.clickOnRaw = function() {
 /**
  * Set Deployment Params
  * @returns {promise}
+ * @deprecated use setRaw instead
  */
 exports.setParams = function( params ) {
     return element(by.model('rawString')).clear().sendKeys(JSON.stringify(params));
 };
+
+exports.setRaw = exports.setParams;
 
 /**
  * Click on create button on create deployment dialog to complete the creation of new deployment
@@ -34,6 +37,26 @@ exports.setParams = function( params ) {
  */
 exports.deploy = function() {
     return element(by.css('#deployDialogContainer .deployButtons button')).click();
+};
+
+exports.submit = exports.deploy;
+exports.confirm = exports.deploy;
+
+/**
+ * @param {object} opts
+ * @param {string} opts.raw raw string to set in raw
+ * @param {string} opts.name name of blueprint
+ */
+exports.setDetails = function( opts ){
+      if ( opts.name ){
+          exports.setName(opts.name);
+      }
+
+    if ( opts.raw ){
+        exports.clickOnRaw();
+        exports.setRaw(opts.raw);
+    }
+    return browser.sleep(1); // return a promise that will run last..
 };
 
 /**
@@ -44,3 +67,5 @@ exports.clickCancel = function() {
         btns[0].click();
     });
 };
+
+exports.cancel = exports.clickCancel;
