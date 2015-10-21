@@ -9,8 +9,10 @@ cd $SYSTEM_TESTS_FOLDER
 sudo npm cache clean
 npm install
 
+export BROWSER_TYPE="phantomjs"
 export PROTRACTOR_BASE_URL=http://localhost
-echo "export PROTRACTOR_BASE_URL=http://localhost" >> /home/${USER}/.profile
+echo "export PROTRACTOR_BASE_URL=\"$PROTRACTOR_BASE_URL\"" >> /home/${USER}/.profile
+echo "export BROWSER_TYPE=\"$BROWSER_TYPE\"" >> /home/${USER}/.profile
 
 if [ "$TEST_TYPE" = "" ];then
     TEST_TYPE="test"

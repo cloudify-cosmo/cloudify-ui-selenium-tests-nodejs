@@ -28,12 +28,6 @@ module.exports = function (grunt) {
                     args : { suite: '<%= suite %>' }
                 }
             },
-            automatic:{
-                options: {
-                    configFile: 'automatic.conf.js'
-                }
-
-            },
             applitools:{
                 options: {
                     configFile: 'applitools.conf.js'
