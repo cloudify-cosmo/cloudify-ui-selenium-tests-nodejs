@@ -15,8 +15,13 @@ echo "export PROTRACTOR_BASE_URL=\"$PROTRACTOR_BASE_URL\"" >> /home/${USER}/.pro
 echo "export BROWSER_TYPE=\"$BROWSER_TYPE\"" >> /home/${USER}/.profile
 
 if [ "$TEST_TYPE" = "" ];then
-    TEST_TYPE="test"
+    TEST_TYPE="protract"
 fi
+
+if [ "$SUITE_NAME" != "" ]; then
+    TEST_TYPE="$TEST_TYPE:$SUITE_NAME"
+fi
+
 echo "TEST_TYPE is $TEST_TYPE"
 
 grunt $TEST_TYPE

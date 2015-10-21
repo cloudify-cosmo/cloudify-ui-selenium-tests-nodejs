@@ -42,7 +42,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('test', [ 'protractor_webdriver','protractor:automatic' ]);
 
     grunt.registerTask('applitools', [ 'protractor_webdriver','protractor:applitools' ]);
 
