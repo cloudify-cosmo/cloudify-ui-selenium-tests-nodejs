@@ -58,14 +58,3 @@ exports.setDetails = function( opts ){
     }
     return browser.sleep(1); // return a promise that will run last..
 };
-
-/**
- * Click on 'Cancel' button on create deployment dialog
- */
-exports.clickCancel = function() {
-    element.all(by.css('#deployDialogContainer .close')).then(function(btns) {
-        btns[0].click();
-    });
-};
-
-exports.cancel = exports.clickCancel;

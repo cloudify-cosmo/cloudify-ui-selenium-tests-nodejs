@@ -17,6 +17,7 @@ exports.getBlueprints = function(){
  *
  * @param {object} opts contains information to find the blueprint
  * @param {string} opts.name the name of the blueprint
+ * @param {boolean} optional whether to expect existence or not.
  * @returns {webdriver.promise.Deferred.promise|*}
  */
 exports.getBlueprint = function( opts, optional ){
@@ -49,6 +50,7 @@ exports.goToBlueprint = function( opts ){
 exports.createDeployment = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
         new common.ActionsDropdown(blueprint).clickMenuOption('Create Deployment');
+        return browser.sleep(1000); //fade in
     });
 };
 
@@ -57,22 +59,13 @@ exports.createDeploymentWithDefaultBtn = function(opts) {
         new common.ActionsDropdown(blueprint).clickDefaultAction();
     });
 };
-/**
- *
- * @param {object} opts
- * @param {object.string} opts.blueprint_location
- * @param {object.string} opts.blueprint_id
- * @param {object.string} opts.blueprint_filename
- */
-exports.uploadBlueprint = function(opts){
-    element(by.css('[ng-click="openAddDialog()"]')).click();
-    var uploadForm = element(by.css('#uploadForm '));
-    uploadForm.element(by.model('inputText')).sendKeys(opts.blueprint_location);
-    uploadForm.element(by.model('blueprintUploadOpts.blueprint_id')).sendKeys(opts.blueprint_id);
-    uploadForm.element(by.model('blueprintUploadOpts.params.application_file_name')).sendKeys(opts.blueprint_filename);
-    uploadForm.element(by.css('[ng-click="uploadFile()"]')).click();
 
+exports.clickUploadBlueprint = function(){
+    element(by.css('[ng-click="openAddDialog()"]')).click();
+    return browser.sleep(1000); // fade in effect??
 };
+
+exports.uploadBlueprint = exports.clickUploadBlueprint;
 
 // used in conjunction with uploadBlueprint
 // waits until blueprint appears

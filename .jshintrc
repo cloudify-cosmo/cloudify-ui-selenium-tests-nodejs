@@ -28,6 +28,7 @@
         "browser" : false,
         "protractor": false,
         "$" : false,
+        "$$": false,
         "expect" : false
     }
 }

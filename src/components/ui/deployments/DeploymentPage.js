@@ -138,9 +138,9 @@ exports.waitForInitializingToStop = function(){
             return text.toLowerCase().indexOf('initializing') <  0;
         });
     }, 80000 ).then(function(){
-        $('body').getText().then(function(text){
-            logger.info('body text is ' + text);
-        });
+        //$('body').getText().then(function(text){
+            //logger.info('body text is ' + text);
+        //});
         logger.info('deployment is ready for deletion');
     });
 

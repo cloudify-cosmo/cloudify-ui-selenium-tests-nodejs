@@ -6,8 +6,6 @@ var components = require('../../src/components/index');
 describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
 
-    var newDeploymentName = 'new-deployment-' + new Date().getTime();
-
     beforeEach(function(){
         components.ui.LoginPage.goTo().login('user1','pass1');
     });
@@ -22,20 +20,44 @@ describe('blueprints page', function(){
 
 
 
-    it('should create a deployment', function (done) {
+    it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {
         logger.trace('start create deployment test');
 
         components.ui.blueprints.IndexPage.createDeployment({'name' : testConf.blueprints.blueprintToDeploy});
-        //components.ui.blueprints.CreateDeployment.clickCancel(); // lets test cancel on the way!
-        //components.ui.blueprints.IndexPage.createDeployment({'name' : testConf.blueprints.blueprintToDeploy});
-        components.ui.blueprints.CreateDeployment.setName(newDeploymentName);
-        components.ui.blueprints.CreateDeployment.clickOnRaw();
-        components.ui.blueprints.CreateDeployment.setParams(components.config.tests.sanity.blueprints_spec.deployment);
-        components.ui.blueprints.CreateDeployment.deploy();
+
+        var newDeploymentName = 'new-deployment-' + new Date().getTime();
+
+        components.ui.common.Dialog.clickClose(); // lets test cancel on the way!
+
+        function createDeployment( waitFor ) {
+
+            components.ui.blueprints.IndexPage.createDeployment({'name': testConf.blueprints.blueprintToDeploy});
+            components.ui.blueprints.CreateDeployment.setDetails({
+                name: newDeploymentName,
+                raw: components.config.tests.sanity.blueprints_spec.deployment
+            });
+            components.ui.blueprints.CreateDeployment.deploy();
+            if ( waitFor ) {
+                components.ui.deployments.DeploymentPage.waitForInitializingToStop();
+            }
+        }
+
+        createDeployment(true);
 
         browser.sleep(3000);
-        expect(browser.getCurrentUrl()).toContain('/deployment/');
-        browser.sleep(1000).then(function(){ done(); });
+        expect(browser.getCurrentUrl()).toContain('/deployment/', 'DEPLOY_REDIRECT should redirect to deployments');
+
+        components.ui.layout.goToBlueprints();
+
+        createDeployment(false);
+
+        expect(components.ui.common.Dialog.getErrorMessage()).toContain('already', 'CFY-2902 duplicate name should cause error');
+        components.ui.common.Dialog.close();
+
+        components.ui.layout.goToDeployments();
+        components.ui.deployments.IndexPage.deleteDeployment({id:newDeploymentName});
+
+        browser.sleep(1000).then(done);
     });
 
     it('should show deploy dialog after default button pressed', function (done) {
@@ -48,22 +70,31 @@ describe('blueprints page', function(){
         browser.sleep(500).then(function(){ done(); });
     });
 
-    it('should upload and delete a blueprint', function(done){
+    it('should upload and delete a blueprint, ENTER_BLUEPRINT_NAME', function(done){
         // todo
         //done();
-        var uploadedBlueprint = { blueprint_id: 'uploaded-' + new Date().getTime(), 'blueprint_filename' : 'simple-blueprint.yaml', 'blueprint_location':'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip' };
-        components.ui.blueprints.IndexPage.uploadBlueprint(uploadedBlueprint);
-        components.ui.blueprints.IndexPage.waitForUploadDone({name: uploadedBlueprint.blueprint_id});
+        var blueprintName = 'uploaded-' + new Date().getTime();
+        var uploadedBlueprint = { blueprint_id: blueprintName , 'blueprint_filename' : 'simple-blueprint.yaml', 'blueprint_location':'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip' };
+        components.ui.blueprints.IndexPage.uploadBlueprint();
+
+        components.ui.common.Dialog.clickClose();
+
+        expect(components.ui.blueprints.UploadBlueprintDialog.getUploadForm().isPresent()).toBe(false,'CLOSE_BLUEPRINT_DIALOG dialog should be closed after');
+        components.ui.blueprints.IndexPage.uploadBlueprint(); // reopen
+
+        components.ui.blueprints.UploadBlueprintDialog.getBlueprintIdLabel().then(function(label){
+            expect(label.toLowerCase()).toContain('blueprint id', 'CFY-2301 label should be blueprint id ...  also verifies dialog is open');
+        });
+        components.ui.blueprints.UploadBlueprintDialog.setDetails(uploadedBlueprint);
+        components.ui.blueprints.UploadBlueprintDialog.submit();
+
+        expect(browser.getCurrentUrl()).toContain(uploadedBlueprint.blueprint_id,'UPLOAD_REDIRECT upload should redirect to blueprint when finished');
+        //components.ui.blueprints.IndexPage.waitForUploadDone({name: uploadedBlueprint.blueprint_id});
         components.ui.layout.goToBlueprints();
-        var elementsBeforeDeletion;
-        element.all(by.css('tbody')).then(function(els){
-            elementsBeforeDeletion = els.length;
-        });
-        components.ui.blueprints.IndexPage.deleteBlueprint({name: uploadedBlueprint.blueprint_id});
-        // check if the blueprints list was refreshed without the deleted blueprint
-        element.all(by.css('tbody')).then(function(elementsAfterDeletion){
-            expect(elementsBeforeDeletion).toEqual(elementsAfterDeletion.length + 1);
-        });
+
+        components.ui.blueprints.IndexPage.deleteBlueprint({name:blueprintName});
+        expect(components.ui.blueprints.IndexPage.getBlueprint({name: blueprintName }, true)).toBeUndefined('CFY-3524 delete blueprint should refresh blueprints');
+
         browser.sleep(1000).then(function(){ done(); });
     });
 
@@ -78,7 +109,10 @@ describe('blueprints page', function(){
 
         browser.sleep(1000).then(function(){ done(); });
     });
-    //
+
+
+
+
     //it('should open node details panel when clicking on node in network section', function (done) {
     //    logger.trace('start blueprint network section test');
     //    components.ui.blueprints.IndexPage.goToBlueprint({'name' : DEPLOY_BLUEPRINT_NAME});
