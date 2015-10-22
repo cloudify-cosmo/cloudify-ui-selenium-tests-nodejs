@@ -79,3 +79,13 @@ NOTE: normalize script will run anyway..
 # What is normalize script
 
 Normalize means we set every test the same timeouts and window size.
+
+
+# How to debug phantomjs failures?
+
+We have added support for "recording" the test.
+What we do is we take a photo every 500ms.
+
+You can then convert it to a moving gif using imagemagick (install it if you don't have it, cool software)
+
+`convert -delay 100 -loop 0 *.png animation.gif`

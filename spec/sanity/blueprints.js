@@ -10,7 +10,7 @@ describe('blueprints page', function(){
         components.ui.LoginPage.goTo().login('user1','pass1');
     });
 
-    it('should go into blueprint and verify all section exists', function (done) {
+    xit('should go into blueprint and verify all section exists', function (done) {
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
         components.ui.blueprints.BlueprintPage.goToNetwork();
         components.ui.blueprints.BlueprintPage.goToNodes();
@@ -60,7 +60,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(done);
     });
 
-    it('should show deploy dialog after default button pressed', function (done) {
+    xit('should show deploy dialog after default button pressed', function (done) {
 
         logger.trace('start create deployment with default button test');
 
@@ -70,7 +70,7 @@ describe('blueprints page', function(){
         browser.sleep(500).then(function(){ done(); });
     });
 
-    it('should upload and delete a blueprint, ENTER_BLUEPRINT_NAME', function(done){
+    xit('should upload and delete a blueprint, ENTER_BLUEPRINT_NAME', function(done){
         // todo
         //done();
         var blueprintName = 'uploaded-' + new Date().getTime();
@@ -98,7 +98,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should open node details panel when clicking on node in topology section', function(done) {
+    xit('should open node details panel when clicking on node in topology section', function(done) {
         logger.trace('start blueprint topology section test');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
         components.ui.blueprints.BlueprintPage.goToTopology();
