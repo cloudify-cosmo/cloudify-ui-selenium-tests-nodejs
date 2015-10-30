@@ -4,3 +4,4 @@ exports.DeleteDeployment = require('./DeleteDeployment');
 exports.DeploymentPage = require('./DeploymentPage');
 exports.IndexPage = require('./IndexPage');
 exports.DeploymentLayout = require('./DeploymentLayout');
+exports.StartExecutionDialog = require('./StartExecutionDialog');

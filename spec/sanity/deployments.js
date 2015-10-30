@@ -13,7 +13,19 @@ describe('deployments page', function () {
         components.ui.layout.goToDeployments();
     });
 
+    iit('should let user run an execution only after choosing one', function(done){
 
+        components.ui.deployments.IndexPage.goToDeployment(testConf.deployment.deploymentToRead);
+        components.ui.common.ActionsDropdown(element(by.css('body'))).clickMenuOption('Execute Workflow');
+
+        var confirmBtnSelector = '.confirmationButtons button:nth-child(2)';
+
+        expect(element(by.css(confirmBtnSelector)).getAttribute('disabled')).toEqual('true');
+        components.ui.deployments.StartExecutionDialog.selectExecution('install');
+        expect(element(by.css(confirmBtnSelector)).getAttribute('disabled')).not.toEqual('true');
+
+        browser.sleep(1000).then(done);
+    });
 
     it('should delete a deployment', function (done) {
         logger.trace('start create deployment test');

@@ -17,7 +17,7 @@ module.exports = function ActionsDropdown(base) {
                         });
                     }).then(function( items ){
                         if ( required ){
-                            expect(items.length).toBe(1,'expect action' + option + ' to exist');
+                            expect(items.length).toBe(1, 'expect action' + option + ' to exist');
                         }
                         return items.length > 0 ? items[0] : undefined;
                     });
