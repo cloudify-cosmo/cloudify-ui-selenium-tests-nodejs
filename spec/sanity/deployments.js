@@ -13,7 +13,7 @@ describe('deployments page', function () {
         components.ui.layout.goToDeployments();
     });
 
-    iit('should let user run an execution only after choosing one', function(done){
+    it('should let user run an execution only after choosing one', function(done){
 
         components.ui.deployments.IndexPage.goToDeployment(testConf.deployment.deploymentToRead);
         components.ui.common.ActionsDropdown(element(by.css('body'))).clickMenuOption('Execute Workflow');
