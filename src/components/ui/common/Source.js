@@ -37,5 +37,5 @@ exports.getFileTitle = function(expectedTitle) {
 exports.getLoadingMessage = function() {
     return element(by.css('.noPreview .empty')).getText().then(function(text) {
         expect(text).toEqual('Generating Blueprint Source View...');
-    })
+    });
 };
