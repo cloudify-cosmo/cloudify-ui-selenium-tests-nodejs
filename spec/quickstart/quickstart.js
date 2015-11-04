@@ -114,7 +114,7 @@ describe('quickstart', function(){
         browser.sleep(2000).then(done);
     });
 
-    xit('step 8 - should delete the deployment', function(done){
+    it('step 8 - should delete the deployment', function(done){
         components.ui.deployments.IndexPage.route();
         components.ui.deployments.IndexPage.deleteDeployment({
             id: DEPLOYMENT_NAME
