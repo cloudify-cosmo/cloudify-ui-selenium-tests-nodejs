@@ -31,9 +31,11 @@ beforeEach(function() {
         recordingSet = true;
 
         var fs = require('fs-extra');
-        //var Buffer = require('buffer');
         fs.emptyDirSync(folderPath);
         setInterval(function () {
+            if ( browser.ignoreSynchronization ){ // does not work well when not synced.. don't know why.
+                return;
+            }
             try {
                 browser.takeScreenshot().then(function (png) {
                     var stream = fs.createWriteStream(folderPath + '/screenshot-' + new Date().getTime() + '.png');

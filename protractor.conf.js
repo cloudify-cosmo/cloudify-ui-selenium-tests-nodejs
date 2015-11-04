@@ -25,6 +25,7 @@ exports.config = {
 
     suites: {
         sanity: [ 'spec/normalize.js', 'spec/sanity/**' ],
+        quickstart: ['spec/normalize.js', 'spec/quickstart/quickstart.js'],
         custom: [ 'spec/normalize.js', process.env.CFY_SPEC ]
     },
 
