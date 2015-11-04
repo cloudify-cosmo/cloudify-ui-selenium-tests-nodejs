@@ -17,7 +17,7 @@ mainTable.isEventInfoOpen = function(eventRowNum){
     });
 };
 
-mainTable.pagination.moveToPage = function(pageNum){
+mainTable.pagination.goToPage = function(pageNum){
     filters.filterByText($$('ul.pagination li a'),String(pageNum)).first().click();
 };
 
@@ -27,34 +27,27 @@ mainTable.pagination.isPageActive = function(pageNum){
     });
 };
 
-mainTable.timestamp.getValues = function() {
-        return element.all(by.css('.eventsTable p.date')).getText();
-};
 
-mainTable.timestamp.getCells = function() {
-    return element.all(by.css('.eventsTable p.date'));
-};
+function eventsTableColumn(columnClass){
+    this.getHeader = function(){
+        return element(by.css('.eventsTable p.'+columnClass));
+    };
 
-mainTable.timestamp.sort = function() {
-    return element(by.css('.eventsTable th .date')).click();
-};
+    this.getCells = function(){
+        return element.all(by.css('.eventsTable p.'+columnClass));
+    };
 
-mainTable.timestamp.getHeader = function() {
-    return element(by.css('.eventsTable p.date'));
-};
+    this.getValues = function(){
+        return element.all(by.css('.eventsTable p.'+columnClass)).getText();
+    };
 
-mainTable.logLevel.getValues = function() {
-    return element.all(by.css('.eventsTable p.level')).getText();
-};
+    this.sort = function(){
+        return element(by.css('.eventsTable th .'+columnClass)).click();
+    };
+}
 
-mainTable.logLevel.getHeader = function() {
-    return element(by.css('.eventsTable p.level'));
-};
-
-mainTable.logLevel.getCells = function() {
-    return element.all(by.css('.eventsTable p.date'));
-};
-
+mainTable.timestamp = new eventsTableColumn('date');
+mainTable.logLevel= new eventsTableColumn('level');
 
 
 module.exports = mainTable;

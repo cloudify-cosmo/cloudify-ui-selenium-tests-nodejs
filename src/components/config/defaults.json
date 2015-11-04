@@ -70,6 +70,14 @@
                         "relationships": "relationships"
                     }
                 }
+            },
+            "events_spec": {
+                "blueprintWithEvents": "nodecellar1",
+                "blueprintWithoutEvents": "nodecellar_undeployed",
+                "firstDeployment": "installed_deployment [nodecellar1]",
+                "secondDeployment": "installed_deployment2 [nodecellar1]",
+                "logLevelWithEvents": "INFO",
+                "logLevelWithoutEvents": "ERROR"
             }
         }
     }

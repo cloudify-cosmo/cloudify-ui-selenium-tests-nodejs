@@ -1,3 +1,8 @@
+/*
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  DEPRICATED USE MultiSelectMenu INSTEAD  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+*/
 'use strict';
 
 var logger = require('log4js').getLogger('Actions');
@@ -47,20 +52,4 @@ exports.uncheckAllDropdownOptions = function(opts) {
     opts.base.all(by.css('[checked=checked]')).click();
     openBtn.click();
 
-};
-//This function opens the drop down list But does not closes it!
-//so you can perform actions such as getText while the elements are visible.
-/**
- * @description gets all dropdown options that are selected
- *
- * @param {object} multiSelectElement is the the multi select element
- *
- */
-exports.getSelectedOptions = function(multiSelectElement) {
-    multiSelectElement.element(by.css('.msArrow')).click();
-    return multiSelectElement.all(by.css('li')).filter(function(item){
-        return item.all(by.css('input[checked=checked]')).count().then(function(count){
-            return count > 0;
-        });
-    });
 };

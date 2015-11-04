@@ -2,6 +2,7 @@
 var logger = require('log4js').getLogger('blueprints_spec');
 var components = require('../../src/components/index');
 var events = components.ui.events.page;
+var config = components.config.tests.sanity.events_spec;
 
 describe('logs & events page', function() {
 
@@ -22,54 +23,36 @@ describe('logs & events page', function() {
         //getting number of events on startup
         var noFiltersEventsCount = events.mainTable.countRows();
         //Choosing a blueprint with no events
-        events.filters.blueprints.select('nodecellar_undeployed');
-        events.filters.blueprints.getSelected().getText().then(function(text){
-            expect(text).toEqual(['nodecellar_undeployed']);
-            events.filters.blueprints.toggle();
-        });
+        events.filters.blueprints.select(config.blueprintWithoutEvents);
+        expect(events.filters.blueprints.getSelectedTexts()).toEqual([config.blueprintWithoutEvents]);
         expect(events.mainTable.countRows()).toBe(0);
 
         //Choosing another blueprint with events
-        events.filters.blueprints.select('nodecellar1');
-        events.filters.blueprints.getSelected().getText().then(function(text){
-            expect(text).toEqual(['nodecellar1', 'nodecellar_undeployed']);
-            events.filters.blueprints.toggle();
-        });
+        events.filters.blueprints.select(config.blueprintWithEvents);
+        expect(events.filters.blueprints.getSelectedTexts()).toEqual([config.blueprintWithEvents, config.blueprintWithoutEvents]);
         expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
     });
 
     it('should filter deployments', function(){
-        //Choosing a deployment with no events
-        events.filters.deployments.select('installed_deployment [nodecellar1]');
-        events.filters.deployments.getSelected().getText().then(function(text){
-            expect(text).toEqual(['installed_deployment [nodecellar1]']);
-            events.filters.deployments.toggle();
-        });
+        //Choosing a random deployments
+        events.filters.deployments.select(config.firstDeployment);
+        expect(events.filters.deployments.getSelectedTexts()).toEqual([config.firstDeployment]);
 
-        events.filters.deployments.select('installed_deployment2 [nodecellar1]');
-        events.filters.deployments.getSelected().getText().then(function(text){
-            expect(text).toEqual(['installed_deployment2 [nodecellar1]','installed_deployment [nodecellar1]']);
-            events.filters.deployments.toggle();
-        });
+        events.filters.deployments.select(config.secondDeployment);
+        expect(events.filters.deployments.getSelectedTexts()).toEqual([config.secondDeployment,config.firstDeployment]);
     });
 
     it('should filter logs levels', function(){
         //getting number of events on startup
         var noFiltersEventsCount = events.mainTable.countRows();
         //Choosing a level with no events
-        events.filters.logLevels.select('ERROR');
-        events.filters.logLevels.getSelected().getText().then(function(text){
-            expect(text).toEqual(['ERROR']);
-            events.filters.logLevels.toggle();
-        });
+        events.filters.logLevels.select(config.logLevelWithoutEvents);
+        expect(events.filters.logLevels.getSelectedTexts()).toEqual([config.logLevelWithoutEvents]);
         expect(events.mainTable.countRows()).toBe(0);
 
         ////Choosing another level with events
-        events.filters.logLevels.select('INFO');
-        events.filters.logLevels.getSelected().getText().then(function(text){
-            expect(text).toEqual(['ERROR','INFO']);
-            events.filters.logLevels.toggle();
-        });
+        events.filters.logLevels.select(config.logLevelWithEvents);
+        expect(events.filters.logLevels.getSelectedTexts()).toEqual([config.logLevelWithoutEvents,config.logLevelWithEvents]);
         expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
 
         function isAllValuesEqualTo(array, value){
@@ -83,17 +66,17 @@ describe('logs & events page', function() {
             return isIt;
         }
 
-        //checking events data to be all was filtered
+        //checking events data to be all as was filtered
         events.mainTable.logLevel.getValues().then(function(values){
-            expect(isAllValuesEqualTo(values,'INFO')).toBe(true);
+            expect(isAllValuesEqualTo(values,config.logLevelWithEvents)).toBe(true);
         })
     });
 
     it('should clear filters', function(){
         //pick random filters
-        events.filters.blueprints.select('nodecellar1');
-        events.filters.deployments.select('installed_deployment [nodecellar1]');
-        events.filters.logLevels.select('WARNING');
+        events.filters.blueprints.select(config.blueprintWithEvents);
+        events.filters.deployments.select(config.firstDeployment);
+        events.filters.logLevels.select(config.logLevelWithoutEvents);
         //click clear filters button
         events.filters.clearFilters();
         //check filters has no selected options
@@ -135,7 +118,6 @@ describe('logs & events page', function() {
     it('should toggle columns removal', function(){
         events.filters.columnsOrganizer.toggle('Timestamp');
         events.filters.columnsOrganizer.toggle('Log Level');
-
         expect(events.mainTable.timestamp.getCells().count()).toBe(0);
         expect(events.mainTable.timestamp.getHeader().isPresent()).toBe(false);
         expect(events.mainTable.logLevel.getCells().count()).toBe(0);
@@ -144,7 +126,6 @@ describe('logs & events page', function() {
         events.filters.columnsOrganizer.toggle('Timestamp');
         expect(events.mainTable.timestamp.getCells().count()).not.toBe(0);
         expect(events.mainTable.timestamp.getHeader().isPresent()).toBe(true);
-
     });
 
 
@@ -161,9 +142,9 @@ describe('logs & events page', function() {
     });
 
     it('should change pages', function(){
-        events.mainTable.pagination.moveToPage(2);
+        events.mainTable.pagination.goToPage(2);
         expect(events.mainTable.pagination.isPageActive(2)).toBe(true);
-        events.mainTable.pagination.moveToPage(3);
+        events.mainTable.pagination.goToPage(3);
         expect(events.mainTable.pagination.isPageActive(2)).toBe(false);
         expect(events.mainTable.pagination.isPageActive(3)).toBe(true);
     });
@@ -175,24 +156,19 @@ describe('logs & events page', function() {
 
     it('should refresh page and keep filters', function(){
         //pick random filters
-        events.filters.blueprints.select('nodecellar1');
-        events.filters.deployments.select('installed_deployment [nodecellar1]');
-        events.filters.logLevels.select('INFO');
+        events.filters.blueprints.select(config.blueprintWithEvents);
+        events.filters.deployments.select(config.firstDeployment);
+        events.filters.logLevels.select(config.logLevelWithEvents);
         //go to another page
-        events.mainTable.pagination.moveToPage(4);
+        events.mainTable.pagination.goToPage(4);
 
         browser.refresh();
 
         //check filters have right options selected
-        events.filters.blueprints.getSelected().getText().then(function(text){
-            expect(text).toEqual(['nodecellar1']);
-        });
-        events.filters.deployments.getSelected().getText().then(function(text){
-            expect(text).toEqual(['installed_deployment [nodecellar1]']);
-        });
-        events.filters.logLevels.getSelected().getText().then(function(text){
-            expect(text).toEqual(['INFO']);
-        });
+        expect(events.filters.blueprints.getSelectedTexts()).toEqual([config.blueprintWithEvents]);
+        expect(events.filters.deployments.getSelectedTexts()).toEqual([config.firstDeployment]);
+        expect(events.filters.logLevels.getSelectedTexts()).toEqual([config.logLevelWithEvents]);
+
         //check we are on the right page
         expect(events.mainTable.pagination.isPageActive(4)).toBe(true);
     });
