@@ -12,7 +12,7 @@ if ( !!process.env.BROWSER_TYPE ) {
             'platform': 'ANY',
             'version': '',
             //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
-            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false',  '--remote-debugger-port=9090']
+            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false'/*,  '--remote-debugger-port=9090'*/]
         }
     }
 }
