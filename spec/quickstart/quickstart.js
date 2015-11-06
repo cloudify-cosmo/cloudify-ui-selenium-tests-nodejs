@@ -21,7 +21,7 @@
  */
 
 
-var logger = require('log4js').getLogger('blueprints_spec');
+var logger = browser.getLogger('blueprints_spec');
 var components = require('../../src/components/index');
 var url = require('url');
 
@@ -29,12 +29,14 @@ var BLUEPRINT_NAME = 'nodecellar';
 var DEPLOYMENT_NAME = BLUEPRINT_NAME;
 
 describe('quickstart', function(){
-    it('step 4 - should upload nodecellar blueprint', function(done){
+    it('step 4 - should upload nodecellar blueprint', function (done) {
         //https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.3m7.zip
-        var nodecellarUrl = 'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.3m6.zip';
-
+        var nodecellarUrl = 'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.3m7.zip';
+        logger.info('loading blueprints page');
         browser.get('/');
+        logger.info('uploading blueprint');
         components.ui.blueprints.IndexPage.uploadBlueprint();
+        logger.info('setting details');
         components.ui.blueprints.UploadBlueprintDialog.setDetails(
             {
                 blueprint_location: nodecellarUrl,
@@ -45,18 +47,21 @@ describe('quickstart', function(){
         components.ui.blueprints.UploadBlueprintDialog.submit();
 
         // wait for redirection to blueprint. indication blueprint was uploaded.
-        browser.wait(function(){ // make sure we are in deployments
-            return browser.getCurrentUrl().then(function(url){
+        browser.wait(function () { // make sure we are in deployments
+            return browser.getCurrentUrl().then(function (url) {
                 return url.indexOf(BLUEPRINT_NAME) >= 0;
             });
-        },60000);
+        }, 60000);
         browser.sleep(2000).then(done);
 
     });
 
     it('step 4 - should create a nodecellar deployment', function(){
+        logger.info('loading blueprints page');
         browser.get('/#/blueprints');
+        logger.info('creating deployment');
         components.ui.blueprints.IndexPage.createDeployment({name:BLUEPRINT_NAME});
+        logger.info('setting deployment details');
         components.ui.blueprints.CreateDeployment.setDetails(
             {
                 name: DEPLOYMENT_NAME,
@@ -67,12 +72,14 @@ describe('quickstart', function(){
                     }
             }
         );
+        logger.info('submitting create deployment form');
         components.ui.blueprints.CreateDeployment.submit();
+        logger.info('wait for deployment to initialize.. might take some time');
         components.ui.deployments.DeploymentPage.waitForInitializingToStop();
     });
 
     it('step 5 - should run install on the application', function(done){
-
+        logger.info('executing workflow');
         components.ui.deployments.IndexPage.executeWorkflowAndWaitUntilDone({
             deployment: {
                 id: DEPLOYMENT_NAME
@@ -82,7 +89,7 @@ describe('quickstart', function(){
         browser.sleep(2000).then(done);
     });
 
-    it('step 6 - should expose nodecellar', function(){
+    it('step 6 - should expose nodecellar', function(done){
         browser.ignoreSynchronization = true;
         var baseUrl = url.parse(browser.baseUrl);
         require('url').parse(browser.baseUrl);
@@ -91,6 +98,7 @@ describe('quickstart', function(){
             port: 8080,
             protocol: baseUrl.protocol
         });
+        logger.info('loading url' + nodecellarUrl);
         browser.get(nodecellarUrl);
         browser.wait(function(){
             return $('body').getText().then(function( text ){
@@ -99,12 +107,15 @@ describe('quickstart', function(){
         },10000); // give nodecellar 10 sec to load.. we don't care
         browser.sleep(1).then(function(){
             logger.info('detected nodecellar loaded');
+            browser.ignoreSynchronization = false;
         });
-        browser.sleep(1000);
-        browser.ignoreSynchronization = true;
+
+        browser.sleep(1000).then(done);
+
     });
 
     it('step 7 - should uninstall the deployment', function(done){
+        logger.info('executing workflow and waiting for it to finish');
         components.ui.deployments.IndexPage.executeWorkflowAndWaitUntilDone({
             deployment: {
                 id: DEPLOYMENT_NAME
@@ -115,13 +126,15 @@ describe('quickstart', function(){
     });
 
     it('step 8 - should delete the deployment', function(done){
+        logger.info('going to deployments');
         components.ui.deployments.IndexPage.route();
+        logger.info('click delete deployment');
+        browser.sleep(5000);
         components.ui.deployments.IndexPage.deleteDeployment({
             id: DEPLOYMENT_NAME
         });
+        logger.info('confirm deletion');
         components.ui.deployments.DeleteDeployment.clickConfirm();
-
-
-        browser.sleep(10000).then(done);
+        browser.sleep(1000).then(done);
     });
 });

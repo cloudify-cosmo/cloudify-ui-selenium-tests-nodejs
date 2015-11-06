@@ -20,6 +20,36 @@ beforeEach(function( ){
 
 
 
+browser.getLogger = function(name){
+
+    var logger = require('log4js').getLogger(name);
+
+    function logMe ( level ){
+        return function(msg){
+
+            try {
+                browser.sleep(1).then(function () {
+                    try {
+                        logger[level](msg);
+                    }catch(e){
+                        console.log(e);
+                    }
+                });
+
+            }catch(e){
+                console.log(e);
+            }
+        };
+    }
+
+    return {
+        info : logMe('info'),
+        warn : logMe('warn'),
+        error : logMe('error'),
+        debug : logMe('debug'),
+        trace : logMe('trace')
+    };
+};
 
 
 var recordingSet = false;
@@ -48,4 +78,3 @@ beforeEach(function() {
 
     }
 });
-
