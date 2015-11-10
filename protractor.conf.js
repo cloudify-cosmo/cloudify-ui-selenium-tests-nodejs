@@ -3,7 +3,7 @@ var capabilities = {
     'chromeOptions': {'args': ['--disable-extensions']}
 };
 
-
+var timeout = parseInt(process.env.TIMEOUT || "600000",10);
 
 if ( !!process.env.BROWSER_TYPE ) {
     if ( process.env.BROWSER_TYPE.toLowerCase() === 'phantomjs') {
@@ -11,7 +11,8 @@ if ( !!process.env.BROWSER_TYPE ) {
             'browserName': 'phantomjs',
             'platform': 'ANY',
             'version': '',
-            'chromeOptions': {'args': ['--disable-extensions']}
+            //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
+            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false',  '--remote-debugger-port=9090']
         }
     }
 }
@@ -30,7 +31,7 @@ exports.config = {
 
     capabilities: capabilities,
 
-    allScriptsTimeout: 600000,
+    allScriptsTimeout: timeout,
 
 
     // A base URL for your application under test. Calls to protractor.get()
@@ -42,7 +43,7 @@ exports.config = {
         isVerbose: false,
         showColors: true,
         includeStackTrace: true,
-        defaultTimeoutInterval: 600000,
-        allScriptsTimeout: 600000
+        defaultTimeoutInterval: timeout,
+        allScriptsTimeout: timeout
     }
 };

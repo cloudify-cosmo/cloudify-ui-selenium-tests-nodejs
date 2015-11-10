@@ -10,13 +10,39 @@ describe('blueprints page', function(){
         components.ui.LoginPage.goTo().login('admin', 'admin');
     });
 
-    it('should go into blueprint and verify all section exists', function (done) {
-        components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
-        components.ui.blueprints.BlueprintPage.goToNetwork();
-        components.ui.blueprints.BlueprintPage.goToNodes();
-        components.ui.blueprints.BlueprintPage.goToSource();
-        browser.sleep(1000).then(function(){ done(); });
+    describe('blueprint view', function(){
+
+        beforeEach(function(){
+            components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
+        });
+
+        it('should have all sections', function (done) {
+            components.ui.blueprints.BlueprintPage.goToNetwork();
+            components.ui.blueprints.BlueprintPage.goToNodes();
+            components.ui.blueprints.BlueprintPage.goToSource();
+            browser.sleep(1000).then(function(){ done(); });
+        });
+
+        it('should have working source section', function(done) {
+
+            logger.trace('start blueprint source section test');
+            components.ui.blueprints.BlueprintPage.goToSource();
+            browser.ignoreSynchronization = true;
+            components.ui.blueprints.BlueprintPage.Source.getLoadingMessage();
+            browser.ignoreSynchronization = false;
+            components.ui.blueprints.BlueprintPage.Source.getTree();
+            // we should be viewing the main blueprint file:
+            components.ui.blueprints.BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
+            components.ui.blueprints.BlueprintPage.Source.selectFile('README.md');
+            components.ui.blueprints.BlueprintPage.Source.getFileTitle('README.md');
+            components.ui.blueprints.BlueprintPage.Source.getFileContent();
+
+            browser.sleep(1000).then(function(){ done(); });
+        });
+
     });
+
+
 
 
 
@@ -131,16 +157,5 @@ describe('blueprints page', function(){
     //
     //    browser.sleep(1000).then(function(){ done(); });
     //});
-    //
-    //it('should show files tree in source section and selected file content', function (done) {
-    //    logger.trace('start blueprint source section test');
-    //    components.ui.blueprints.IndexPage.goToBlueprint({'name' : DEPLOY_BLUEPRINT_NAME});
-    //    components.ui.blueprints.BlueprintPage.goToSection('Source');
-    //    components.ui.blueprints.BlueprintPage.Source.getTree();
-    //    components.ui.blueprints.BlueprintPage.Source.selectFile('openstack-blueprint.yaml');
-    //    components.ui.blueprints.BlueprintPage.Source.getFileTitle('openstack-blueprint.yaml');
-    //    components.ui.blueprints.BlueprintPage.Source.getFileContent();
-    //
-    //    browser.sleep(1000).then(function(){ done(); });
-    //});
+
 });

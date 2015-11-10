@@ -21,7 +21,7 @@ exports.getFileContent = function() {
 };
 
 exports.selectFile = function(fileName) {
-    return element.all(by.css('.tree span.cliclable')).filter(function (file) {
+    return element.all(by.css('.tree span.clickable')).filter(function (file) {
         return file.getText().then(function (text) {
             return text === fileName;
         });
@@ -31,5 +31,11 @@ exports.selectFile = function(fileName) {
 exports.getFileTitle = function(expectedTitle) {
     return element(by.css('.source .sourcecode h4')).getText().then(function(text) {
         expect(text).toBe(expectedTitle);
+    });
+};
+
+exports.getLoadingMessage = function() {
+    return element(by.css('.noPreview .empty')).getText().then(function(text) {
+        expect(text).toEqual('Generating Blueprint Source View...');
     });
 };
