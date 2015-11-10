@@ -13,5 +13,5 @@ exports.getNodePropertiesPanel = function(){
 };
 
 exports.deleteDeployment = function() {
-        new common.ActionsDropdown($('body')).clickMenuOption('Delete');
+    new common.ActionsDropdown().clickMenuOption('Delete');
 };

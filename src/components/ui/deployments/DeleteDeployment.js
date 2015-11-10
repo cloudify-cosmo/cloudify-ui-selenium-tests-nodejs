@@ -16,10 +16,10 @@ exports.clickCancel = function() {
     element.all(by.css('#deleteDialog .confirmationButtons button')).then(function(btns) {
         btns[0].click();
     });
+    browser.sleep(1000);
 };
 
 exports.clickClose = function() {
-    element.all(by.css('.ngdialog-close')).then(function(btns) {
-        btns[0].click();
-    });
+    element.all(by.css('.ngdialog-close')).click();
+    browser.sleep(1000);
 };
