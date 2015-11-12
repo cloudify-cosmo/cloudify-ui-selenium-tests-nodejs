@@ -1,3 +1,8 @@
+/*
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  DEPRICATED USE MultiSelectMenu INSTEAD  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+*/
 'use strict';
 
 var logger = require('log4js').getLogger('Actions');
@@ -14,7 +19,7 @@ var logger = require('log4js').getLogger('Actions');
 exports.selectDropdownOption = function( opts ) {
     logger.trace('selecting dropdown by', opts.optionName );
 
-    var openBtn = opts.base.all(by.css('.msArrow'));
+    var openBtn = opts.base.element(by.css('.msArrow'));
     openBtn.click();
 
     if (!opts.repeater) {
@@ -27,6 +32,7 @@ exports.selectDropdownOption = function( opts ) {
         });
     }).then(function(filtered) {
         filtered[0].click();
+        openBtn.click();
     });
 };
 
@@ -44,5 +50,6 @@ exports.uncheckAllDropdownOptions = function(opts) {
     openBtn.click();
 
     opts.base.all(by.css('[checked=checked]')).click();
+    openBtn.click();
 
 };
