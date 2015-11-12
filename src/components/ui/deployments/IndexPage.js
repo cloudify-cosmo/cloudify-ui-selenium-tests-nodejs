@@ -8,6 +8,11 @@ exports.getDeployments = function(){
 };
 
 /**
+ * @typedef {object} DeploymentOpts
+ * @property {string} id
+ */
+
+/**
  *
  * @description returns a promise the fulfills with the first deployment found according to opts specification.
  * <p>
@@ -15,8 +20,7 @@ exports.getDeployments = function(){
  * if opts.id = 'X' - then it will return the first deployment with name X.
  * </p>
  *
- * @param {object} opts contains information to find the deployment
- * @param {string} opts.id the name of the deployment
+ * @param {DeploymentOpts} opts contains information to find the deployment
  * @returns {webdriver.promise.Deferred.promise|*}
  */
 exports.getDeployment = function( opts, optional ){
@@ -34,16 +38,112 @@ exports.getDeployment = function( opts, optional ){
 
 };
 
+/**
+ *
+ * @param {DeploymentOpts} opts
+ * @returns {*}
+ */
 exports.goToDeployment = function( opts ){
     return exports.getDeployment(opts).then(function(deployment){
         return deployment.element(by.css('.id a')).click();
     });
 };
 
+/**
+ *
+ * @param {DeploymentOpts} opts
+ * @returns {*}
+ */
 exports.deleteDeployment = function(opts) {
     return exports.getDeployment(opts).then(function(deployment){
         new common.ActionsDropdown(deployment).clickMenuOption('Delete');
     });
+};
+
+
+/**
+ *
+ * @param {DeploymentOpts} opts
+ * @returns {*}
+ */
+exports.executeWorkflow = function(opts) {
+    return exports.getDeployment(opts).then(function(deployment){
+        new common.ActionsDropdown(deployment).clickMenuOption('Execute Workflow');
+        browser.sleep(3000); //fade in
+    });
+};
+
+
+exports.route = function(){
+    browser.get('/#/deployments');
+    browser.sleep(3000);
+};
+
+
+
+
+
+
+/**
+ *
+ * assumption: execution must be still running when reaching here!
+ *
+ * @param {DeploymentOpts} opts
+ */
+//
+exports.waitForExecutionToFinish = function(opts){
+
+    var progress = null;
+    exports.getDeployment(opts).then(function(d){
+        progress = d.$('[ng-show="showProgress"]');
+    });
+
+    browser.wait(function(){
+        try {
+            return progress.isPresent();
+        }catch(e){
+            return false;
+        }
+    },10000);
+
+    browser.sleep(1).then(function(){
+        logger.info('progress is displayed');
+    });
+
+    browser.wait(function(){
+        try{
+            return progress.isDisplayed().then(function(p){ return !p; });
+        }catch(e){
+            return true;
+        }
+    },600000); // 10 minutes for installation
+    browser.sleep(1).then(function(){
+        logger.info('installation finished');
+    });
+
+};
+
+/**
+ * @description
+ *  - loads page
+ *  - opens execute workflow on given deployment
+ *  - fills in dialog
+ *  - runs the execution
+ *  - waits until it is done
+ *
+ * @param {object} opts
+ * @param {DeploymentOpts} opts.deployment
+ * @param {string} opts.workflow name of workflow
+ */
+exports.executeWorkflowAndWaitUntilDone = function(opts){
+
+    var executeWorkflowDialog = require('./ExecuteWorkflowDialog');
+    exports.route();
+    exports.executeWorkflow(opts.deployment);
+    executeWorkflowDialog.selectWorkflow(opts.workflow);
+    executeWorkflowDialog.submit();
+    exports.waitForExecutionToFinish(opts.deployment);
+
 };
 
 

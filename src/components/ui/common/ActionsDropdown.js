@@ -27,7 +27,8 @@ module.exports = function ActionsDropdown(base) {
         },
         clickMenuOption: function (option) {
             return this.getMenuOption(option).then(function (item) {
-                return item.click();
+                item.click();
+                return browser.sleep(1000); // fade out/in
             });
         }
     };

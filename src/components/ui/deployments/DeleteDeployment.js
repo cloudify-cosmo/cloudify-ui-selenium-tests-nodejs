@@ -4,9 +4,7 @@
  * Click on 'Delete' tab on delete deployment dialog
  */
 exports.clickConfirm = function() {
-    element.all(by.css('#deleteDialog .confirmationButtons button')).then(function(btns) {
-        btns[1].click();
-    });
+    $$('#deleteDialog .confirmationButtons button').get(1).click();
 };
 
 /**
@@ -22,4 +20,5 @@ exports.clickCancel = function() {
 exports.clickClose = function() {
     element.all(by.css('.ngdialog-close')).click();
     browser.sleep(1000);
+    $$('#deleteDialog .confirmationButtons button').first().click();
 };

@@ -1,7 +1,7 @@
-exports.common = require('./common/index');
+exports.common = require('./common');
 exports.layout = require('./Layout');
-exports.blueprints = require('./blueprints/index');
-exports.deployments = require('./deployments/index');
-exports.events = require('./events/index');
-exports.hosts = require('./hosts/index');
+exports.blueprints = require('./blueprints');
+exports.deployments = require('./deployments');
+exports.events = require('./events');
+exports.hosts = require('./hosts');
 exports.LoginPage = require('./LoginPage');
