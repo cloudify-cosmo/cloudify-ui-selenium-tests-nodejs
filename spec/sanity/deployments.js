@@ -7,49 +7,95 @@ var testConf = components.config.tests.sanity.deployments_spec;
 //var INSTALLED_DEPLOYMENT_NAME = 'installed_deployment';
 
 describe('deployments page', function () {
-    beforeEach(function () {
+
+    beforeEach(function (done) {
         //components.ui.deployments.IndexPage.beforeEach(done);
-        components.ui.LoginPage.goTo().login('user1', 'pass1');
+        components.ui.LoginPage.goTo().login('admin', 'admin');
         components.ui.layout.goToDeployments();
+        browser.sleep(1000).then(done);
     });
 
+    describe('single deployment', function(){
 
+        var deploymentName;
+        var deploymentsOpts;
 
-    it('should delete a deployment', function (done) {
-        logger.trace('start create deployment test');
+        beforeEach(function(done){
 
-        var deploymentName ='deployment_' + new Date().getTime();
-        // lets deploy a blueprint to make this test rerunable.. I hate it, but what can we do
-        // if deploying was a simple act, we would not care..
-        components.ui.layout.goToBlueprints();
-        components.ui.blueprints.IndexPage.createDeployment({ name : 'nodecellar1' });
-        components.ui.blueprints.CreateDeployment.setDetails({ name : deploymentName , 'raw' : {
-            'agent_private_key_path': 'ggg',
-            'agent_user': 'ggg',
-            'host_ip': 'ggg'
-        }});
-        components.ui.blueprints.CreateDeployment.confirm();
+            deploymentName ='deployment_' + new Date().getTime();
+            deploymentsOpts = {id : deploymentName };
+            // lets deploy a blueprint to make this test rerunable.. I hate it, but what can we do
+            // if deploying was a simple act, we would not care..
+            components.ui.layout.goToBlueprints();
+            components.ui.blueprints.IndexPage.createDeployment({ name : 'nodecellar1' });
+            components.ui.blueprints.CreateDeployment.setDetails({ name : deploymentName , 'raw' : {
+                'agent_private_key_path': 'ggg',
+                'agent_user': 'ggg',
+                'host_ip': 'ggg'
+            }});
+            components.ui.blueprints.CreateDeployment.confirm();
 
-        components.ui.deployments.DeploymentPage.waitForInitializingToStop();
+            components.ui.deployments.DeploymentPage.waitForInitializingToStop();
+            browser.sleep(1000).then(done);
 
-        browser.sleep(1000).then();
-
-        components.ui.layout.goToDeployments();
-
-        browser.sleep(1000).then();
-
-
-
-        var deploymentsOpts = {id : deploymentName };
-        components.ui.deployments.IndexPage.deleteDeployment(deploymentsOpts);
-        components.ui.deployments.DeleteDeployment.clickCancel();
-        browser.sleep(1000);
-        components.ui.deployments.IndexPage.deleteDeployment(deploymentsOpts);
-        components.ui.deployments.DeleteDeployment.clickConfirm();
-        components.ui.deployments.IndexPage.getDeployment(deploymentsOpts,true).then(function(dep){
-            expect(dep).toBeUndefined('deployment ' + deploymentsOpts + ' should not exist');
         });
-        browser.sleep(3000).then(done);
+
+        it('should not have any search queries in the url after creation', function(done){
+
+            expect(browser.getCurrentUrl()).toMatch(/.+topology$/);
+
+            browser.sleep(1000).then(done);
+        });
+
+        it('should be deletable from deployments table view', function (done) {
+
+            logger.trace('starting: should be deletable from deployments table view');
+
+            components.ui.layout.goToDeployments();
+
+            var deploymentsOpts = {id : deploymentName };
+            components.ui.deployments.IndexPage.deleteDeployment(deploymentsOpts);
+            components.ui.deployments.DeleteDeployment.clickCancel();
+            components.ui.deployments.IndexPage.deleteDeployment(deploymentsOpts);
+            components.ui.deployments.DeleteDeployment.clickConfirm();
+            components.ui.deployments.IndexPage.getDeployment(deploymentsOpts,true).then(function(dep){
+                expect(dep).toBeUndefined('deployment ' + deploymentsOpts + ' should not exist');
+            });
+            browser.sleep(1000).then(done);
+        });
+
+        describe('should be deletable from deployment layout view', function (){
+
+            beforeEach(function (done){
+
+                components.ui.deployments.DeploymentLayout.deleteDeployment(deploymentsOpts);
+                components.ui.deployments.DeleteDeployment.clickCancel();
+                components.ui.deployments.DeploymentLayout.deleteDeployment(deploymentsOpts);
+                components.ui.deployments.DeleteDeployment.clickConfirm();
+
+                browser.sleep(1000).then(done);
+            });
+
+            it('and redirect to deployments table after deletion', function (done) {
+
+                expect(browser.getCurrentUrl()).toContain('deployments');
+                components.ui.deployments.IndexPage.getDeployment(deploymentsOpts,true).then(function(dep){
+                    expect(dep).toBeUndefined('deployment ' + deploymentsOpts + ' should not exist');
+                });
+
+                browser.sleep(1000).then(done);
+            });
+
+            it('and not redirect to deployments if user navigated elsewhere', function (done) {
+                browser.ignoreSynchronization = true;
+                components.ui.deployments.DeleteDeployment.clickClose();
+                components.ui.layout.goToBlueprints();
+                browser.ignoreSynchronization = false;
+                expect(browser.getCurrentUrl()).not.toContain('deployments');
+                browser.sleep(1000).then(done);
+            });
+        })
+
     });
 
     it('should list all deployments', function (done) {

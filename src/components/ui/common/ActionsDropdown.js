@@ -2,6 +2,8 @@
 
 module.exports = function ActionsDropdown(base) {
 
+    base = typeof base !== 'undefined' ? base : $('body');
+
     return {
         clickDefaultAction: function () {
             return base.element(by.css('#split-button')).click();

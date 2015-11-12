@@ -12,4 +12,10 @@ exports.clickConfirm = function() {
  */
 exports.clickCancel = function() {
     $$('#deleteDialog .confirmationButtons button').first().click();
+    browser.sleep(1000);
+};
+
+exports.clickClose = function() {
+    element.all(by.css('.ngdialog-close')).click();
+    browser.sleep(1000);
 };

@@ -7,7 +7,7 @@ describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
 
     beforeEach(function(){
-        components.ui.LoginPage.goTo().login('user1','pass1');
+        components.ui.LoginPage.goTo().login('admin', 'admin');
     });
 
     describe('blueprint view', function(){
