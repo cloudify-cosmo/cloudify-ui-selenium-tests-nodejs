@@ -12,7 +12,7 @@ if ( !!process.env.BROWSER_TYPE ) {
             'platform': 'ANY',
             'version': '',
             //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
-            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false',  '--remote-debugger-port=9090']
+            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false'/*, '--remote-debugger-port=9090'*/]
         }
     }
 }
@@ -25,6 +25,7 @@ exports.config = {
 
     suites: {
         sanity: [ 'spec/normalize.js', 'spec/sanity/**' ],
+        quickstart: ['spec/normalize.js', 'spec/quickstart/quickstart.js'],
         custom: [ 'spec/normalize.js', process.env.CFY_SPEC ]
     },
 
