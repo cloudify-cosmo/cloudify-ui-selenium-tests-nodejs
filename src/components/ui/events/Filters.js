@@ -1,5 +1,5 @@
 var MultiSelectMenu = require('../common/MultiSelectMenu');
-var elementsFilters = require('../common/Filters');
+var elementsFilters = require('../../Utils/Filters');
 
 var filters = {
     blueprints:{},

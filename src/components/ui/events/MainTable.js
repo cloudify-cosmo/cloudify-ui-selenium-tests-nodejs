@@ -1,4 +1,4 @@
-var filters = require('../common/Filters');
+var utils = require('../../Utils');
 var mainTable = {pagination:{},timestamp:{}, logLevel:{}};
 
 mainTable.countRows = function() {
@@ -8,21 +8,38 @@ mainTable.countRows = function() {
 };
 
 mainTable.clickEvent = function(eventRowNum){
-    element.all(by.css('.eventsTable tbody tr[data-ng-click]')).get(eventRowNum).click();
+    var eventRow = element.all(by.css('.eventsTable tbody tr[data-ng-click]')).get(eventRowNum);
+    utils.view.scrollIntoView(eventRow);
+    eventRow.click();
 };
 
 mainTable.isEventInfoOpen = function(eventRowNum){
-    return $$('.eventsTable tbody tr:nth-child(2n)').get(eventRowNum).getAttribute('class').then(function(attr){
-        return attr.indexOf('ng-hide') === -1;
-    });
+    return element.all(by.css('.eventsTable tbody')).get(eventRowNum).$('tr:nth-child(2n)').isPresent();
+};
+
+mainTable.isDatesOrdered = function(dates, reverseOrder){
+    var ordered = true;
+    for(var i = 0; i<dates.length -1; i++){
+        if(reverseOrder && (new Date(dates[i]) < new Date(dates[i+1]))) {
+            ordered = false;
+            break;
+        }
+        if(!reverseOrder && (new Date(dates[i]).getTime() > new Date(dates[i+1]).getTime())){
+            ordered = false;
+            break;
+        }
+    }
+    return ordered;
 };
 
 mainTable.pagination.goToPage = function(pageNum){
-    filters.filterByText($$('ul.pagination li a'),String(pageNum)).first().click();
+    utils.view.scrollIntoView(element(by.css('div.pagination')));
+    utils.filters.filterByText($$('div.pagination li a'),String(pageNum)).first().click();
 };
 
 mainTable.pagination.isPageActive = function(pageNum){
-    return filters.filterByText($$('ul.pagination li'),String(pageNum)).first().getAttribute('class').then(function(attr){
+    utils.view.scrollIntoView(element(by.css('div.pagination')));
+    return utils.filters.filterByText($$('ul.pagination li'),String(pageNum)).first().getAttribute('class').then(function(attr){
         return attr.indexOf('active') !== -1;
     });
 };
