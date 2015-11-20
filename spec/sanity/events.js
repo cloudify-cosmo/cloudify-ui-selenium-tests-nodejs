@@ -1,5 +1,4 @@
 'use strict';
-var logger = require('log4js').getLogger('blueprints_spec');
 var components = require('../../src/components/index');
 var events = components.ui.events.page;
 var config = components.config.tests.sanity.events_spec;
@@ -69,7 +68,7 @@ describe('logs & events page', function() {
         //checking events data to be all as was filtered
         events.mainTable.logLevel.getValues().then(function(values){
             expect(isAllValuesEqualTo(values,config.logLevelWithEvents)).toBe(true);
-        })
+        });
     });
 
     it('should clear filters', function(){

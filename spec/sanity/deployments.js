@@ -94,7 +94,7 @@ describe('deployments page', function () {
                 expect(browser.getCurrentUrl()).not.toContain('deployments');
                 browser.sleep(1000).then(done);
             });
-        })
+        });
 
     });
 

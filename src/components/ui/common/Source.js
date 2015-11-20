@@ -5,8 +5,6 @@
  * returns all network subnets
  */
 
-var logger = require('log4js').getLogger('Source');
-
 exports.getTree = function() {
     return element.all(by.css('.source .tree')).then(function(tree) {
         expect(tree).not.toBeUndefined();
