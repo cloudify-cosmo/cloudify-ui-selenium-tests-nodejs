@@ -18,9 +18,9 @@ filters.clearFilters = function(){
 };
 
 filters.columnsOrganizer.toggle = function(column){
-    element(by.css('#columns-organizer')).click();
+    element(by.css('#columns-organizer button')).click();
     elementsFilters.filterByText(element.all(by.css('#columns-organizer li span')), column).click();
-    element(by.css('#columns-organizer')).click();
+    element(by.css('#columns-organizer button')).click();
 };
 
 module.exports = filters;

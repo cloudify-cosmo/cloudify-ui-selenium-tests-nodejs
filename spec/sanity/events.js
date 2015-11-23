@@ -43,7 +43,9 @@ describe('logs & events page', function() {
         //Choosing another blueprint with events
         events.filters.blueprints.select(config.blueprintWithEvents);
         waitingForDebounce();
-        expect(events.filters.blueprints.getSelectedTexts()).toEqual([config.blueprintWithEvents, config.blueprintWithoutEvents]);
+        var blueprints = events.filters.blueprints.getSelectedTexts();
+        expect(blueprints).toContain(config.blueprintWithEvents);
+        expect(blueprints).toContain(config.blueprintWithoutEvents);
         expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
 
         browser.sleep(1000).then(done);
@@ -57,7 +59,8 @@ describe('logs & events page', function() {
 
         events.filters.deployments.select(config.secondDeployment);
         waitingForDebounce();
-        expect(events.filters.deployments.getSelectedTexts()).toEqual([config.secondDeployment,config.firstDeployment]);
+        expect(events.filters.deployments.getSelectedTexts()).toContain(config.secondDeployment);
+        expect(events.filters.deployments.getSelectedTexts()).toContain(config.firstDeployment);
 
         browser.sleep(1000).then(done);
     });
@@ -74,7 +77,8 @@ describe('logs & events page', function() {
         ////Choosing another level with events
         events.filters.logLevels.select(config.logLevelWithEvents);
         waitingForDebounce();
-        expect(events.filters.logLevels.getSelectedTexts()).toEqual([config.logLevelWithEvents, config.logLevelWithoutEvents]);
+        expect(events.filters.logLevels.getSelectedTexts()).toContain(config.logLevelWithEvents);
+        expect(events.filters.logLevels.getSelectedTexts()).toContain(config.logLevelWithoutEvents);
         expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
 
         function isAllValuesEqualTo(array, value){
@@ -121,6 +125,7 @@ describe('logs & events page', function() {
         events.mainTable.timestamp.sort();
         events.mainTable.timestamp.sort();
         waitingForDebounce();
+
         events.mainTable.timestamp.getValues().then(function(values){
             expect(events.mainTable.isDatesOrdered(values, false)).toBe(true);
         });

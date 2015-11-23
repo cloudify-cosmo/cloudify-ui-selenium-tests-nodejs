@@ -20,7 +20,7 @@ mainTable.isEventInfoOpen = function(eventRowNum){
 mainTable.isDatesOrdered = function(dates, reverseOrder){
     var ordered = true;
     for(var i = 0; i<dates.length -1; i++){
-        if(reverseOrder && (new Date(dates[i]) < new Date(dates[i+1]))) {
+        if(reverseOrder && (new Date(dates[i]).getTime() < new Date(dates[i+1]).getTime())) {
             ordered = false;
             break;
         }
@@ -59,7 +59,7 @@ function eventsTableColumn(columnClass){
     };
 
     this.sort = function(){
-        return element(by.css('.eventsTable th .'+columnClass)).click();
+            return element(by.css('.eventsTable th .'+columnClass+' span')).click();
     };
 }
 
