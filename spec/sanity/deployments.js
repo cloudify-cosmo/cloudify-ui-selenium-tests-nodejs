@@ -124,11 +124,11 @@ describe('deployments page', function () {
         // drag Events list down for the nodes to be click-able
 
 
-        //var panel = components.ui.deployments.DeploymentLayout.getNodePropertiesPanel();
-        //expect(panel.isDisplayed()).toEqual(false, 'panel should not exist');
-        //components.ui.deployments.DeploymentLayout.closeEventsPanel();
-        //components.ui.deployments.DeploymentPage.Topology.clickNode(testConf.deployment.nodeToClick);
-        //expect(panel.isDisplayed()).toEqual(true, 'panel should not exist');
+        var panel = components.ui.deployments.DeploymentLayout.getNodePropertiesPanel();
+        expect(panel.isDisplayed()).toEqual(false, 'panel should not exist');
+        components.ui.deployments.DeploymentLayout.closeEventsPanel();
+        components.ui.deployments.DeploymentPage.Topology.clickNode(testConf.deployment.nodeToClick);
+        expect(panel.isDisplayed()).toEqual(true, 'panel should not exist');
         browser.sleep(1000).then(done);
     });
 

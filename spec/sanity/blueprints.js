@@ -123,9 +123,9 @@ describe('blueprints page', function(){
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
         components.ui.blueprints.BlueprintPage.goToTopology();
         components.ui.blueprints.BlueprintPage.Topology.clickNode(testConf.blueprints.nodeToClick);
-        //components.ui.blueprints.BlueprintPage.PropertiesPanel.goToProperties();
-        //components.ui.blueprints.BlueprintPage.PropertiesPanel.goToRelationships();
-        //components.ui.blueprints.BlueprintPage.PropertiesPanel.close();
+        components.ui.blueprints.BlueprintPage.PropertiesPanel.goToProperties();
+        components.ui.blueprints.BlueprintPage.PropertiesPanel.goToRelationships();
+        components.ui.blueprints.BlueprintPage.PropertiesPanel.close();
 
         browser.sleep(1000).then(function(){ done(); });
     });
