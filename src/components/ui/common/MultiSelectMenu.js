@@ -1,9 +1,6 @@
-/**
- * Created by Eden on 11/3/15.
- */
 'use strict';
 var logger = require('log4js').getLogger('Actions');
-var filters = require('./Filters');
+var filters = require('./../../Utils/Filters');
 
 
 function MultiSelectMenu (baseElement){

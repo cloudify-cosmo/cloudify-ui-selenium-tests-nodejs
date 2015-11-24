@@ -8,4 +8,4 @@ exports.Topology = require('./Topology');
 exports.PropertiesPanel = require('./PropertiesPanel');
 exports.ActionsDropdown = require('./ActionsDropdown');
 exports.Dialog = require('./Dialog');
-exports.Filters = require('./Filters');
+exports.Filters = require('./../../Utils/Filters');
