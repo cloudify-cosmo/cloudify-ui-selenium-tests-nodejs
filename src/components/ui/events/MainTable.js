@@ -1,6 +1,6 @@
 'use strict';
 
-var filters = require('../common/Filters');
+var utils = require('../../Utils');
 var mainTable = {pagination:{},timestamp:{}, logLevel:{}};
 
 mainTable.countRows = function() {
