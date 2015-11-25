@@ -10,3 +10,7 @@ dependencies:
     - gem install compass
   override:
     - npm install
+
+test:
+  override:
+    - npm test
