@@ -5,7 +5,8 @@ machine:
     DISPLAY: :99.0
 
 dependencies:
-  pre :  
+  pre:  
     - gem install sass -v 3.4.5
     - gem install compass
-
+  override:
+    - npm install
