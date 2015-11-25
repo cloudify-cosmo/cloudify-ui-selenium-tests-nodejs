@@ -10,7 +10,7 @@ var logger = require('log4js').getLogger('Topology');
 //    return element.all(by.css('.bpContainer .box .head'));
 //};
 exports.getNodes = function(){
-    return element.all(by.repeater('node in map'));
+    return element.all(by.css('#gridContent .nodeContainer'));
 };
 
 
@@ -23,7 +23,7 @@ exports.getNode = function( nodeName ){
     logger.trace('getting node: ', nodeName );
     var deferred = protractor.promise.defer();
     exports.getNodes().filter(function(node){
-        return node.element(by.css('.head')).getText().then(function( text ){
+        return node.element(by.css('.title')).getText().then(function( text ){
             return text === nodeName;
         });
     }).then(function(filtered){
@@ -35,6 +35,6 @@ exports.getNode = function( nodeName ){
 
 exports.clickNode = function( nodeName ){
     return exports.getNode(nodeName).then(function(node){
-        return node.element(by.css('.head')).click();
+        return node.click();
     });
 };

@@ -94,10 +94,6 @@ exports.goToTopology = function () {
     goToSection(testConf.deployment.sections.topology);
 };
 
-exports.goToNetwork = function () {
-    goToSection(testConf.deployment.sections.network);
-};
-
 exports.goToNodes = function () {
     goToSection(testConf.deployment.sections.nodes);
 };

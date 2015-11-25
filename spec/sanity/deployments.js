@@ -94,7 +94,7 @@ describe('deployments page', function () {
                 expect(browser.getCurrentUrl()).not.toContain('deployments');
                 browser.sleep(1000).then(done);
             });
-        })
+        });
 
     });
 
@@ -108,7 +108,6 @@ describe('deployments page', function () {
     it('should go into deployment and verify all section exists', function (done) {
 
         components.ui.deployments.IndexPage.goToDeployment(testConf.deployment.deploymentToRead);
-        components.ui.deployments.DeploymentPage.goToNetwork();
         components.ui.deployments.DeploymentPage.goToNodes();
         components.ui.deployments.DeploymentPage.goToExecutions();
         components.ui.deployments.DeploymentPage.goToInputsOutputs();

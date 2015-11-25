@@ -17,7 +17,6 @@ describe('blueprints page', function(){
         });
 
         it('should have all sections', function (done) {
-            components.ui.blueprints.BlueprintPage.goToNetwork();
             components.ui.blueprints.BlueprintPage.goToNodes();
             components.ui.blueprints.BlueprintPage.goToSource();
             browser.sleep(1000).then(function(){ done(); });
@@ -27,9 +26,7 @@ describe('blueprints page', function(){
 
             logger.trace('start blueprint source section test');
             components.ui.blueprints.BlueprintPage.goToSource();
-            browser.ignoreSynchronization = true;
             components.ui.blueprints.BlueprintPage.Source.getLoadingMessage();
-            browser.ignoreSynchronization = false;
             components.ui.blueprints.BlueprintPage.Source.getTree();
             // we should be viewing the main blueprint file:
             components.ui.blueprints.BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
@@ -41,9 +38,6 @@ describe('blueprints page', function(){
         });
 
     });
-
-
-
 
 
     it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {

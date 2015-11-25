@@ -1,3 +1,5 @@
+'use strict';
+
 var utils = require('../../Utils');
 var mainTable = {pagination:{},timestamp:{}, logLevel:{}};
 
@@ -45,7 +47,7 @@ mainTable.pagination.isPageActive = function(pageNum){
 };
 
 
-function eventsTableColumn(columnClass){
+function EventsTableColumn(columnClass){
     this.getHeader = function(){
         return element(by.css('.eventsTable p.'+columnClass));
     };
@@ -63,8 +65,8 @@ function eventsTableColumn(columnClass){
     };
 }
 
-mainTable.timestamp = new eventsTableColumn('date');
-mainTable.logLevel= new eventsTableColumn('level');
+mainTable.timestamp = new EventsTableColumn('date');
+mainTable.logLevel= new EventsTableColumn('level');
 
 
 module.exports = mainTable;

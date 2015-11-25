@@ -59,7 +59,7 @@ function MultiSelectMenu (baseElement){
         return self.getSelected().getText().then(function(texts){
             self.toggle();
             return texts;
-        })
+        });
     }
 
     this.toggle = toggleMenu;
