@@ -24,5 +24,12 @@ fi
 
 echo "TEST_TYPE is $TEST_TYPE"
 
-grunt $TEST_TYPE
+( grunt $TEST_TYPE  2>&1 | tee protractor.log ) || echo "something failed.. lets check if it is important"
+## see if tests failed
+FAILURES=`cat protractor.log | grep ", 0 failures" | wc -l`
+if [  "$FAILURES" != "1" ];then
+    echo "found a failed system test"
+    exit 1
+
+fi
 
