@@ -4,6 +4,7 @@
  * @description
  * returns all network subnets
  */
+
 exports.getTree = function() {
     return element.all(by.css('.source .tree')).then(function(tree) {
         expect(tree).not.toBeUndefined();
@@ -35,7 +36,5 @@ exports.getFileTitle = function(expectedTitle) {
 };
 
 exports.getLoadingMessage = function() {
-    return element(by.css('.noPreview .empty')).getText().then(function(text) {
-        expect(text).toEqual('Generating Blueprint Source View...');
-    });
+    expect(browser.driver.findElement(by.css('.noPreview p')).getText()).toBe('Generating Blueprint Source View...');
 };

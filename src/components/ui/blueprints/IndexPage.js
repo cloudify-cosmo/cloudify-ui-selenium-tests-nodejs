@@ -7,6 +7,12 @@ exports.getBlueprints = function(){
     return element.all(by.css('.gs-table tbody'));
 };
 
+
+/**
+ * @typedef {object} BlueprintOpts
+ * @property {string} name
+ */
+
 /**
  *
  * @description returns a promise the fulfills with the first blueprint found according to opts specification.
@@ -36,8 +42,7 @@ exports.getBlueprint = function( opts, optional ){
 
 /**
  *
- * @param {object} opts
- * @param {string} opts.name
+ * @param {BlueprintOpts} opts
  * @returns {*}
  */
 exports.goToBlueprint = function( opts ){
@@ -47,6 +52,11 @@ exports.goToBlueprint = function( opts ){
     });
 };
 
+/**
+ *
+ * @param {BlueprintOpts} opts
+ * @returns {*}
+ */
 exports.createDeployment = function(opts) {
     return exports.getBlueprint(opts).then(function(blueprint){
         new common.ActionsDropdown(blueprint).clickMenuOption('Create Deployment');

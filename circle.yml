@@ -1,0 +1,16 @@
+machine:
+  node:
+    version: 0.10.40
+  environment:
+    DISPLAY: :99.0
+
+dependencies:
+  pre:  
+    - gem install sass -v 3.4.5
+    - gem install compass
+  override:
+    - npm install
+
+test:
+  override:
+    - npm test

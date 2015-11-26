@@ -22,10 +22,6 @@ exports.goToTopology = function(){
     goToSection(testConf.blueprints.sections.topology);
 };
 
-exports.goToNetwork = function(){
-    goToSection(testConf.blueprints.sections.network);
-};
-
 exports.goToNodes = function(){
     goToSection(testConf.blueprints.sections.nodes);
 };
