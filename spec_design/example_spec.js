@@ -21,15 +21,12 @@ describe('cloudify-ui', function(){
             'Blueprints Page': '/#/blueprints',
 
             'Blueprint Topology': '/#/blueprint/nodecellar1/topology',
-            'Blueprint New Topology': '/#/blueprint/nodecellar1/newtopology',
-            'Blueprint Network': '/#/blueprint/nodecellar1/network',
             'Blueprint Nodes': '/#/blueprint/nodecellar1/nodes',
             'Blueprint Source': '/#/blueprint/nodecellar1/source'
         },
         deployments: {
             'Deployments Page': '/#/deployments',
             'Deployment Topology': '/#/deployment/installed_deployment/topology',
-            'Deployment Network': '/#/deployment/installed_deployment/network',
             'Deployment Nodes': '/#/deployment/installed_deployment/nodes',
             'Deployment Executions': '/#/deployment/installed_deployment/executions',
             'Deployment Inputs Outputs': '/#/deployment/installed_deployment/inputs-outputs',
