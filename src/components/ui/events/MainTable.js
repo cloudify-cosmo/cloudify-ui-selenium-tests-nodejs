@@ -66,7 +66,8 @@ function EventsTableColumn(columnClass){
 }
 
 mainTable.timestamp = new EventsTableColumn('date');
-mainTable.logLevel= new EventsTableColumn('level');
+mainTable.logLevel = new EventsTableColumn('level');
+mainTable.eventType = new EventsTableColumn('type');
 
 
 module.exports = mainTable;
