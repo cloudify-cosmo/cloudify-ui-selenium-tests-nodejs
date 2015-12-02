@@ -130,6 +130,12 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
+    it('should show a description when hovering blueprint name', function(done) {
+        expect(element(by.css('#blueprints-index .gs-table tr td.name')).getAttribute('title')).not.toBe(null);
+        components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
+        expect(element(by.css('.content-header .breadcrumbs li span')).getAttribute('title')).not.toBe(null);
+        browser.sleep(1000).then(function(){ done(); });
+    });
 
 
 
