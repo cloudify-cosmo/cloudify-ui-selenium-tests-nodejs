@@ -397,7 +397,6 @@ describe('logs & events page', function() {
             waitingForDebounce();
 
             events.mainTable.timestamp.getValues().then(function(values){
-                logger.trace(values);
                 expect(events.mainTable.isDatesOrdered(values, false)).toBe(true);
             });
 
