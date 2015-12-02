@@ -386,7 +386,7 @@ describe('logs & events page', function() {
             waitingForDebounce();
             //sorted desc by default
             events.mainTable.timestamp.getValues().then(function(values){
-                expect(!events.mainTable.isDatesOrdered(values, true)).toBe(false);
+                expect(events.mainTable.isDatesOrdered(values, true)).toBe(true);
             });
 
             events.mainTable.timestamp.sort();
