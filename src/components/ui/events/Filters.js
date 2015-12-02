@@ -20,8 +20,8 @@ filters.deployments = new MultiSelectMenu(element(by.name('deployments')));
 filters.logLevels = new MultiSelectMenu(element(by.name('logLevels')));
 filters.eventTypes = new MultiSelectMenu(element(by.name('eventTypes')));
 
-filters.timeRange.gte = new Datepicker(element.all(by.css('[predicate=timestamp] span')).get(0));
-filters.timeRange.lte = new Datepicker(element.all(by.css('[predicate=timestamp] span')).get(1));
+filters.timeRange.gte = new Datepicker(element.all(by.css('[predicate=timestamp]>span')).get(0));
+filters.timeRange.lte = new Datepicker(element.all(by.css('[predicate=timestamp]>span')).get(1));
 
 filters.messageText.search = function(input) {
     if(!input || input === ''){

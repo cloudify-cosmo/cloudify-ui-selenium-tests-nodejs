@@ -19,6 +19,19 @@ mainTable.isEventInfoOpen = function(eventRowNum){
     return element.all(by.css('.eventsTable tbody')).get(eventRowNum).$('tr:nth-child(2n)').isPresent();
 };
 
+mainTable.getEventInfo = function(eventRowNum){
+    var eventInfoRow = element.all(by.css('.eventsTable tbody')).get(eventRowNum).$('tr:nth-child(2n)');
+    return eventInfoRow.$$('span.ng-binding').getText().then(function(texts){
+        var eventInfo = {};
+        for( var i = 0; i < texts.length; i++){
+            var infoKey = texts[i].split(':').shift();
+            var infoValue = (texts[i].split(':').slice(1)).join(':').trim();
+            eventInfo[infoKey] = infoValue;
+        }
+        return eventInfo;
+    });
+};
+
 mainTable.isDatesOrdered = function(dates, reverseOrder){
     var ordered = true;
     for(var i = 0; i<dates.length -1; i++){
