@@ -1,9 +1,11 @@
+echo "Provision TAG is "$TAG
+echo "Provision TYPE is "$TYPE
+
 set -e
 set -v
 set -x
 
-echo "Provision TAG is "$TAG
-echo "Provision TYPE is "$TYPE
+
 
 export NO_COLOR="--no-color"
 
