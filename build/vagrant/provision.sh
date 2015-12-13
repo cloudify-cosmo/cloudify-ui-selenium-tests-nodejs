@@ -2,6 +2,11 @@ set -e
 set -v
 set -x
 
+echo "$1 is "$1
+echo "$2 is "$2
+echo "$TAG is "$TAG
+echo "$TYPE is "$TYPE
+
 export NO_COLOR="--no-color"
 
 cd /vagrant
