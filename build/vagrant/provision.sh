@@ -9,7 +9,7 @@ cd /vagrant
 ./install_prereq.sh
 
 ## bootstrap
-source /etc/ENVIRONMENT_VARIABLES.sh || source synced_folder/dev/ENVIRONMENT_VARIABLES.sh || echo "no environment variables file.. skipping.. "
+source /etc/ENVIRONMENT_VARIABLES.sh || source ./synced_folder/dev/ENVIRONMENT_VARIABLES.sh || echo "no environment variables file.. skipping.. "
 sudo npm -g install cloudify-cosmo/cloudify-installer#master --ignore-scripts
 
 export INSTALL_SYSTEM_TESTS_REQ="true"
