@@ -130,7 +130,7 @@ describe('blueprints page', function(){
         browser.sleep(1000).then(function(){ done(); });
     });
 
-    it('should show a description when hovering blueprint name', function(done) {
+    it('should show a description when hovering blueprint name CFY-3645', function(done) {
         expect(element(by.css('#blueprints-index .gs-table tr td.name a')).getAttribute('title')).toEqual('This Blueprint installs the nodecellar application on an existing host.\n');
         components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
         expect(element(by.css('.content-header .breadcrumbs li span')).getAttribute('title')).toEqual('This Blueprint installs the nodecellar application on an existing host.\n');
