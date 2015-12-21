@@ -10,7 +10,7 @@ module.exports = function ActionsDropdown(base) {
         },
         getMenuOption: function(option, required ){
             // open the dropdown list
-            return base.element(by.css('[dropdown-toggle]'))
+            return base.element(by.css('[uib-dropdown-toggle]'))
                 .click()
                 .then(function(){
                     return base.all(by.css('li > button')).filter(function (el) {
