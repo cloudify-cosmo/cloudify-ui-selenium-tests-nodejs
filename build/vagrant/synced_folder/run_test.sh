@@ -10,6 +10,7 @@ sudo npm cache clean
 npm install
 
 export BROWSER_TYPE="phantomjs"
+echo "TYPE IS "$TYPE
 export PROTRACTOR_BASE_URL=http://localhost
 if [ "$TYPE" = "ssl" ];then
     echo "Switching to https"
