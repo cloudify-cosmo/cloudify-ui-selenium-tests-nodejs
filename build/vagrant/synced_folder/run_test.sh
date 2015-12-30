@@ -12,6 +12,7 @@ npm install
 export BROWSER_TYPE="phantomjs"
 export PROTRACTOR_BASE_URL=http://localhost
 if [ "$TYPE" = "ssl" ];then
+    echo "Switching to https"
     export PROTRACTOR_BASE_URL=https://localhost
 fi
 echo "export PROTRACTOR_BASE_URL=\"$PROTRACTOR_BASE_URL\"" >> /home/${USER}/.profile
