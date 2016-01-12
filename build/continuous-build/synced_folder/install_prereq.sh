@@ -8,7 +8,9 @@ set -e
 
 echo "install nvm"
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
-source ~/.nvm/nvm.sh
+source ~/.nvm/nvm.sh || . ~/.nvm/nvm.sh
+
+nvm install 0.10.35
 
 # for phantomjs https://github.com/Medium/phantomjs/issues/92
 # https://www.centos.org/forums/viewtopic.php?t=21181
