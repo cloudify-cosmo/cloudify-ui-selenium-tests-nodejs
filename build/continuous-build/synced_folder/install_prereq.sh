@@ -27,6 +27,7 @@ pushd ${PROJECT_PARENT_DIR}
     git clone ${GIT_URL} ${GIT_DEST}
     pushd ${GIT_DEST}
         nvm install &> /dev/null
+        npm install
         npm -g install guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
         create-and-push-git-tag
     popd
