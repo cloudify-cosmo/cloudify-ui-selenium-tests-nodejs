@@ -25,10 +25,15 @@ fi
 pushd ${PROJECT_PARENT_DIR}
     rm -rf ${PROJECT_NAME}
     git clone ${GIT_URL} ${GIT_DEST}
+    echo "clone finished"
     pushd ${GIT_DEST}
+        echo "installing nvm"
         nvm install &> /dev/null
+        echo "running npm install"
         npm install
+        echo "installing build helper"
         npm -g install guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
+        echo "creating tag"
         create-and-push-git-tag
     popd
 popd
