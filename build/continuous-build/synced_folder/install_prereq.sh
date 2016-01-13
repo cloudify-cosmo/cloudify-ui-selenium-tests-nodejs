@@ -30,6 +30,7 @@ pushd ${PROJECT_PARENT_DIR}
     echo "clone finished"
     pushd ${GIT_DEST}
         echo "installing nvm `which nvm`"
+        source ~/.nvm/nvm.sh || . ~/.nvm/nvm.sh
         (nvm install || echo "unable to install nvm") &> /dev/null
         echo "running npm install"
         npm install
