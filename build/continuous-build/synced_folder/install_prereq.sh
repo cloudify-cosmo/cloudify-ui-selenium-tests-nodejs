@@ -9,11 +9,7 @@ set -e
 echo "install nvm"
 
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
-
-function load_nvm(){
-    echo "loading nvm"
-    source ~/.nvm/nvm.sh || . ~/.nvm/nvm.sh
-}
+source ~/.nvm/nvm.sh || . ~/.nvm/nvm.sh
 
 
 # for phantomjs https://github.com/Medium/phantomjs/issues/92
@@ -34,9 +30,9 @@ pushd ${PROJECT_PARENT_DIR}
     echo "clone finished"
     pushd ${GIT_DEST}
         echo "installing nvm `which nvm`"
-        load_nvm
-        nvm install
-        nvm install &> /dev/null
+
+        nvm install || echo "unable to install nvm"
+        (nvm install || echo "unable to install nvm") &> /dev/null
         echo "running npm install"
         npm install
         echo "installing build helper"
