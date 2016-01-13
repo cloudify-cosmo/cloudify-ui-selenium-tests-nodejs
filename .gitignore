@@ -31,6 +31,7 @@ node_modules
 .idea
 node_modules
 dev
+build/vagrant/synced_folder/dev
 
 build/vagrant/.vagrant
 build/vagrant/util
