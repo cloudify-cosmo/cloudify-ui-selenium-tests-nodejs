@@ -1,6 +1,7 @@
+* Master [![Circle CI](https://circleci.com/gh/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/tree/master.svg?style=shield)](https://circleci.com/gh/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/tree/master)
+
 How to run with local UI for faster performance
 ````````````````````````````````````````````````
-
 1. Run 'grunt build' on the cloudify-ui project.
 
 2. Install nginx and modify it's configuration:
