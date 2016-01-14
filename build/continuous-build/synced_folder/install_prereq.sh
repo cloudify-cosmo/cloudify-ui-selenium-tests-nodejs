@@ -23,6 +23,7 @@ pushd ${PROJECT_PARENT_DIR}
     echo "clone project"
     git clone ${GIT_URL} ${GIT_DEST}
     pushd ${GIT_DEST}
+        git checkout ${BUILD_BRANCH}
         echo "install nodejs"
         ls -ll
         nvm install &> /dev/null  || echo "unable to run nvm install"

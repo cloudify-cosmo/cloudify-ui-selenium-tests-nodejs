@@ -23,7 +23,7 @@ export TEST_TYPE="$TEST_TYPE:$SUITE_NAME"
 
 
 pushd /vagrant
-    ./install_prereq.sh
+    source install_prereq.sh
 popd
 
 pushd ${GIT_DEST}
