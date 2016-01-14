@@ -5,6 +5,7 @@ set -e
 echo "read configuration"
 
 source /etc/ENVIRONMENT_VARIABLES.sh || echo "no environment variables file.. skipping.. "
+echo ${BUILD_NUMBER}
 
 source /vagrant/dev/ENVIRONMENT_VARIABLES.sh || echo "no dev environment variables file.. skipping.. "
 
