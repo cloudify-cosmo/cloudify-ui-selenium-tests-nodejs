@@ -16,7 +16,6 @@ export GIT_DEST="${PROJECT_PARENT_DIR}/${PROJECT_NAME}"
 export GIT_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/cloudify-cosmo/${PROJECT_NAME}.git"
 export NO_COLOR="--no-color"
 
-export BROWSER_TYPE="phantomjs"
 export PROTRACTOR_BASE_URL=http://localhost
 
 
