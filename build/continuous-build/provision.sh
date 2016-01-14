@@ -18,7 +18,6 @@ export NO_COLOR="--no-color"
 
 export BROWSER_TYPE="phantomjs"
 export PROTRACTOR_BASE_URL=http://localhost
-export TEST_TYPE="$TEST_TYPE:$SUITE_NAME"
 
 
 
