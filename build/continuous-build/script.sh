@@ -46,6 +46,13 @@ pushd ${VAGRANT_BASEDIR}
     popd
 popd
 
+if [ "${DEBUG_ENVIRONMENT}" = "true" ]; then
+    trap - EXIT
+    pushd ${VAGRANT_WORKDIR}
+        rm -rf .vagrant ## remove the .vagrant folder so next test won't remove the environment for debugging
+    popd
+fi
+
 #pushd ${REPORTS_BASEDIR}
 #    rm -rf reports
 #    vagrant-automation-machines-copy reports # copy from guest machine!
