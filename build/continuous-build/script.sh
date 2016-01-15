@@ -47,6 +47,7 @@ pushd ${VAGRANT_BASEDIR}
 popd
 
 if [ "${DEBUG_ENVIRONMENT}" = "true" ]; then
+    echo "keeping environment for debugging"
     trap - EXIT
     pushd ${VAGRANT_WORKDIR}
         rm -rf .vagrant ## remove the .vagrant folder so next test won't remove the environment for debugging
