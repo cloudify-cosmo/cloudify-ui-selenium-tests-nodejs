@@ -19,12 +19,20 @@ nvm install 0.10.35 # keep this in older version deliberately.
 curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
 
 ## add inline editing for config.json
-npm install -g json
+
+`which json` || npm install -g json
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.TEST_TYPE=\"${TEST_TYPE}\"" # TEST_TYPE = protract:sanity, applitools
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INSTALLER_TAG=\"${CLOUDIFY_INSTALL_TAG}\""
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INSTALLER_TYPE=\"${CLOUDIFY_INSTALLER_TYPE}\"" # ssl, security, plain
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.BROWSER_TYPE=\"${BROWSER_TYPE}\"" # phantomjs, firefox, chrome
 
+if [ "${USE_UNSTABLE_UI}" = "true" ];then
+    echo "using unstable ui url"
+    npm install -g guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
+    source get-artifacts-files
+    CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL="https://s3.amazonaws.com/cloudify-ui`get-unstable-s3-folder`/${CLOUDIFY_UI_TAR_GZ}'"
+    json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL=\"${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}\"" #
+fi
 
 chmod 600  $PEM_FILE
 
