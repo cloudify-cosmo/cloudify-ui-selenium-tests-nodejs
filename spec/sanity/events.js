@@ -13,8 +13,10 @@ describe('logs & events page', function() {
         browser.sleep(500);
     }
 
-    beforeEach(function(){
-        events.route();
+    beforeEach(function(done){
+        components.ui.LoginPage.goTo().login('admin', 'admin');
+        components.ui.layout.goToLogsEvents();
+        browser.sleep(1000).then(done);
     });
 
     it('should route to events page', function(done){
@@ -127,6 +129,7 @@ describe('logs & events page', function() {
         events.mainTable.timestamp.sort();
         events.mainTable.timestamp.sort();
         waitingForDebounce();
+        browser.sleep(1000);
 
         events.mainTable.timestamp.getValues().then(function(values){
             expect(events.mainTable.isDatesOrdered(values, false)).toBe(true);

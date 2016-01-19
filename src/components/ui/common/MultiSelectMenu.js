@@ -21,7 +21,7 @@ function MultiSelectMenu (baseElement){
     function selectDropdownOption( optionName ) {
         logger.trace('selecting dropdown by', optionName );
         self.toggle();
-        var repeater = 'option in options';
+        var repeater = 'option in filteredItems';
         filters.filterByText(base.all(by.repeater(repeater)), optionName)
             .first().click();
         self.toggle();
