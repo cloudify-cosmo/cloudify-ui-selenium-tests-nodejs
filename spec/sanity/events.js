@@ -2,8 +2,11 @@
 var components = require('../../src/components/index');
 var events = components.ui.events.page;
 var config = components.config.tests.sanity.events_spec;
+var logger = require('log4js').getLogger('events');
 
 describe('logs & events page', function() {
+
+    beforeEach(function(){ logger.info('running from ' + __filename); });
 
     //protractor fails to wait for debounce
     function waitingForDebounce(){

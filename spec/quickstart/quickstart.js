@@ -29,6 +29,9 @@ var BLUEPRINT_NAME = 'nodecellar';
 var DEPLOYMENT_NAME = BLUEPRINT_NAME;
 
 describe('quickstart', function(){
+
+    beforeEach(function(){ logger.info('running from ' + __filename); });
+
     it('step 4 - should upload nodecellar blueprint', function (done) {
         //https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.3m7.zip
         var nodecellarUrl = 'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.3m7.zip';
