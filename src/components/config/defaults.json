@@ -78,6 +78,12 @@
                 "secondDeployment": "installed_deployment2 [nodecellar1]",
                 "logLevelWithEvents": "INFO",
                 "logLevelWithoutEvents": "ERROR"
+            },
+            "hotkeys_spec": {
+                "anyBlueprint": "nodecellar1",
+                "notExistingBlueprint": "IM_NOT_A_REAL_BLUEPRINT_MUHAHAHAHA",
+                "notExecutingDeployment": "installed_deployment",
+                "executingDeployment": "hotkeys_deployment"
             }
         }
     }

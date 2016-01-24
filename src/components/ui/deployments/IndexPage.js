@@ -2,6 +2,7 @@
 
 var logger = require('log4js').getLogger('DeploymentIndexPage');
 var common = require('../common');
+var utils = require('../../Utils');
 
 exports.getDeployments = function(){
     return element.all(by.css('#deploymentTable tbody'));
@@ -146,4 +147,19 @@ exports.executeWorkflowAndWaitUntilDone = function(opts){
 
 };
 
+exports.executeWorkflowWithoutWaitingUntilDone = function(opts){
 
+    var executeWorkflowDialog = require('./ExecuteWorkflowDialog');
+    exports.route();
+    exports.executeWorkflow(opts.deployment);
+    executeWorkflowDialog.selectWorkflow(opts.workflow);
+    executeWorkflowDialog.submit();
+};
+
+exports.selectDeployment = function(indexOrName){
+    if( typeof indexOrName === "number"){
+        $$('[ng-click="select(deployment)"]').get(indexOrName).click();
+    }else {
+        utils.filters.filterByText($$('[ng-click="select(deployment)"] .id'), indexOrName).first().element(by.xpath('ancestor::tr')).click();
+    }
+};
