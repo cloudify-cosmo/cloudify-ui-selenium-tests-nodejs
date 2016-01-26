@@ -31,9 +31,12 @@ node_modules
 .idea
 node_modules
 dev
+build/vagrant/synced_folder/dev
 
 build/vagrant/.vagrant
 build/vagrant/util
 build/vagrant/aws
+build/continuous-build/aws
+build/continuous-build/util
 test_result
 test_type

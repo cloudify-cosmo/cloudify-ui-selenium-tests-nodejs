@@ -19,17 +19,15 @@ describe('cloudify-ui', function(){
         },
         blueprints: {
             'Blueprints Page': '/#/blueprints',
-
+            'Missing Blueprint': '/#/blueprint/6ada83ac689c31fc0d5ed4f1fa8b22a7/topology',
             'Blueprint Topology': '/#/blueprint/nodecellar1/topology',
-            'Blueprint New Topology': '/#/blueprint/nodecellar1/newtopology',
-            'Blueprint Network': '/#/blueprint/nodecellar1/network',
             'Blueprint Nodes': '/#/blueprint/nodecellar1/nodes',
             'Blueprint Source': '/#/blueprint/nodecellar1/source'
         },
         deployments: {
             'Deployments Page': '/#/deployments',
+            'Missing Deployment': '/#/deployment/6ada83ac689c31fc0d5ed4f1fa8b22a7/topology',
             'Deployment Topology': '/#/deployment/installed_deployment/topology',
-            'Deployment Network': '/#/deployment/installed_deployment/network',
             'Deployment Nodes': '/#/deployment/installed_deployment/nodes',
             'Deployment Executions': '/#/deployment/installed_deployment/executions',
             'Deployment Inputs Outputs': '/#/deployment/installed_deployment/inputs-outputs',

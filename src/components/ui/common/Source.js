@@ -1,11 +1,15 @@
 'use strict';
 
+
+var logger = browser.getLogger('components/Source');
+
 /**
  * @description
  * returns all network subnets
  */
 
 exports.getTree = function() {
+    logger.info('getting tree');
     return element.all(by.css('.source .tree')).then(function(tree) {
         expect(tree).not.toBeUndefined();
     });
@@ -36,5 +40,10 @@ exports.getFileTitle = function(expectedTitle) {
 };
 
 exports.getLoadingMessage = function() {
-    expect(browser.driver.findElement(by.css('.noPreview p')).getText()).toBe('Generating Blueprint Source View...');
+    //logger.info('getting loading message');
+    var locator = by.css('.noPreview p');
+    browser.driver.wait(function () {
+        return browser.driver.isElementPresent(locator);
+    }, 10000);
+    return browser.driver.findElement(locator).getText(); // use selenium API directly since we don't want angular synced here..
 };

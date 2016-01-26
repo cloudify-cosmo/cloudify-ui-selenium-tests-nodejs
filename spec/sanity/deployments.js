@@ -8,6 +8,8 @@ var testConf = components.config.tests.sanity.deployments_spec;
 
 describe('deployments page', function () {
 
+    beforeEach(function(){ logger.info('running from ' + __filename); });
+
     beforeEach(function (done) {
         //components.ui.deployments.IndexPage.beforeEach(done);
         components.ui.LoginPage.goTo().login('admin', 'admin');
