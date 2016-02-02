@@ -35,8 +35,7 @@ exports.getNode = function( nodeName ){
 
 exports.clickNode = function( nodeName ){
 
-    exports.getNode(nodeName).then(function(node) {
-        node.click();
+    return exports.getNode(nodeName).then(function(node) {
+        return node.click();
     });
-    return browser.sleep(1000);
 };
