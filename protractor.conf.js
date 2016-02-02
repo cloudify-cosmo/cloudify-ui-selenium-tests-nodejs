@@ -26,6 +26,7 @@ exports.config = {
     suites: {
         sanity: [ 'spec/normalize.js', 'spec/sanity/**' ],
         quickstart: ['spec/normalize.js', 'spec/quickstart/quickstart.js'],
+        'quickstart-cli': ['spec/normalize.js', 'spec/quickstart/quickstart-cli.js'],
         blueprints: [  'spec/normalize.js', 'spec/sanity/blueprints.js'  ],
         deployments: [  'spec/normalize.js', 'spec/sanity/deployments.js' ],
         events: [ 'spec/normalize.js', 'spec/sanity/events.js' ],
