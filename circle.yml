@@ -17,6 +17,7 @@ dependencies:
   pre:  
     - gem install sass -v 3.4.5
     - gem install compass
+    - npm install -g grunt-cli
   override:
     - npm install
 
