@@ -2,6 +2,7 @@
 
 var MultiSelectMenu = require('../common/MultiSelectMenu');
 var Datepicker = require('../common/DatePicker');
+var Input = require('../common/Input');
 var elementsFilters = require('../../Utils/Filters');
 
 var filters = {
@@ -23,14 +24,7 @@ filters.eventTypes = new MultiSelectMenu(element(by.name('eventTypes')));
 filters.timeRange.gte = new Datepicker(element.all(by.css('[predicate=timestamp]>span')).get(0));
 filters.timeRange.lte = new Datepicker(element.all(by.css('[predicate=timestamp]>span')).get(1));
 
-filters.messageText.search = function(input) {
-    if(!input || input === ''){
-        element(by.css('[ng-model="eventsFilter.messageText"]')).clear();
-    }
-    else{
-        element(by.css('[ng-model="eventsFilter.messageText"]')).sendKeys(input);
-    }
-};
+filters.messageText = new Input(element(by.css('[ng-model="eventsFilter.messageText"]')));
 
 filters.clearFilters = function(){
     element(by.css('button[data-ng-click="clearFilters()"]')).click();
