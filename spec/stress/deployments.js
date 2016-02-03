@@ -34,7 +34,7 @@ describe('deployments stress test', function () {
             res.on('end', function () {
                 defer.fulfill({headers: res.headers, body: resBody});
             });
-            res.on("data", function (chunk) {
+            res.on('data', function (chunk) {
                 //logger.trace(chunk);
                 resBody += chunk;
             });
@@ -56,11 +56,11 @@ describe('deployments stress test', function () {
     function createNewDeployment() {
         var newDeploymentName = 'new-deployment-' + new Date().getTime();
         var data = {
-            "blueprint_id": "nodecellar1",
-            "inputs": {
-                "agent_private_key_path": "agent",
-                "host_ip": "host",
-                "agent_user": "user"
+            'blueprint_id': 'nodecellar1',
+            'inputs': {
+                'agent_private_key_path': 'agent',
+                'host_ip': 'host',
+                'agent_user': 'user'
             }
         };
 
@@ -129,7 +129,7 @@ describe('deployments stress test', function () {
         }, {username: 'admin', password: 'admin'});
 
         req.then(function (res) {
-            var setcookie = res.headers["set-cookie"];
+            var setcookie = res.headers['set-cookie'];
             if (setcookie) {
                 setcookie.forEach(
                     function (cookiestr) {
@@ -151,7 +151,7 @@ describe('deployments stress test', function () {
                     break;
                 }
             }
-            if (foundExecutions.length == deployments.length) {
+            if (foundExecutions.length === deployments.length) {
                 break;
             }
         }
@@ -184,10 +184,10 @@ describe('deployments stress test', function () {
             return browser.sleep(90000);
         }).then(function () {
 
-            return flow.await(deleteDeployment(deployments[0]))
+            return flow.await(deleteDeployment(deployments[0]));
         }).then(function () {
 
-            return flow.await(deleteDeployment(deployments[1]))
+            return flow.await(deleteDeployment(deployments[1]));
         }).then(function () {
 
             return browser.sleep(10000);
@@ -213,6 +213,6 @@ describe('deployments stress test', function () {
 
         loopme();
 
-    })
+    });
 });
 
