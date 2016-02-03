@@ -317,10 +317,11 @@ describe('logs & events page', function() {
         });
 
         it('should filter by message texts', function(done){
+            var noFiltersEventsCount;
             do {
                 waitingForDebounce();
                 //getting number of events on startup
-                var noFiltersEventsCount = events.mainTable.countRows();
+                noFiltersEventsCount = events.mainTable.countRows();
             }
             while(!noFiltersEventsCount || noFiltersEventsCount === 0);
 
