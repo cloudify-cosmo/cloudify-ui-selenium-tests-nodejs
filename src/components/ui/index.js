@@ -3,5 +3,5 @@ exports.layout = require('./Layout');
 exports.blueprints = require('./blueprints');
 exports.deployments = require('./deployments');
 exports.events = require('./events');
-exports.hosts = require('./hosts');
+exports.nodes = require('./nodes');
 exports.LoginPage = require('./LoginPage');
