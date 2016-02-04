@@ -62,11 +62,20 @@ function MultiSelectMenu (baseElement){
         });
     }
 
+    function getAllOptionsText(){
+        self.toggle();
+        return base.all(by.css('li')).getText().then(function(texts){
+            self.toggle();
+            return texts;
+        })
+    }
+
     this.toggle = toggleMenu;
     this.select = selectDropdownOption;
     this.unselectAll = unselectAllDropdownOptions;
     this.getSelected = getSelectedOptions;
     this.getSelectedTexts = getSelectedOptionsText;
+    this.getOptionsTexts = getAllOptionsText;
 }
 
 
