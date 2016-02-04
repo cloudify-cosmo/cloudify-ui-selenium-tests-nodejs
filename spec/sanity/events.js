@@ -96,13 +96,13 @@ describe('logs & events page', function() {
             //Choosing a blueprint with no events
             events.filters.blueprints.select(config.blueprintWithoutEvents);
             waitingForDebounce();
-            expect(events.filters.blueprints.getSelectedTexts()).toEqual([config.blueprintWithoutEvents]);
+            expect(events.filters.blueprints.getSelectedText()).toEqual([config.blueprintWithoutEvents]);
             expect(events.mainTable.countRows()).toBe(0);
 
             //Choosing another blueprint with events
             events.filters.blueprints.select(config.blueprintWithEvents);
             waitingForDebounce();
-            var blueprints = events.filters.blueprints.getSelectedTexts();
+            var blueprints = events.filters.blueprints.getSelectedText();
             expect(blueprints).toContain(config.blueprintWithEvents);
             expect(blueprints).toContain(config.blueprintWithoutEvents);
             expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
@@ -114,12 +114,12 @@ describe('logs & events page', function() {
             //Choosing a random deployments
             events.filters.deployments.select(config.firstDeployment);
             waitingForDebounce();
-            expect(events.filters.deployments.getSelectedTexts()).toEqual([config.firstDeployment]);
+            expect(events.filters.deployments.getSelectedText()).toEqual([config.firstDeployment]);
 
             events.filters.deployments.select(config.secondDeployment);
             waitingForDebounce();
-            expect(events.filters.deployments.getSelectedTexts()).toContain(config.secondDeployment);
-            expect(events.filters.deployments.getSelectedTexts()).toContain(config.firstDeployment);
+            expect(events.filters.deployments.getSelectedText()).toContain(config.secondDeployment);
+            expect(events.filters.deployments.getSelectedText()).toContain(config.firstDeployment);
 
             browser.sleep(1000).then(done);
         });
@@ -130,14 +130,14 @@ describe('logs & events page', function() {
             //Choosing a level with no events
             events.filters.logLevels.select(config.logLevelWithoutEvents);
             waitingForDebounce();
-            expect(events.filters.logLevels.getSelectedTexts()).toEqual([config.logLevelWithoutEvents]);
+            expect(events.filters.logLevels.getSelectedText()).toEqual([config.logLevelWithoutEvents]);
             expect(events.mainTable.countRows()).toBe(0);
 
             ////Choosing another level with events
             events.filters.logLevels.select(config.logLevelWithEvents);
             waitingForDebounce();
-            expect(events.filters.logLevels.getSelectedTexts()).toContain(config.logLevelWithEvents);
-            expect(events.filters.logLevels.getSelectedTexts()).toContain(config.logLevelWithoutEvents);
+            expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithEvents);
+            expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithoutEvents);
             expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
 
             //checking events data to be all as was filtered
@@ -152,13 +152,13 @@ describe('logs & events page', function() {
             //Choosing an event type with no events
             events.filters.eventTypes.select(config.eventTypeWithoutEvents);
             waitingForDebounce();
-            expect(events.filters.eventTypes.getSelectedTexts()).toEqual([config.eventTypeWithoutEvents]);
+            expect(events.filters.eventTypes.getSelectedText()).toEqual([config.eventTypeWithoutEvents]);
             expect(events.mainTable.countRows()).toBe(0);
 
             //Choosing another event types with events
             events.filters.eventTypes.select(config.eventTypeWithEvents);
             waitingForDebounce();
-            var eventTypes = events.filters.eventTypes.getSelectedTexts();
+            var eventTypes = events.filters.eventTypes.getSelectedText();
             expect(eventTypes).toContain(config.eventTypeWithEvents);
             expect(eventTypes).toContain(config.eventTypeWithoutEvents);
             // todo: we can't assume a hard-set number of workflows started,
@@ -319,21 +319,22 @@ describe('logs & events page', function() {
         });
 
         it('should filter by message texts', function(done){
+            var noFiltersEventsCount;
             do {
                 waitingForDebounce();
                 //getting number of events on startup
-                var noFiltersEventsCount = events.mainTable.countRows();
+                noFiltersEventsCount = events.mainTable.countRows();
             }
             while(!noFiltersEventsCount || noFiltersEventsCount === 0);
 
             //A search with 6 results
-            events.filters.messageText.search('stopped');
+            events.filters.messageText.type('stopped');
             waitingForDebounce();
             // todo: don't expect a fixed number of rows here
             // other tests might have generated more events than expected
             //expect(events.mainTable.countRows()).toBe(6);
 
-            events.filters.messageText.search('');
+            events.filters.messageText.type('');
             waitingForDebounce();
             expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
 
@@ -379,9 +380,9 @@ describe('logs & events page', function() {
             browser.refresh();
 
             //check filters have right options selected
-            expect(events.filters.blueprints.getSelectedTexts()).toEqual([config.blueprintWithEvents]);
-            expect(events.filters.deployments.getSelectedTexts()).toEqual([config.firstDeployment]);
-            expect(events.filters.logLevels.getSelectedTexts()).toEqual([config.logLevelWithEvents]);
+            expect(events.filters.blueprints.getSelectedText()).toEqual([config.blueprintWithEvents]);
+            expect(events.filters.deployments.getSelectedText()).toEqual([config.firstDeployment]);
+            expect(events.filters.logLevels.getSelectedText()).toEqual([config.logLevelWithEvents]);
 
             browser.sleep(1000).then(done);
         });
