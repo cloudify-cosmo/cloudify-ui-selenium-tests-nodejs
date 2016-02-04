@@ -33,7 +33,7 @@ filters.messageText.search = function(input) {
 };
 
 filters.clearFilters = function(){
-    element(by.css('button[data-ng-click="clearFilters()"]')).click();
+    return element(by.css('button[data-ng-click="clearFilters()"]')).click();
 };
 
 filters.columnsOrganizer.toggle = function(column){

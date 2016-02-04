@@ -11,8 +11,8 @@ var logger = require('log4js').getLogger('normalize_tests');
 var chalk = require('chalk');
 chalk.enabled = true;
 
-beforeEach(function( ){
-    console.log( chalk.bold.underline.yellow('currently running :: ' +   jasmine.getEnv().currentSpec.getFullName()));
+beforeEach(function(){
+    //console.log( chalk.bold.underline.yellow('currently running :: ' +   jasmine.getEnv().currentSpec.getFullName()));
     logger.trace('waiting for page load');
     browser.manage().timeouts().pageLoadTimeout(10000);
     browser.driver.manage().window().maximize(); // we will test smaller resolutions in the future
