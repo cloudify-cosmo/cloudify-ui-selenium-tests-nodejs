@@ -9,16 +9,19 @@
  */
 var logger = require('log4js').getLogger('normalize_tests');
 var chalk = require('chalk');
+var jasmineReporters = require('jasmine-reporters');
 chalk.enabled = true;
 
+jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({
+    verbosity: 3,
+    color: true,
+    showStack: true
+}));
+
 beforeEach(function(){
-    //console.log( chalk.bold.underline.yellow('currently running :: ' +   jasmine.getEnv().currentSpec.getFullName()));
-    logger.trace('waiting for page load');
     browser.manage().timeouts().pageLoadTimeout(10000);
     browser.driver.manage().window().maximize(); // we will test smaller resolutions in the future
 });
-
-
 
 browser.getLogger = function(name){
 
@@ -50,7 +53,6 @@ browser.getLogger = function(name){
         trace : logMe('trace')
     };
 };
-
 
 var recordingSet = false;
 beforeEach(function() {
