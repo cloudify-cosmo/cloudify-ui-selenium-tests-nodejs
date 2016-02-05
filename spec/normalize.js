@@ -5,9 +5,7 @@
  *
  * When you declare a suite in protractor, include this file first to have it normalized
  */
-var chalk = require('chalk');
 var jasmineReporters = require('jasmine-reporters');
-chalk.enabled = true;
 
 jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({
     verbosity: 3,
