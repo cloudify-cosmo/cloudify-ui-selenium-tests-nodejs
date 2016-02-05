@@ -4,10 +4,7 @@
  * This file will normalize all tests
  *
  * When you declare a suite in protractor, include this file first to have it normalized
- *
- * @type {Logger}
  */
-var logger = require('log4js').getLogger('normalize_tests');
 var chalk = require('chalk');
 var jasmineReporters = require('jasmine-reporters');
 chalk.enabled = true;
