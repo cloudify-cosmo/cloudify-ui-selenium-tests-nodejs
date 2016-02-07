@@ -25,6 +25,7 @@ pushd /vagrant
 popd
 
 pushd ${GIT_DEST}
+    echo "TEST_TYPE: ${TEST_TYPE}"
     grunt ${TEST_TYPE}
 popd
 
