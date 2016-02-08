@@ -32,6 +32,14 @@ mainTable.getEventInfo = function(eventRowNum){
     });
 };
 
+mainTable.checkAllMessagesToContain = function(text) {
+    return element.all(by.css('p.task')).getText().then(function(contents){
+        contents.forEach(function(message){
+            expect(message).toMatch(text);
+        });
+    });
+};
+
 mainTable.isDatesOrdered = function(dates, reverseOrder){
     var ordered = true;
     for(var i = 0; i<dates.length -1; i++){

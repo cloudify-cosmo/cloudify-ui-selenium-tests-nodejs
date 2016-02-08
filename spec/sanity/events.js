@@ -161,10 +161,6 @@ describe('logs & events page', function() {
             var eventTypes = events.filters.eventTypes.getSelectedText();
             expect(eventTypes).toContain(config.eventTypeWithEvents);
             expect(eventTypes).toContain(config.eventTypeWithoutEvents);
-            // todo: we can't assume a hard-set number of workflows started,
-            // because previous tests might have created or deleted deployments and it's not a good idea to edit
-            // this number every time a new test comes in and influences this value
-            //expect(events.mainTable.countRows()).toBe(3);
             expect(isAllValuesEqualTo(events.mainTable.eventType.getValues,config.eventTypeWithEvents)).toBe(true);
 
             browser.sleep(1000).then(done);
@@ -330,9 +326,7 @@ describe('logs & events page', function() {
             //A search with 6 results
             events.filters.messageText.type('stopped');
             waitingForDebounce();
-            // todo: don't expect a fixed number of rows here
-            // other tests might have generated more events than expected
-            //expect(events.mainTable.countRows()).toBe(6);
+            events.mainTable.checkAllMessagesToContain('stopped');
 
             events.filters.messageText.type('');
             waitingForDebounce();
