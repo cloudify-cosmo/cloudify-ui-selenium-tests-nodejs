@@ -326,7 +326,11 @@ describe('logs & events page', function() {
             //A search with 6 results
             events.filters.messageText.type('stopped');
             waitingForDebounce();
-            events.mainTable.checkAllMessagesToContain('stopped');
+            events.mainTable.eventMessage.getValues().then(function(contents){
+                contents.forEach(function(message){
+                    expect(message).toMatch('stopped');
+                });
+            });
 
             events.filters.messageText.type('');
             waitingForDebounce();
