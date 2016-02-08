@@ -325,7 +325,7 @@ describe('logs & events page', function() {
             });
         });
 
-        fit('should filter by message texts', function(done){
+        it('should filter by message texts', function(done){
             var noFiltersEventsCount;
             do {
                 waitingForDebounce();
