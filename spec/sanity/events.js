@@ -26,6 +26,17 @@ describe('logs & events page', function() {
         return isIt;
     }
 
+    function allValuesContain(array, text) {
+        var result = true;
+        for(var i = 0; i < array.length; i++){
+            if(array[i].match(text) === null){
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     function dateToDatepickerInput(date){
         var year = date.getFullYear();
         var month = date.getMonth()+1 > 9 ? date.getMonth()+1 : '0'+(date.getMonth()+1);
@@ -314,7 +325,7 @@ describe('logs & events page', function() {
             });
         });
 
-        it('should filter by message texts', function(done){
+        fit('should filter by message texts', function(done){
             var noFiltersEventsCount;
             do {
                 waitingForDebounce();
@@ -326,10 +337,8 @@ describe('logs & events page', function() {
             //A search with 6 results
             events.filters.messageText.type('stopped');
             waitingForDebounce();
-            events.mainTable.eventMessage.getValues().then(function(contents){
-                contents.forEach(function(message){
-                    expect(message).toMatch('stopped');
-                });
+            events.mainTable.eventMessage.getValues().then(function(values){
+                expect(allValuesContain(values, 'stopped')).toBe(true);
             });
 
             events.filters.messageText.type('');
