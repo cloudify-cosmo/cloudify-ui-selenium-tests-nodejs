@@ -17,7 +17,7 @@ export GIT_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/cloudify-cosmo/${P
 export NO_COLOR="--no-color"
 
 export PROTRACTOR_BASE_URL=http://localhost
-
+echo "TEST_TYPE: ${TEST_TYPE}"
 
 
 pushd /vagrant
