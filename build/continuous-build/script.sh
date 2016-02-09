@@ -23,7 +23,7 @@ curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
 `which json` || npm install -g json
 echo "TEST_TYPE is ${TEST_TYPE}"
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.TEST_TYPE=\"${TEST_TYPE}\"" # TEST_TYPE = protract:sanity, applitools
-json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INSTALLER_TAG=\"${CLOUDIFY_INSTALL_TAG}\""
+json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INSTALLER_TAG=\"${CLOUDIFY_INSTALLER_TAG}\""
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INSTALLER_TYPE=\"${CLOUDIFY_INSTALLER_TYPE}\"" # ssl, security, plain
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.BROWSER_TYPE=\"${BROWSER_TYPE}\"" # phantomjs, firefox, chrome
 
