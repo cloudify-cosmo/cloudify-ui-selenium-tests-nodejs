@@ -18,6 +18,7 @@ export NO_COLOR="--no-color"
 
 export PROTRACTOR_BASE_URL=http://localhost
 echo "TEST_TYPE: ${TEST_TYPE}"
+echo "CLOUDIFY_INSTALLER_TAG: ${CLOUDIFY_INSTALLER_TAG}"
 
 
 pushd /vagrant
