@@ -31,7 +31,7 @@ module.exports = function TabNavigation(base) {
                 });
             });
             expect(sections.count()).toBe(1, 'section ' + sectionName + ' should exist');
-            sections.click();
+            return sections.click();
         }
     };
 };

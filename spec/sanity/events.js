@@ -12,7 +12,7 @@ describe('logs & events page', function() {
 
     //protractor fails to wait for debounce
     function waitingForDebounce(){
-        browser.sleep(500);
+        return browser.sleep(500);
     }
 
     function isAllValuesEqualTo(array, value) {
@@ -24,6 +24,17 @@ describe('logs & events page', function() {
             }
         }
         return isIt;
+    }
+
+    function allValuesContain(array, text) {
+        var result = true;
+        for(var i = 0; i < array.length; i++){
+            if(array[i].match(text) === null){
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 
     function dateToDatepickerInput(date){
@@ -38,8 +49,8 @@ describe('logs & events page', function() {
 
     /* ~~~~~~~~~ SUITE ~~~~~~~~~ */
 
-    beforeEach(function(){
-        events.route();
+    beforeEach(function(done){
+        events.route().then(done);
     });
 
     describe('On load', function(){
@@ -161,7 +172,6 @@ describe('logs & events page', function() {
             var eventTypes = events.filters.eventTypes.getSelectedText();
             expect(eventTypes).toContain(config.eventTypeWithEvents);
             expect(eventTypes).toContain(config.eventTypeWithoutEvents);
-            expect(events.mainTable.countRows()).toBe(3);
             expect(isAllValuesEqualTo(events.mainTable.eventType.getValues,config.eventTypeWithEvents)).toBe(true);
 
             browser.sleep(1000).then(done);
@@ -184,7 +194,6 @@ describe('logs & events page', function() {
                 events.filters.timeRange.gte.chooseTimestamp(1, 9, 0, false, true);
                 waitingForDebounce();
                 expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
-
                 browser.sleep(1000).then(done);
             });
 
@@ -328,7 +337,9 @@ describe('logs & events page', function() {
             //A search with 6 results
             events.filters.messageText.type('stopped');
             waitingForDebounce();
-            expect(events.mainTable.countRows()).toBe(6);
+            events.mainTable.eventMessage.getValues().then(function(values){
+                expect(allValuesContain(values, 'stopped')).toBe(true);
+            });
 
             events.filters.messageText.type('');
             waitingForDebounce();
