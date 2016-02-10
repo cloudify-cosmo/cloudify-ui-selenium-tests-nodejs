@@ -135,30 +135,30 @@ describe('logs & events page', function() {
             browser.sleep(1000).then(done);
         });
 
-        // TODO: bring this test back up
-        xit('should filter by logs levels', function(done){
-            //getting number of events on startup
-            var noFiltersEventsCount = events.mainTable.countRows();
-            //Choosing a level with no events
-            events.filters.logLevels.select(config.logLevelWithoutEvents);
-            waitingForDebounce();
-            expect(events.filters.logLevels.getSelectedText()).toEqual([config.logLevelWithoutEvents]);
-            expect(events.mainTable.countRows()).toBe(0);
-
-            ////Choosing another level with events
-            events.filters.logLevels.select(config.logLevelWithEvents);
-            waitingForDebounce();
-            expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithEvents);
-            expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithoutEvents);
-            expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
-
-            //checking events data to be all as was filtered
-            events.mainTable.logLevel.getValues().then(function(values){
-                expect(isAllValuesEqualTo(values,config.logLevelWithEvents)).toBe(true);
-            });
-
-            browser.sleep(1000).then(done);
-        });
+        // TODO: bring this test back up https://cloudifysource.atlassian.net/browse/CFY-4899
+        //it('should filter by logs levels', function(done){
+        //    //getting number of events on startup
+        //    var noFiltersEventsCount = events.mainTable.countRows();
+        //    //Choosing a level with no events
+        //    events.filters.logLevels.select(config.logLevelWithoutEvents);
+        //    waitingForDebounce();
+        //    expect(events.filters.logLevels.getSelectedText()).toEqual([config.logLevelWithoutEvents]);
+        //    expect(events.mainTable.countRows()).toBe(0);
+        //
+        //    ////Choosing another level with events
+        //    events.filters.logLevels.select(config.logLevelWithEvents);
+        //    waitingForDebounce();
+        //    expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithEvents);
+        //    expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithoutEvents);
+        //    expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
+        //
+        //    //checking events data to be all as was filtered
+        //    events.mainTable.logLevel.getValues().then(function(values){
+        //        expect(isAllValuesEqualTo(values,config.logLevelWithEvents)).toBe(true);
+        //    });
+        //
+        //    browser.sleep(1000).then(done);
+        //});
 
         it('should filter by event types', function(done){
             //Choosing an event type with no events
@@ -458,22 +458,22 @@ describe('logs & events page', function() {
             browser.sleep(1000).then(done);
         });
 
-        // TODO: bring this test back up
-        xit('should have log specific fields', function(done){
-            //making sure all items are logs
-            events.filters.logLevels.select(config.logLevelWithEvents);
-            waitingForDebounce();
-            events.mainTable.clickEvent(1);
-            events.mainTable.getEventInfo(1).then(function(eventInfo){
-                expect(Object.keys(eventInfo)).toContain('Log Timestamp');
-                expect(Object.keys(eventInfo)).toContain('Logger');
-                expect(Object.keys(eventInfo)).toContain('Log Level');
-                expect(Object.keys(eventInfo)).not.toContain('Event Timestamp');
-                expect(Object.keys(eventInfo)).not.toContain('Event Type');
-            });
-
-            browser.sleep(1000).then(done);
-        });
+        // TODO: bring this test back up https://cloudifysource.atlassian.net/browse/CFY-4899
+        //it('should have log specific fields', function(done){
+        //    //making sure all items are logs
+        //    events.filters.logLevels.select(config.logLevelWithEvents);
+        //    waitingForDebounce();
+        //    events.mainTable.clickEvent(1);
+        //    events.mainTable.getEventInfo(1).then(function(eventInfo){
+        //        expect(Object.keys(eventInfo)).toContain('Log Timestamp');
+        //        expect(Object.keys(eventInfo)).toContain('Logger');
+        //        expect(Object.keys(eventInfo)).toContain('Log Level');
+        //        expect(Object.keys(eventInfo)).not.toContain('Event Timestamp');
+        //        expect(Object.keys(eventInfo)).not.toContain('Event Type');
+        //    });
+        //
+        //    browser.sleep(1000).then(done);
+        //});
 
         it('should have event specific fields', function(done){
             //making sure all items are events
