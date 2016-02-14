@@ -27,7 +27,7 @@ popd
 
 pushd ${GIT_DEST}
     echo "TEST_TYPE: ${TEST_TYPE}"
-    if [ -n "${TEST_TYPE}"]; then
+    if [ -n "${TEST_TYPE}" ]; then
         echo "no test type was declared -failing the job."
         exit 11
     fi
