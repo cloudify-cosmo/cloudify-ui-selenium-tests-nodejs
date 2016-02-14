@@ -34,7 +34,8 @@ exports.getNode = function( nodeName ){
 };
 
 exports.clickNode = function( nodeName ){
-    return exports.getNode(nodeName).then(function(node){
+
+    return exports.getNode(nodeName).then(function(node) {
         return node.click();
     });
 };
