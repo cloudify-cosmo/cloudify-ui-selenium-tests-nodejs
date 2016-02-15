@@ -43,6 +43,7 @@ exports.getLoadingMessage = function() {
     //logger.info('getting loading message');
     var locator = by.css('.noPreview p');
     browser.driver.wait(function () {
+        console.log('waiting..');
         return browser.driver.isElementPresent(locator);
     }, 10000);
     return browser.driver.findElement(locator).getText(); // use selenium API directly since we don't want angular synced here..
