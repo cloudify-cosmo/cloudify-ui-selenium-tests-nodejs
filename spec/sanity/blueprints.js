@@ -27,7 +27,7 @@ describe('blueprints page', function(){
         });
     });
 
-    describe('source view loading message', function(){
+    describe('source view', function(){
 
         it('should have working source section', function(done) {
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
