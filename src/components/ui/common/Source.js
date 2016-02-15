@@ -39,7 +39,7 @@ exports.getFileTitle = function(expectedTitle) {
     });
 };
 
-exports.getLoadingMessage = function( expectNotEmpty ) {
+exports.getLoadingMessage = function() {
     //logger.info('getting loading message');
     var locator = by.css('.noPreview p');
     browser.driver.wait(function () {
@@ -54,7 +54,7 @@ exports.getLoadingMessage = function( expectNotEmpty ) {
             console.log('text is [' + text + ']');
             result = text;
             return text.length > 0;
-        })
+        });
     },30000);
     return browser.sleep(0).then(function(){
         return result;
