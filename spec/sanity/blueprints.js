@@ -20,7 +20,7 @@ describe('blueprints page', function(){
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
         });
 
-        xit('should have all sections', function (done) {
+        it('should have all sections', function (done) {
             components.ui.blueprints.BlueprintPage.goToNodes();
             components.ui.blueprints.BlueprintPage.goToSource();
             browser.sleep(1000).then(done);
@@ -29,7 +29,7 @@ describe('blueprints page', function(){
 
     describe('source view loading message', function(){
 
-        xit('should have working source section', function(done) {
+        it('should have working source section', function(done) {
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
             BlueprintPage.goToSource();
             BlueprintPage.Source.getTree();
@@ -62,7 +62,7 @@ describe('blueprints page', function(){
         });
     });
 
-    xdescribe('blueprints page operations', function(){
+    describe('blueprints page operations', function(){
         it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {
             logger.trace('start create deployment test');
 
@@ -143,7 +143,7 @@ describe('blueprints page', function(){
 
     });
 
-    xdescribe('topology view', function(){
+    describe('topology view', function(){
         it('should open node details panel when clicking on node in topology section', function(done) {
             logger.trace('start blueprint topology section test');
             components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
