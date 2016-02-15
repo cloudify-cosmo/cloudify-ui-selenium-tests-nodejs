@@ -29,11 +29,8 @@ describe('blueprints page', function(){
 
     describe('source view loading message', function(){
 
-        beforeEach(function () {
-            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
-        });
-
         xit('should have working source section', function(done) {
+            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
             BlueprintPage.goToSource();
             BlueprintPage.Source.getTree();
             // we should be viewing the main blueprint file:
@@ -46,7 +43,11 @@ describe('blueprints page', function(){
         });
 
         it('should have proper loading message', function(done) {
-            browser.ignoreSynchronization = true;
+            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead}).then(
+                function(){
+                    browser.ignoreSynchronization = true;
+                }
+            );
             browser.get('/#/blueprint/nodecellar1/source');
             expect(BlueprintPage.Source.getLoadingMessage( true )).toBe('Generating Blueprint Source View...');
 
