@@ -42,12 +42,9 @@ describe('blueprints page', function(){
             browser.sleep(1000).then( done );
         });
 
-        it('should have proper loading message', function(done) {
-            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead}).then(
-                function(){
-                    browser.ignoreSynchronization = true;
-                }
-            );
+        fit('should have proper loading message', function(done) {
+
+            browser.ignoreSynchronization = true;
             browser.get('/#/blueprint/nodecellar1/source');
             expect(BlueprintPage.Source.getLoadingMessage( true )).toBe('Generating Blueprint Source View...');
 
