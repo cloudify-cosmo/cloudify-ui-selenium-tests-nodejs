@@ -4,31 +4,7 @@ var logger = require('log4js').getLogger('blueprints_spec');
 var components = require('../../src/components/index');
 
 
-describe('source view loading message', function(){
-    var testConf = components.config.tests.sanity.blueprints_spec;
-    var BlueprintPage = components.ui.blueprints.BlueprintPage;
-    it('should have working source section', function(done) {
-        browser.ignoreSynchronization=true;
-        logger.trace('start blueprint source section test');
-        browser.get('/#/blueprint/nodecellar1/source');
-        //BlueprintPage.goToSource();
-        expect(BlueprintPage.Source.getLoadingMessage( true )).toBe('Generating Blueprint Source View...');
-        //BlueprintPage.Source.getTree();
-        //// we should be viewing the main blueprint file:
-        //BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
-        //BlueprintPage.Source.selectFile('README.md');
-        //BlueprintPage.Source.getFileTitle('README.md');
-        //BlueprintPage.Source.getFileContent();
-
-        browser.sleep(1000).then( done );
-    });
-
-    it('should not ignore sync', function(){
-        console.log('should not ignore',browser.ignoreSynchronization);
-    });
-});
-
-xdescribe('blueprints page', function(){
+describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
     var BlueprintPage = components.ui.blueprints.BlueprintPage;
 
@@ -38,26 +14,52 @@ xdescribe('blueprints page', function(){
         components.ui.LoginPage.goTo().login('admin', 'admin');
     });
 
-    xdescribe('blueprint view', function() {
+    describe('blueprint view', function() {
 
         beforeEach(function () {
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
         });
 
-        xit('should have all sections', function (done) {
+        it('should have all sections', function (done) {
             components.ui.blueprints.BlueprintPage.goToNodes();
             components.ui.blueprints.BlueprintPage.goToSource();
             browser.sleep(1000).then(done);
         });
     });
 
+    describe('source view loading message', function(){
 
+        beforeEach(function () {
+            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
+        });
 
+        it('should have working source section', function(done) {
+            BlueprintPage.goToSource();
+            BlueprintPage.Source.getTree();
+            // we should be viewing the main blueprint file:
+            BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
+            BlueprintPage.Source.selectFile('README.md');
+            BlueprintPage.Source.getFileTitle('README.md');
+            BlueprintPage.Source.getFileContent();
 
+            browser.sleep(1000).then( done );
+        });
 
+        it('should have proper loading message', function(done) {
+            browser.ignoreSynchronization = true;
+            BlueprintPage.goToSource();
+            expect(BlueprintPage.Source.getLoadingMessage( true )).toBe('Generating Blueprint Source View...');
 
+            browser.sleep(0).then(function(){
+                browser.ignoreSynchronization = false;
+                done();
+            });
+        });
 
-
+        it('should not ignore sync', function(){
+            expect(browser.ignoreSynchronization).toBe(false);
+        });
+    });
 
     xdescribe('blueprints page operations', function(){
         it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {
