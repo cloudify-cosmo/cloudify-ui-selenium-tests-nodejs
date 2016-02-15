@@ -31,8 +31,9 @@ pushd ${PROJECT_PARENT_DIR}
         npm install &> /dev/null
         echo "install build helper"
         npm -g install guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
-        echo "create tag"
-        create-and-push-build-tag
+        ## need to add a flag to skip this for when we debug the environment
+#        echo "create tag"
+#        create-and-push-build-tag
     popd
 popd
 
@@ -55,6 +56,5 @@ fi
 
 npm -g install cloudify-cosmo/cloudify-installer#${BUILD_BRANCH} --ignore-scripts
 export INSTALL_SYSTEM_TESTS_REQ=true
-export TAG="${BUILD_BRANCH}"
 cloudify-installer run_script -s ${CFY_VERSION}/vagrant_install_simple/script.sh
 
