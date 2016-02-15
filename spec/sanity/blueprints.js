@@ -20,7 +20,7 @@ describe('blueprints page', function(){
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
         });
 
-        it('should have all sections', function (done) {
+        xit('should have all sections', function (done) {
             components.ui.blueprints.BlueprintPage.goToNodes();
             components.ui.blueprints.BlueprintPage.goToSource();
             browser.sleep(1000).then(done);
@@ -33,7 +33,7 @@ describe('blueprints page', function(){
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
         });
 
-        it('should have working source section', function(done) {
+        xit('should have working source section', function(done) {
             BlueprintPage.goToSource();
             BlueprintPage.Source.getTree();
             // we should be viewing the main blueprint file:
