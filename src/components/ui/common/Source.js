@@ -55,7 +55,7 @@ exports.getLoadingMessage = function( expectNotEmpty ) {
             result = text;
             return text.length > 0;
         })
-    },10000);
+    },30000);
     return browser.sleep(0).then(function(){
         return result;
     });
