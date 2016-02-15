@@ -43,7 +43,6 @@ exports.getLoadingMessage = function() {
     //logger.info('getting loading message');
     var locator = by.css('.noPreview p');
     browser.driver.wait(function () {
-        console.log('waiting...');
         return browser.driver.isElementPresent(locator);
 
     }, 40000);
@@ -51,7 +50,6 @@ exports.getLoadingMessage = function() {
     var result = '';
     browser.driver.wait(function(){
         return browser.driver.findElement(locator).getText().then(function(text){
-            console.log('text is [' + text + ']');
             result = text;
             return text.length > 0;
         });

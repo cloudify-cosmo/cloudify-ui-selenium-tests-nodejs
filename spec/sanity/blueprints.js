@@ -53,10 +53,6 @@ describe('blueprints page', function(){
                 done();
             });
         });
-
-        it('should not ignore sync', function(){
-            expect(browser.ignoreSynchronization).toBe(false);
-        });
     });
 
     describe('blueprints page operations', function(){
