@@ -39,14 +39,24 @@ exports.getFileTitle = function(expectedTitle) {
     });
 };
 
-exports.getLoadingMessage = function( empty ) {
+exports.getLoadingMessage = function( expectNotEmpty ) {
     //logger.info('getting loading message');
     var locator = by.css('.noPreview p');
     browser.driver.wait(function () {
         console.log('waiting...');
-        return browser.driver.findElement(locator).isDisplayed().then(function( value ){
-            return value;
-        });
-    }, 10000);
-    return browser.driver.findElement(locator).getText(); // use selenium API directly since we don't want angular synced here..
+        return browser.driver.isElementPresent(locator);
+
+    }, 40000);
+
+    var result = '';
+    browser.driver.wait(function(){
+        return browser.driver.findElement(locator).getText().then(function(text){
+            console.log('text is [' + text + ']');
+            result = text;
+            return text.length > 0;
+        })
+    },10000);
+    return browser.sleep(0).then(function(){
+        return result;
+    });
 };
