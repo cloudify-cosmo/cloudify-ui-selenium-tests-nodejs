@@ -42,7 +42,7 @@ describe('blueprints page', function(){
             browser.sleep(1000).then( done );
         });
 
-        fit('should have proper loading message', function(done) {
+        it('should have proper loading message', function(done) {
 
             browser.ignoreSynchronization = true;
             browser.get('/#/blueprint/nodecellar1/source');
