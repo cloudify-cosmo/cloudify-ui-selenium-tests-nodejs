@@ -19,7 +19,7 @@ describe('blueprints page', function(){
             components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
         });
 
-        it('should have all sections', function (done) {
+        xit('should have all sections', function (done) {
             components.ui.blueprints.BlueprintPage.goToNodes();
             components.ui.blueprints.BlueprintPage.goToSource();
             browser.sleep(1000).then( done );
@@ -43,7 +43,7 @@ describe('blueprints page', function(){
     });
 
 
-    describe('blueprints page operations', function(){
+    xdescribe('blueprints page operations', function(){
         it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {
             logger.trace('start create deployment test');
 
@@ -124,7 +124,7 @@ describe('blueprints page', function(){
 
     });
 
-    describe('topology view', function(){
+    xdescribe('topology view', function(){
         it('should open node details panel when clicking on node in topology section', function(done) {
             logger.trace('start blueprint topology section test');
             components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
