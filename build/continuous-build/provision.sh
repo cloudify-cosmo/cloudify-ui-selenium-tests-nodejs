@@ -31,7 +31,7 @@ pushd ${GIT_DEST}
         echo "no test type was declared -failing the job."
         exit 11
     fi
-    grunt ${TEST_TYPE} -v
+    grunt ${TEST_TYPE}
 popd
 
 
