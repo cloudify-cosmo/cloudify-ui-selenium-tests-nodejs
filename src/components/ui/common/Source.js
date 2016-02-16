@@ -44,6 +44,17 @@ exports.getLoadingMessage = function() {
     var locator = by.css('.noPreview p');
     browser.driver.wait(function () {
         return browser.driver.isElementPresent(locator);
-    }, 10000);
-    return browser.driver.findElement(locator).getText(); // use selenium API directly since we don't want angular synced here..
+
+    }, 40000);
+
+    var result = '';
+    browser.driver.wait(function(){
+        return browser.driver.findElement(locator).getText().then(function(text){
+            result = text;
+            return text.length > 0;
+        });
+    },30000);
+    return browser.sleep(0).then(function(){
+        return result;
+    });
 };
