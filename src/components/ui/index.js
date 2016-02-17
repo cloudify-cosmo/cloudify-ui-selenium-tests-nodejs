@@ -5,3 +5,4 @@ exports.deployments = require('./deployments');
 exports.events = require('./events');
 exports.nodes = require('./nodes');
 exports.LoginPage = require('./LoginPage');
+exports.hotkeys = require('./hotkeys');
