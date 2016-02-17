@@ -157,7 +157,7 @@ exports.executeWorkflowWithoutWaitingUntilDone = function(opts){
 };
 
 exports.selectDeployment = function(indexOrName){
-    if( typeof indexOrName === "number"){
+    if( typeof indexOrName === 'number'){
         $$('[ng-click="select(deployment)"]').get(indexOrName).click();
     }else {
         utils.filters.filterByText($$('[ng-click="select(deployment)"] .id'), indexOrName).first().element(by.xpath('ancestor::tr')).click();

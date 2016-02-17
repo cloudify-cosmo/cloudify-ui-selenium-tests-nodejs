@@ -6,6 +6,8 @@ var config = components.config.tests.sanity.hotkeys_spec;
 
 describe('Website hotkeys', function(){
 
+    beforeEach(function(){ logger.info('running from ' + __filename); });
+
     describe('Navigation hotkeys', function(){
         var isPage = function(pageName){
             return browser.getCurrentUrl().then(function(currentUrl) {
