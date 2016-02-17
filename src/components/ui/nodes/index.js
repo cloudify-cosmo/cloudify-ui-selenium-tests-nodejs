@@ -1,10 +1,8 @@
 'use strict';
 
 exports.route = function(){
-    return browser.get('/#/logs');
+    browser.get('/#/nodes');
 };
 
 exports.filters = require('./Filters');
 exports.mainTable = require('./MainTable');
-
-

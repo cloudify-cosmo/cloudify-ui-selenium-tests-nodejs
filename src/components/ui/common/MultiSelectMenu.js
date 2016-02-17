@@ -3,7 +3,7 @@ var logger = require('log4js').getLogger('Actions');
 var filters = require('./../../Utils/Filters');
 
 
-function MultiSelectMenu (baseElement){
+function MultiSelectMenu (baseElement, isMulti){
     var base = baseElement;
     var self = this;
 
@@ -21,7 +21,7 @@ function MultiSelectMenu (baseElement){
     function selectDropdownOption( optionName ) {
         logger.trace('selecting dropdown by', optionName );
         self.toggle();
-        var repeater = 'option in options';
+        var repeater = 'option in filteredItems';
         filters.filterByText(base.all(by.repeater(repeater)), optionName)
             .first().click();
         self.toggle();
@@ -44,12 +44,16 @@ function MultiSelectMenu (baseElement){
      */
     function getSelectedOptions() {
         logger.trace('returning all selected list items');
-        self.toggle();
-        return base.all(by.css('li')).filter(function(item){
-            return item.all(by.css('input[checked=checked]')).count().then(function(count){
-                return count > 0;
+        if(isMulti === false){
+            return base.$('label t');
+        } else{
+            self.toggle();
+            return base.all(by.css('li')).filter(function(item){
+                return item.all(by.css('input[checked=checked]')).count().then(function(count){
+                    return count > 0;
+                });
             });
-        });
+        }
     }
 
     /**
@@ -57,6 +61,16 @@ function MultiSelectMenu (baseElement){
      */
     function getSelectedOptionsText() {
         return self.getSelected().getText().then(function(texts){
+            if(isMulti !== false){
+                self.toggle();
+            }
+            return texts;
+        });
+    }
+
+    function getAllOptionsText(){
+        self.toggle();
+        return base.all(by.css('li')).getText().then(function(texts){
             self.toggle();
             return texts;
         });
@@ -66,7 +80,8 @@ function MultiSelectMenu (baseElement){
     this.select = selectDropdownOption;
     this.unselectAll = unselectAllDropdownOptions;
     this.getSelected = getSelectedOptions;
-    this.getSelectedTexts = getSelectedOptionsText;
+    this.getSelectedText = getSelectedOptionsText;
+    this.getOptionsTexts = getAllOptionsText;
 }
 
 

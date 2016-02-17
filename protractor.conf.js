@@ -30,6 +30,7 @@ exports.config = {
         deployments: [  'spec/normalize.js', 'spec/sanity/deployments.js' ],
         events: [ 'spec/normalize.js', 'spec/sanity/events.js' ],
         hotkeys: [ 'spec/normalize.js', 'spec/sanity/hotkeys.js' ],
+        nodes: [ 'spec/normalize.js', 'spec/sanity/nodes.js' ],
         custom: [ 'spec/normalize.js', process.env.CFY_SPEC ]
     },
 

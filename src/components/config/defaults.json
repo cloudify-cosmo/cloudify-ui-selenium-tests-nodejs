@@ -77,7 +77,17 @@
                 "firstDeployment": "installed_deployment [nodecellar1]",
                 "secondDeployment": "installed_deployment2 [nodecellar1]",
                 "logLevelWithEvents": "INFO",
-                "logLevelWithoutEvents": "ERROR"
+                "logLevelWithoutEvents": "ERROR",
+                "eventTypeWithEvents": "Workflow started",
+                "eventTypeWithoutEvents": "policy",
+                "logLevelsOptions": ["DEBUG", "INFO", "WARNING", "ERROR", "FATAL", "CRITICAL"],
+                "eventTypesOptions": [ "policy", "Processing Trigger", "Trigger Failed", "Trigger Succeeded", "Task failed", "Task rescheduled", "Task started", "Task ended successfully", "Task sent", "Workflow Cancelled", "Workflow Event", "Workflow failed", "Workflow node event", "Workflow staged", "Workflow started", "Workflow ended successfully" ]
+            },
+            "nodes_spec": {
+                "firstBlueprint": "nodecellar1",
+                "deployedBlueprints": ["nodecellar1"],
+                "installedDeployment": "installed_deployment",
+                "computeType": "cloudify.nodes.Compute"
             },
             "hotkeys_spec": {
                 "anyBlueprint": "nodecellar1",

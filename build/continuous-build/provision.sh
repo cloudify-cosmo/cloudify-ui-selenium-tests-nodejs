@@ -17,7 +17,8 @@ export GIT_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/cloudify-cosmo/${P
 export NO_COLOR="--no-color"
 
 export PROTRACTOR_BASE_URL=http://localhost
-
+echo "TEST_TYPE: ${TEST_TYPE}"
+echo "CLOUDIFY_INSTALLER_TAG: ${CLOUDIFY_INSTALLER_TAG}"
 
 
 pushd /vagrant
@@ -25,6 +26,11 @@ pushd /vagrant
 popd
 
 pushd ${GIT_DEST}
+    echo "TEST_TYPE: ${TEST_TYPE}"
+    if [ "${TEST_TYPE}" = "" ]; then
+        echo "no test type was declared -failing the job."
+        exit 11
+    fi
     grunt ${TEST_TYPE}
 popd
 

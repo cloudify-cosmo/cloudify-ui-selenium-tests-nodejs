@@ -15,6 +15,10 @@ function goToSection( sectionName ){
     return new TabNavigation( $('[floating-blueprint-node-panel] > .properties-panel .buttons-group > .buttons-group')).goTo(sectionName);
 }
 
+exports.waitForVisibility = function() {
+    return browser.wait(protractor.ExpectedConditions.visibilityOf(element(by.css('[floating-blueprint-node-panel]'))), 5000);
+};
+
 exports.goToProperties = function() {
     return goToSection(testConf.blueprints.panel_sections.properties);
 };

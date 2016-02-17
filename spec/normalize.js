@@ -4,21 +4,19 @@
  * This file will normalize all tests
  *
  * When you declare a suite in protractor, include this file first to have it normalized
- *
- * @type {Logger}
  */
-var logger = require('log4js').getLogger('normalize_tests');
-var chalk = require('chalk');
-chalk.enabled = true;
+var jasmineReporters = require('jasmine-reporters');
 
-beforeEach(function( ){
-    console.log( chalk.bold.underline.yellow('currently running :: ' +   jasmine.getEnv().currentSpec.getFullName()));
-    logger.trace('waiting for page load');
+jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({
+    verbosity: 3,
+    color: true,
+    showStack: true
+}));
+
+beforeEach(function(){
     browser.manage().timeouts().pageLoadTimeout(10000);
     browser.driver.manage().window().maximize(); // we will test smaller resolutions in the future
 });
-
-
 
 browser.getLogger = function(name){
 
@@ -50,7 +48,6 @@ browser.getLogger = function(name){
         trace : logMe('trace')
     };
 };
-
 
 var recordingSet = false;
 beforeEach(function() {
