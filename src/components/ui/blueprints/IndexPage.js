@@ -103,3 +103,7 @@ exports.deleteBlueprint = function(opts) {
         return element(by.css('[ng-click="confirmDelete()"]')).click();
     });
 };
+
+exports.selectBlueprint = function(index){
+  $$('[ng-click="select(blueprint)"]').get(index).click();
+};

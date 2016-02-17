@@ -3,6 +3,7 @@
 var logger = require('log4js').getLogger('blueprints_spec');
 var components = require('../../src/components/index');
 
+
 describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
     var BlueprintPage = components.ui.blueprints.BlueprintPage;
@@ -13,23 +14,24 @@ describe('blueprints page', function(){
         components.ui.LoginPage.goTo().login('admin', 'admin');
     });
 
-    describe('blueprint view', function(){
+    describe('blueprint view', function() {
 
-        beforeEach(function(){
-            components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead });
+        beforeEach(function () {
+            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
         });
 
         it('should have all sections', function (done) {
             components.ui.blueprints.BlueprintPage.goToNodes();
             components.ui.blueprints.BlueprintPage.goToSource();
-            browser.sleep(1000).then( done );
+            browser.sleep(1000).then(done);
         });
+    });
+
+    describe('source view', function(){
 
         it('should have working source section', function(done) {
-
-            logger.trace('start blueprint source section test');
+            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
             BlueprintPage.goToSource();
-            expect(BlueprintPage.Source.getLoadingMessage()).toBe('Generating Blueprint Source View...');
             BlueprintPage.Source.getTree();
             // we should be viewing the main blueprint file:
             BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
@@ -40,8 +42,18 @@ describe('blueprints page', function(){
             browser.sleep(1000).then( done );
         });
 
-    });
+        it('should have proper loading message', function(done) {
 
+            browser.ignoreSynchronization = true;
+            browser.get('/#/blueprint/nodecellar1/source');
+            expect(BlueprintPage.Source.getLoadingMessage()).toBe('Generating Blueprint Source View...');
+
+            browser.sleep(0).then(function(){
+                browser.ignoreSynchronization = false;
+                done();
+            });
+        });
+    });
 
     describe('blueprints page operations', function(){
         it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {
@@ -130,6 +142,7 @@ describe('blueprints page', function(){
             components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.blueprintToRead});
             components.ui.blueprints.BlueprintPage.goToTopology();
             components.ui.blueprints.BlueprintPage.Topology.clickNode(testConf.blueprints.nodeToClick);
+            components.ui.blueprints.BlueprintPage.PropertiesPanel.waitForVisibility();
             components.ui.blueprints.BlueprintPage.PropertiesPanel.goToProperties();
             components.ui.blueprints.BlueprintPage.PropertiesPanel.goToRelationships();
             components.ui.blueprints.BlueprintPage.PropertiesPanel.close();

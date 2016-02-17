@@ -1,5 +1,4 @@
 'use strict';
-var logger = require('log4js').getLogger('Actions');
 var filters = require('./../../Utils/Filters');
 
 
@@ -20,10 +19,10 @@ function Datepicker (baseElement){
      */
     function typeTimestamp(timestamp){
         if(!timestamp || timestamp === ''){
-            datepickerInput.clear();
+            return datepickerInput.clear();
         }
         else{
-            datepickerInput.sendKeys(timestamp);
+            return datepickerInput.sendKeys(timestamp);
         }
     }
 
@@ -92,7 +91,7 @@ function Datepicker (baseElement){
             minutes = hour;
         }
         var minutesElement = filters.filterByText(datepickerWrapper.$$('table tbody tr td span'), minutes);
-        minutesElement.click();
+        return minutesElement.click();
     }
 
     /**
