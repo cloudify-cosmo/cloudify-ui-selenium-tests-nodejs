@@ -33,7 +33,7 @@ if [ "${USE_UNSTABLE_UI}" = "true" ];then
     source get-artifacts-files
     CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL="https://s3.amazonaws.com/cloudify-ui/`PROJECT_NAME=cloudify-ui get-unstable-s3-folder`/${CLOUDIFY_UI_TAR_GZ}'"
     echo "using custom ui url ${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}"
-    json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL=\"${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}\"" #
+    json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL=\"${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}\"" #
 fi
 
 chmod 600  $PEM_FILE
