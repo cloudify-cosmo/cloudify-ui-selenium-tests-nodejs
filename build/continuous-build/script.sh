@@ -31,9 +31,9 @@ if [ "${USE_UNSTABLE_UI}" = "true" ];then
     echo "using unstable ui url"
     npm install -g guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
     source get-artifacts-files
-    CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL="https://s3.amazonaws.com/cloudify-ui/`PROJECT_NAME=cloudify-ui get-unstable-s3-folder`/${CLOUDIFY_UI_TAR_GZ}'"
-    echo "using custom ui url ${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}"
-    json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL=\"${CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL}\"" #
+    CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL="https://s3.amazonaws.com/cloudify-ui/`PROJECT_NAME=cloudify-ui get-unstable-s3-folder`/${CLOUDIFY_UI_TAR_GZ}'"
+    echo "using custom ui url ${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}"
+    json -I -f ${CONFIG_FILE} -e "this.environmentVariables.CLOUDIFY_INTALLER_INPUT_WEBUI_SOURCE_URL=\"${CLOUDIFY_INSTALLER_INPUT_WEBUI_SOURCE_URL}\"" #
 fi
 
 chmod 600  $PEM_FILE
