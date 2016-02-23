@@ -15,7 +15,7 @@
 
 module.exports = {
     getViews: function () {
-        return element.all(by.css('#left-side-menu li a'));
+        return element.all(by.css('.navbar li a'));
     },
     goTo: function (viewName) {
         var views = this.getViews().filter(function (view) {

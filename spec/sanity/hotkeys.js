@@ -8,7 +8,8 @@ describe('Website hotkeys', function(){
 
     beforeEach(function(){ logger.info('running from ' + __filename); });
 
-    describe('Navigation hotkeys', function(){
+    //TODO Phantomjs doesn't seem to send thoes keys so it doesn't work while it does on chrome :/ https://cloudifysource.atlassian.net/browse/CFY-4962
+    xdescribe('Navigation hotkeys', function(){
         var isPage = function(pageName){
             return browser.getCurrentUrl().then(function(currentUrl) {
                 return currentUrl.indexOf('/'+pageName) !== -1;
