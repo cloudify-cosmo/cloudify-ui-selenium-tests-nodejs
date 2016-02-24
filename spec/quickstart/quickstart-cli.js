@@ -1,6 +1,9 @@
 /**
  * Created by krzysztof on 01.02.16.
  */
+
+'use strict';
+
 var logger = require('log4js').getLogger('CLI');
 var SSH = require('simple-ssh');
 var fs = require('fs');
@@ -12,9 +15,9 @@ describe('CLI test', function () {
     var deploymentName = 'nodecellar';
     var stdOptions = {
         out: function (result) {
-            console.log('Out: ' + result);
+            logger.trace('Out: ' + result);
         }, exit: function (code, out, err) {
-            console.log('Exit: ' + code + ' ' + out + 'err: ' + err);
+            logger.trace('Exit: ' + code + ' ' + out + 'err: ' + err);
         }
     };
     var ssh;
@@ -52,7 +55,7 @@ describe('CLI test', function () {
         ssh = createSSH('/home/vagrant/cloudify/blueprints/cloudify-nodecellar-example');
         ssh.exec('git checkout tags/3.2.1', {
             out: stdOptions.out,
-            exit: function(code, out, err){
+            exit: function (code, out, err) {
                 stdOptions.exit(code, out, err);
                 done();
             }
@@ -98,7 +101,7 @@ describe('CLI test', function () {
             out: stdOptions.out,
             exit: function (code, out, err) {
                 stdOptions.exit(code, out, err);
-                expect(out).toMatch('Finished executing workflow \'uninstall\' on deployment \''+ deploymentName + '\'');
+                expect(out).toMatch('Finished executing workflow \'uninstall\' on deployment \'' + deploymentName + '\'');
             }
         }).exec('bin/cfy deployments delete -d ' + deploymentName, {
             out: stdOptions.out,
