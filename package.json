@@ -20,7 +20,8 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-mocha-test": "^0.12.7",
     "jasmine-reporters": "~2.1.0",
-    "eyes.protractor": "0.0.38"
+    "eyes.protractor": "0.0.38",
+    "simple-ssh": "0.8.8"
   },
   "scripts": {
     "install": "node ./node_modules/protractor/bin/webdriver-manager update"

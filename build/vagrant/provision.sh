@@ -15,4 +15,4 @@ sudo npm -g install cloudify-cosmo/cloudify-installer#master --ignore-scripts
 export INSTALL_SYSTEM_TESTS_REQ="true"
 cloudify-installer run_script -s 3.3.0/vagrant_install_simple/script.sh
 
-#./run_test.sh
+./run_test.sh
