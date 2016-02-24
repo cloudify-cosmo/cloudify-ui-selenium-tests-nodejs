@@ -9,41 +9,41 @@ describe('Website hotkeys', function(){
     beforeEach(function(){ logger.info('running from ' + __filename); });
 
     //TODO Phantomjs doesn't seem to send thoes keys so it doesn't work while it does on chrome :/ https://cloudifysource.atlassian.net/browse/CFY-4962
-    xdescribe('Navigation hotkeys', function(){
-        var isPage = function(pageName){
-            return browser.getCurrentUrl().then(function(currentUrl) {
-                return currentUrl.indexOf('/'+pageName) !== -1;
-            });
-        };
-
-        beforeEach(function(){
-            browser.get('/#/blueprints');
-            browser.waitForAngular();
-        });
-
-        it('should navigate to blueprints', function(){
-            browser.get('/#/deployments');
-            browser.waitForAngular();
-
-            hotkeys.Navigations.blueprints();
-            expect(isPage('blueprints')).toBe(true);
-        });
-
-        it('should navigate to deployments', function(){
-            hotkeys.Navigations.deployments();
-            expect(isPage('deployments')).toBe(true);
-        });
-
-        it('should navigate to logs & events', function(){
-            hotkeys.Navigations.logs();
-            expect(isPage('logs')).toBe(true);
-        });
-
-        it('should navigate to nodes', function(){
-            hotkeys.Navigations.nodes();
-            expect(isPage('nodes')).toBe(true);
-        });
-    });
+    //describe('Navigation hotkeys', function(){
+    //    var isPage = function(pageName){
+    //        return browser.getCurrentUrl().then(function(currentUrl) {
+    //            return currentUrl.indexOf('/'+pageName) !== -1;
+    //        });
+    //    };
+    //
+    //    beforeEach(function(){
+    //        browser.get('/#/blueprints');
+    //        browser.waitForAngular();
+    //    });
+    //
+    //    it('should navigate to blueprints', function(){
+    //        browser.get('/#/deployments');
+    //        browser.waitForAngular();
+    //
+    //        hotkeys.Navigations.blueprints();
+    //        expect(isPage('blueprints')).toBe(true);
+    //    });
+    //
+    //    it('should navigate to deployments', function(){
+    //        hotkeys.Navigations.deployments();
+    //        expect(isPage('deployments')).toBe(true);
+    //    });
+    //
+    //    it('should navigate to logs & events', function(){
+    //        hotkeys.Navigations.logs();
+    //        expect(isPage('logs')).toBe(true);
+    //    });
+    //
+    //    it('should navigate to nodes', function(){
+    //        hotkeys.Navigations.nodes();
+    //        expect(isPage('nodes')).toBe(true);
+    //    });
+    //});
 
     describe('Upload blueprint', function(){
         describe('blueprint index', function(){
