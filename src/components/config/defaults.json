@@ -95,6 +95,9 @@
                 "notExecutingDeployment": "installed_deployment",
                 "executingDeployment": "hotkeys_deployment"
             }
+        },
+        "quickstart": {
+            "deploymentName": "nodecellar"
         }
     }
 }
