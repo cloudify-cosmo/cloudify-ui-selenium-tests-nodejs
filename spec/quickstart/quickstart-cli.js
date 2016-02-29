@@ -16,7 +16,7 @@ describe('CLI test', function () {
     var stdOptions;
     var createSSH;
 
-    beforeAll(function () {
+    beforeAll(function (done) {
 
         stdOptions = {
             out: function (result) {
@@ -40,29 +40,26 @@ describe('CLI test', function () {
                 }
             );
         };
-    });
 
-    it('should clone nodecellar from repo', function (done) {
         createSSH('/home/vagrant/cloudify').exec('git clone https://github.com/cloudify-cosmo/cloudify-nodecellar-example blueprints/cloudify-nodecellar-example',
             {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
                     browser.sleep(1000);
-                    done();
-                }
-            }).start();
-    });
 
-    it('should checkout 3.2.1', function (done) {
-        createSSH('/home/vagrant/cloudify/blueprints/cloudify-nodecellar-example')
-            .exec('git checkout tags/3.2.1', {
-                out: stdOptions.out,
-                exit: function (code, out, err) {
-                    stdOptions.exit(code, out, err);
-                    done();
+                    createSSH('/home/vagrant/cloudify/blueprints/cloudify-nodecellar-example')
+                        .exec('git checkout tags/3.2.1', {
+                            out: stdOptions.out,
+                            exit: function (code, out, err) {
+                                stdOptions.exit(code, out, err);
+                                done();
+                            }
+                        }).start();
+
                 }
             }).start();
+
     });
 
     it('should upload blueprint, create and install a deployment', function (done) {
@@ -84,8 +81,8 @@ describe('CLI test', function () {
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
                     expect(out).toMatch('Finished executing workflow \'install\' on deployment \'' + config.tests.quickstart.deploymentName + '\'');
-                    browser.sleep(5000);
-                    done();
+                    // sleep, otherwise it will exit the test without executing the expect
+                    browser.sleep(0).then(done);
                 }
             }).start();
     });
@@ -94,7 +91,7 @@ describe('CLI test', function () {
         browser.get('http://10.10.1.10:8080/');
         browser.findElement(By.tagName('h1')).then(function (b) {
             expect(b.isDisplayed()).toBe(true);
-            done();
+            browser.sleep(0).then(done);
         });
     });
 
@@ -117,7 +114,7 @@ describe('CLI test', function () {
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
                     expect(out).toMatch('teardown complete');
-                    browser.sleep(1000).then(done);
+                    browser.sleep(0).then(done);
                 }
             }).start();
     });
