@@ -12,9 +12,6 @@ source /vagrant/dev/ENVIRONMENT_VARIABLES.sh || echo "no dev environment variabl
 export GITHUB_USERNAME=$1
 export GITHUB_PASSWORD=$2
 
-#TODO: remove this:
-echo "GITHUB_USERNAME issssssss =====>>>>>>>>>>"$GITHUB_USERNAME
-
 echo "define variables"
 export REPORTS_BASE=`echo ~`/reports
 export PROJECT_NAME="cloudify-ui-selenium-tests-nodejs"
