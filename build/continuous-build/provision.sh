@@ -17,7 +17,7 @@ export REPORTS_BASE=`echo ~`/reports
 export PROJECT_NAME="cloudify-ui-selenium-tests-nodejs"
 export PROJECT_PARENT_DIR="`pwd`"
 export GIT_DEST="${PROJECT_PARENT_DIR}/${PROJECT_NAME}"
-export GIT_URL="https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/cloudify-cosmo/${PROJECT_NAME}.git"
+export GIT_URL="https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/cloudify-cosmo/${PROJECT_NAME}.git"
 export NO_COLOR="--no-color"
 
 export PROTRACTOR_BASE_URL=http://localhost
