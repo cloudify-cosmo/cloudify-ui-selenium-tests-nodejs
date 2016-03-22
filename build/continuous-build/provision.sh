@@ -8,12 +8,19 @@ source /etc/ENVIRONMENT_VARIABLES.sh || echo "no environment variables file.. sk
 
 source /vagrant/dev/ENVIRONMENT_VARIABLES.sh || echo "no dev environment variables file.. skipping.. "
 
+# Declaring credentials variables passed through vagrant args feature
+export GITHUB_USERNAME=$1
+export GITHUB_PASSWORD=$2
+
+#TODO: remove this:
+echo "GITHUB_USERNAME issssssss =====>>>>>>>>>>"$GITHUB_USERNAME
+
 echo "define variables"
 export REPORTS_BASE=`echo ~`/reports
 export PROJECT_NAME="cloudify-ui-selenium-tests-nodejs"
 export PROJECT_PARENT_DIR="`pwd`"
 export GIT_DEST="${PROJECT_PARENT_DIR}/${PROJECT_NAME}"
-export GIT_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/cloudify-cosmo/${PROJECT_NAME}.git"
+export GIT_URL="https://$GITHUB_USER:$GITHUB_PASSWORD@github.com/cloudify-cosmo/${PROJECT_NAME}.git"
 export NO_COLOR="--no-color"
 
 export PROTRACTOR_BASE_URL=http://localhost
