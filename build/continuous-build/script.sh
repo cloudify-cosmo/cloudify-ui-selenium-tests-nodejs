@@ -49,7 +49,7 @@ function cleanup(){
 trap cleanup EXIT
 
 pushd ${VAGRANT_BASEDIR}
-    vagrant-automation-machines-setup --cloud aws --args GITHUB_USERNAME GITHUB_PASSWORD
+    vagrant-automation-machines-setup --cloud aws --args GITHUB_USERNAME GITHUB_PASSWORD --locals S3_ACCESS_KEY S3_SECRET_KEY
     cleanup || echo "no need to teardown the machine because it was not running"
     pushd ${VAGRANT_WORKDIR}
         vagrant up --provider=aws
