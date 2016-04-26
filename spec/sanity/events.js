@@ -450,10 +450,10 @@ describe('logs & events page', function() {
             events.mainTable.clickEvent(1);
             expect(events.mainTable.isEventInfoOpen(1)).toBe(false);
 
-            events.mainTable.clickEvent(4);
-            expect(events.mainTable.isEventInfoOpen(4)).toBe(true);
-            events.mainTable.clickEvent(4);
-            expect(events.mainTable.isEventInfoOpen(4)).toBe(false);
+            events.mainTable.clickEvent(2);
+            expect(events.mainTable.isEventInfoOpen(2)).toBe(true);
+            events.mainTable.clickEvent(2);
+            expect(events.mainTable.isEventInfoOpen(2)).toBe(false);
 
             browser.sleep(1000).then(done);
         });
