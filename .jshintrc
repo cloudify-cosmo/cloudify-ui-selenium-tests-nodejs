@@ -23,6 +23,7 @@
         "beforeEach" : false,
         "beforeAll": false,
         "afterEach" : false,
+        "afterAll" : false,
         "it" : false,
         "element" : false,
         "by" : false,
