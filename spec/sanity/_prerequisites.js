@@ -9,19 +9,15 @@ var configEvents = components.config.tests.sanity.events_spec;
 var configHotkeys = components.config.tests.sanity.hotkeys_spec;
 
 function addBlueprint(blueprintId) {
-    var blueprint = {
-        getFormat: {name: blueprintId},
-        uploadFormat: {
-            blueprint_id: blueprintId,
-            blueprint_filename: 'simple-blueprint.yaml',
-            blueprint_location: 'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip'
-        }
-    };
     components.ui.layout.goToBlueprints();
-    components.ui.blueprints.IndexPage.getBlueprint(blueprint.getFormat, true).then(function(blue) {
+    components.ui.blueprints.IndexPage.getBlueprint({name: blueprintId}, true).then(function(blue) {
         if (!blue) {
             components.ui.blueprints.IndexPage.clickUploadBlueprint();
-            components.ui.blueprints.UploadBlueprintDialog.setDetails(blueprint.uploadFormat);
+            components.ui.blueprints.UploadBlueprintDialog.setDetails({
+                blueprint_id: blueprintId,
+                blueprint_filename: 'simple-blueprint.yaml',
+                blueprint_location: 'https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/master.zip'
+            });
             components.ui.blueprints.UploadBlueprintDialog.submit();
         }
     });
