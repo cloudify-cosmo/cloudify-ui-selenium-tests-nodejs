@@ -49,8 +49,8 @@ describe('logs & events page', function() {
 
     /* ~~~~~~~~~ SUITE ~~~~~~~~~ */
 
-    beforeEach(function(done){
-        events.route().then(done);
+    beforeEach(function(){
+        events.route();
     });
 
     describe('On load', function(){

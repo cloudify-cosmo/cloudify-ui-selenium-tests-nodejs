@@ -1,7 +1,8 @@
 'use strict';
 
 exports.route = function(){
-    return browser.get('/#/logs');
+    browser.get('/#/logs');
+    browser.waitForAngular();
 };
 
 exports.filters = require('./Filters');

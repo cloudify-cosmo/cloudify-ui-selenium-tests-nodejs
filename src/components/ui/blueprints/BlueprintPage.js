@@ -19,13 +19,13 @@ function goToSection( sectionName ){
 }
 
 exports.goToTopology = function(){
-    goToSection(testConf.blueprints.sections.topology);
+    goToSection(testConf.blueprints.sections.topology.name);
 };
 
 exports.goToNodes = function(){
-    goToSection(testConf.blueprints.sections.nodes);
+    goToSection(testConf.blueprints.sections.nodes.name);
 };
 
 exports.goToSource = function(){
-    goToSection(testConf.blueprints.sections.source);
+    goToSection(testConf.blueprints.sections.source.name);
 };

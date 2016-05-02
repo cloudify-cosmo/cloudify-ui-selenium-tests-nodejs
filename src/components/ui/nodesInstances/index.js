@@ -1,7 +1,8 @@
 'use strict';
 
 exports.route = function(){
-    browser.get('/#/node-instances');
+    browser.get('/#/nodes-instances');
+    browser.waitForAngular();
 };
 
 exports.filters = require('./Filters');

@@ -91,27 +91,27 @@ function goToSection(sectionName) {
 }
 
 exports.goToTopology = function () {
-    goToSection(testConf.deployment.sections.topology);
+    goToSection(testConf.deployment.sections.topology.name);
 };
 
 exports.goToNodes = function () {
-    goToSection(testConf.deployment.sections.nodes);
+    goToSection(testConf.deployment.sections.nodes.name);
 };
 
 exports.goToExecutions = function () {
-    goToSection(testConf.deployment.sections.executions);
+    goToSection(testConf.deployment.sections.executions.name);
 };
 
 exports.goToInputsOutputs = function () {
-    goToSection(testConf.deployment.sections.inputs_outputs);
+    goToSection(testConf.deployment.sections.inputs_outputs.name);
 };
 
 exports.goToSource = function () {
-    goToSection(testConf.deployment.sections.source);
+    goToSection(testConf.deployment.sections.source.name);
 };
 
 exports.goToMonitoring = function () {
-    goToSection(testConf.deployment.sections.monitoring);
+    goToSection(testConf.deployment.sections.monitoring.name);
 };
 
 
