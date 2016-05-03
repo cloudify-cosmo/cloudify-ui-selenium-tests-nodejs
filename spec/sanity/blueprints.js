@@ -20,41 +20,41 @@ describe('blueprints page', function(){
             components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
         });
 
-        it('should have all sections', function (done) {
-            components.ui.blueprints.BlueprintPage.goToNodes();
-            components.ui.blueprints.BlueprintPage.goToSource();
-            browser.sleep(1000).then(done);
-        });
+        //it('should have all sections', function (done) {
+        //    components.ui.blueprints.BlueprintPage.goToNodes();
+        //    components.ui.blueprints.BlueprintPage.goToSource();
+        //    browser.sleep(1000).then(done);
+        //});
     });
 
     describe('source view', function(){
 
-        it('should have working source section', function(done) {
-            components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
-            BlueprintPage.goToSource();
-            BlueprintPage.Source.getTree();
-            // we should be viewing the main blueprint file:
-            BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
-            BlueprintPage.Source.selectFile('README.md');
-            BlueprintPage.Source.getFileTitle('README.md');
-            BlueprintPage.Source.getFileContent();
-
-            browser.sleep(1000).then( done );
-        });
-
-        it('should have proper loading message', function(done) {
-
-            browser.get('/#/blueprint/nodecellar1/source');
-            browser.ignoreSynchronization = true;
-            BlueprintPage.Source.getLoadingMessage().then(function(result) {
-                expect(result).toBe('Generating Blueprint Source View...');
-            });
-
-            browser.sleep(0).then(function(){
-                browser.ignoreSynchronization = false;
-                done();
-            });
-        });
+        //it('should have working source section', function(done) {
+        //    components.ui.blueprints.IndexPage.goToBlueprint({'name': testConf.blueprints.blueprintToRead});
+        //    BlueprintPage.goToSource();
+        //    BlueprintPage.Source.getTree();
+        //    // we should be viewing the main blueprint file:
+        //    BlueprintPage.Source.getFileTitle('simple-blueprint.yaml');
+        //    BlueprintPage.Source.selectFile('README.md');
+        //    BlueprintPage.Source.getFileTitle('README.md');
+        //    BlueprintPage.Source.getFileContent();
+        //
+        //    browser.sleep(1000).then( done );
+        //});
+        //
+        //it('should have proper loading message', function(done) {
+        //
+        //    browser.get('/#/blueprint/nodecellar1/source');
+        //    browser.ignoreSynchronization = true;
+        //    BlueprintPage.Source.getLoadingMessage().then(function(result) {
+        //        expect(result).toBe('Generating Blueprint Source View...');
+        //    });
+        //
+        //    browser.sleep(0).then(function(){
+        //        browser.ignoreSynchronization = false;
+        //        done();
+        //    });
+        //});
     });
 
     describe('blueprints page operations', function(){
