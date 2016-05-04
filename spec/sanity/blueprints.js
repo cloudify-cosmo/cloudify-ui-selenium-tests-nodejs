@@ -103,7 +103,7 @@ describe('blueprints page', function(){
             logger.trace('start create deployment with default button test');
 
             components.ui.blueprints.IndexPage.createDeploymentWithDefaultBtn({'name' : testConf.blueprints.blueprintToDeploy});
-            expect(element(by.css('#deployDialogContainer')).isPresent()).toBe(true);
+            expect(element(by.css('#deployBlueprintDialog')).isPresent()).toBe(true);
 
             browser.sleep(500).then(function(){ done(); });
         });
