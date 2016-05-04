@@ -128,7 +128,7 @@ describe('Website hotkeys', function(){
                     components.ui.deployments.IndexPage.selectDeployment(0);
                     hotkeys.DeploymentActions.execute();
 
-                    expect($('.start-execution-dialog').isPresent()).toBe(true);
+                    expect($('#startExecutionDialog').isPresent()).toBe(true);
                 });
 
                 it('should open delete dialog', function(){
@@ -147,7 +147,7 @@ describe('Website hotkeys', function(){
 
                 it('should open execute dialog', function(){
                     hotkeys.DeploymentActions.execute();
-                    expect($('.start-execution-dialog').isPresent()).toBe(true);
+                    expect($('#startExecutionDialog').isPresent()).toBe(true);
                 });
 
 
