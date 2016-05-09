@@ -94,6 +94,31 @@
                 "notExistingBlueprint": "IM_NOT_A_REAL_BLUEPRINT_MUHAHAHAHA",
                 "notExecutingDeployment": "installed_deployment",
                 "executingDeployment": "hotkeys_deployment"
+            },
+            "maintenance_spec": {
+                "page":{
+                    "status":{
+                        "deactivated": "deactivated",
+                        "activating": "activating",
+                        "activated": "activated"
+                    },
+                    "button": {
+                        "activated": "Deactivate Maintenance Mode",
+                        "deactivated": "Activate Maintenance Mode"
+                    }
+                },
+                "dialog": {
+                    "title": {
+                        "activated": "Deactivate Maintenance Mode",
+                        "deactivated": "Activate Maintenance Mode"
+                    }
+                },
+                "message": {
+                    "activating": "Cloudify is undergoing maintenance, some operations may not be available",
+                    "activated": "Cloudify is undergoing maintenance and will be available again shortly"
+                }
+
+
             }
         },
         "quickstart": {
