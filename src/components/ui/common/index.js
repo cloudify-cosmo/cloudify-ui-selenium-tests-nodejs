@@ -9,4 +9,5 @@ exports.PropertiesPanel = require('./PropertiesPanel');
 exports.ActionsDropdown = require('./ActionsDropdown');
 exports.Input = require('./Input');
 exports.Dialog = require('./Dialog');
+exports.IndexTable = require('./IndexTable');
 exports.Filters = require('./../../Utils/Filters');

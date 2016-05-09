@@ -77,7 +77,7 @@ exports.executeWorkflow = function(opts) {
 
 exports.route = function(){
     browser.get('/#/deployments');
-    browser.sleep(3000);
+    browser.waitForAngular();
 };
 
 
@@ -163,3 +163,5 @@ exports.selectDeployment = function(indexOrName){
         utils.filters.filterByText($$('[ng-click="select(deployment)"] .id'), indexOrName).first().element(by.xpath('ancestor::tr')).click();
     }
 };
+
+exports.getSelectedDeploymentIndex = common.IndexTable.getSelectedItemIndex;

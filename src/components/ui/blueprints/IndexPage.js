@@ -107,3 +107,10 @@ exports.deleteBlueprint = function(opts) {
 exports.selectBlueprint = function(index){
   $$('[ng-click="select(blueprint)"]').get(index).click();
 };
+
+exports.route = function(){
+    browser.get('/#/blueprints');
+    browser.waitForAngular();
+};
+
+exports.getSelectedBlueprintIndex = common.IndexTable.getSelectedItemIndex;

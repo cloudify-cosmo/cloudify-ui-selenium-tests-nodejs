@@ -9,7 +9,7 @@
  * @returns {promise}
  */
 exports.setName = function(name) {
-    return element(by.model('deployment_id')).sendKeys(name);
+    return element(by.model('$parent.deployment_id')).sendKeys(name);
 };
 
 /** Click on 'Raw' tab on create deployment dialog

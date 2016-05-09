@@ -24,10 +24,18 @@
                     "blueprintToDeploy": "nodecellar1",
                     "nodeToClick": "mongod",
                     "sections": {
-                        "topology": "Topology",
-                        "network": "Network",
-                        "nodes": "Nodes",
-                        "source": "Source"
+                        "topology": {
+                            "name": "Topology",
+                            "url": "topology"
+                        },
+                        "nodes": {
+                            "name": "Nodes",
+                            "url": "nodes"
+                        },
+                        "source": {
+                            "name": "Source",
+                            "url": "source"
+                        }
                     },
                     "panel_sections": {
                         "general": "general",
@@ -56,13 +64,30 @@
                     },
                     "nodeToClick": "mongod",
                     "sections": {
-                        "topology": "Topology",
-                        "network": "Network",
-                        "nodes": "Nodes",
-                        "executions": "Executions",
-                        "inputs_outputs": "Inputs & Outputs",
-                        "source": "Source",
-                        "monitoring": "Monitoring"
+                        "topology": {
+                            "name": "Topology",
+                            "url": "topology"
+                        },
+                        "nodes": {
+                            "name": "Nodes",
+                            "url": "nodes"
+                        },
+                        "source": {
+                            "name": "Source",
+                            "url": "source"
+                        },
+                        "executions": {
+                            "name": "Executions",
+                            "url": "executions"
+                        },
+                        "inputs_outputs": {
+                            "name": "Inputs & Outputs",
+                            "url": "inputs-outputs"
+                        },
+                        "monitoring": {
+                            "name": "Monitoring",
+                            "url": "monitoring"
+                        }
                     },
                     "panel_sections": {
                         "general": "general",
@@ -90,7 +115,7 @@
                 "computeType": "cloudify.nodes.Compute"
             },
             "hotkeys_spec": {
-                "anyBlueprint": "nodecellar1",
+                "anyBlueprint": "nodecellar_undeployed",
                 "notExistingBlueprint": "IM_NOT_A_REAL_BLUEPRINT_MUHAHAHAHA",
                 "notExecutingDeployment": "installed_deployment",
                 "executingDeployment": "hotkeys_deployment"
