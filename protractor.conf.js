@@ -24,7 +24,14 @@ exports.config = {
     // Spec patterns are relative to the location of this config.
 
     suites: {
-        sanity: [ 'spec/normalize.js', 'spec/sanity/**' ],
+        sanity: [ 'spec/normalize.js',
+            'spec/sanity/blueprints.js',
+            'spec/sanity/deployments.js',
+            'spec/sanity/events.js',
+            'spec/sanity/nodesInstances.js',
+            'spec/sanity/maintenance.js',
+            'spec/sanity/hotkeys.js'
+        ],
         quickstart: ['spec/normalize.js', 'spec/quickstart/quickstart.js'],
         'quickstart-cli': ['spec/normalize.js', 'spec/quickstart/quickstart-cli.js'],
         blueprints: [  'spec/normalize.js', 'spec/sanity/blueprints.js'  ],
