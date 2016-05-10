@@ -1,5 +1,5 @@
 'use strict';
-var logger = require('log4js').getLogger('blueprints_spec');
+var logger = require('log4js').getLogger('hotkeys_spec');
 var components = require('../../src/components/index');
 var hotkeys = components.ui.hotkeys;
 var config = components.config.tests.sanity.hotkeys_spec;
@@ -385,7 +385,7 @@ describe('Website hotkeys', function(){
             hotkeys.ItemsNavigation.prev();
             expect(components.ui.deployments.IndexPage.getSelectedDeploymentIndex()).toBe(0);
 
-            components.ui.deployments.IndexPage.selectDeployment(2);
+            components.ui.deployments.IndexPage.selectDeployment(1);
             hotkeys.Globals.enter();
             expect(browser.getCurrentUrl()).toContain(config.notExecutingDeployment);
         });

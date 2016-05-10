@@ -1,7 +1,7 @@
 'use strict';
 
 exports.route = function(){
-    browser.get('/#/nodes-instances');
+    browser.get('/#/node-instances');
     browser.waitForAngular();
 };
 
