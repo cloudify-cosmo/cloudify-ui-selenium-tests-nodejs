@@ -385,9 +385,10 @@ describe('Website hotkeys', function(){
             hotkeys.ItemsNavigation.prev();
             expect(components.ui.deployments.IndexPage.getSelectedDeploymentIndex()).toBe(0);
 
-            components.ui.deployments.IndexPage.selectDeployment(1);
+            var deploymentName = config.notExecutingDeployment;
+            components.ui.deployments.IndexPage.selectDeployment(deploymentName);
             hotkeys.Globals.enter();
-            expect(browser.getCurrentUrl()).toContain(config.notExecutingDeployment);
+            expect(browser.getCurrentUrl()).toContain(deploymentName);
         });
 
         it('should page', function(){

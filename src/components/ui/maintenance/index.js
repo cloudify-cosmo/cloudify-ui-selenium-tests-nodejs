@@ -2,6 +2,7 @@
 
 exports.route = function(){
     browser.get('/#/settings/maintenance');
+    browser.waitForAngular();
 };
 
 exports.page = require('./maintenancePage');
