@@ -49,7 +49,7 @@ describe('CLI test', function () {
                     browser.sleep(1000);
 
                     createSSH('/home/vagrant/cloudify/blueprints/cloudify-nodecellar-example')
-                        .exec('git checkout tags/3.2.1', {
+                        .exec('git checkout tags/3.4m4', {
                             out: stdOptions.out,
                             exit: function (code, out, err) {
                                 stdOptions.exit(code, out, err);
@@ -64,7 +64,7 @@ describe('CLI test', function () {
 
     it('should upload blueprint, create and install a deployment', function (done) {
         createSSH('/home/vagrant/cloudify')
-            .exec('bin/cfy blueprints upload -b nodecellar -p blueprints/cloudify-nodecellar-example/singlehost-blueprint.yaml', {
+            .exec('bin/cfy blueprints upload -b nodecellar -p blueprints/cloudify-nodecellar-example/simple-blueprint.yaml', {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
