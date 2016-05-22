@@ -361,15 +361,21 @@ describe('Website hotkeys', function(){
             expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(1);
 
             hotkeys.ItemsNavigation.next();
+            expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(2);
+
+            hotkeys.ItemsNavigation.next();
+            expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(2);
+
+            hotkeys.ItemsNavigation.prev();
             expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(1);
 
-
             hotkeys.ItemsNavigation.prev();
             expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(0);
 
             hotkeys.ItemsNavigation.prev();
             expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(0);
 
+            hotkeys.ItemsNavigation.next();
             hotkeys.Globals.enter();
             expect(browser.getCurrentUrl()).toContain(config.anyBlueprint);
 

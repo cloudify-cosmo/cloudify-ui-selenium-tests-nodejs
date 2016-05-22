@@ -3,6 +3,7 @@
 var logger = require('log4js').getLogger('deployments_spec');
 var components = require('../../src/components');
 var testConf = components.config.tests.sanity.deployments_spec;
+var hotkeys = components.ui.hotkeys;
 
 //var INSTALLED_DEPLOYMENT_NAME = 'installed_deployment';
 
@@ -97,7 +98,80 @@ describe('deployments page', function () {
                 browser.sleep(1000).then(done);
             });
         });
+    });
 
+    describe('single deployment (existing deployment)', function(){
+        beforeEach(function(){
+            components.ui.deployments.IndexPage.goToDeployment({id: testConf.deployment.groupsDeployment});
+        });
+
+        describe('nodes view', function(){
+            it('should have groups', function(){
+                components.ui.deployments.DeploymentPage.goToNodes();
+                expect(components.ui.deployments.NodesTab.getNodesGroups()).toEqual(['group2', 'mongo_and_node', 'group1', 'mongo_and_node']);
+            });
+        });
+
+        describe('start execution dialog', function(){
+            beforeEach(function(){
+                components.ui.deployments.DeploymentLayout.executeDeployment();
+            });
+
+            describe('scale workflow', function(){
+                beforeEach(function(){
+                    components.ui.deployments.ExecuteWorkflowDialog.workflows.select('scale');
+                });
+
+                it('should load resources to scale', function(){
+                    expect($('.select-resource').isPresent()).toBe(true);
+                    expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getOptionsTexts()).toEqual([ 'Groups', 'group2', 'group1', 'group3', 'mongo_and_node', 'Nodes', 'host', 'nodecellar', 'mongod', 'nodejs' ]);
+                    expect(components.ui.deployments.ExecuteWorkflowDialog.isSubmitDisabled()).toBe(true);
+                });
+
+                it('should show parameters', function(){
+                    components.ui.deployments.ExecuteWorkflowDialog.scalingResources.select('group1');
+                    expect($('[form-raw-params]').isPresent()).toBe(true);
+                    expect(components.ui.deployments.ExecuteWorkflowDialog.isSubmitDisabled()).toBe(false);
+                });
+
+                describe('multiSelectMenu - groups', function(){
+                    it('should navigate between options', function(){
+                        components.ui.deployments.ExecuteWorkflowDialog.scalingResources.toggle();
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('group2');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('group1');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('group3');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('mongo_and_node');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('host');
+                        hotkeys.Globals.arrowUp();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('mongo_and_node');
+                    });
+
+                    it('should filter and navigate between filtered options', function(){
+                        components.ui.deployments.ExecuteWorkflowDialog.scalingResources.toggle();
+                        components.ui.deployments.ExecuteWorkflowDialog.scalingResources.filter('no');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('mongo_and_node');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('nodecellar');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('nodejs');
+                        hotkeys.Globals.arrowDown();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('nodejs');
+                        hotkeys.Globals.arrowUp();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('nodecellar');
+                        hotkeys.Globals.arrowUp();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('mongo_and_node');
+                        hotkeys.Globals.arrowUp();
+                        expect(components.ui.deployments.ExecuteWorkflowDialog.scalingResources.getMarkedText()).toBe('mongo_and_node');
+                    });
+                });
+            });
+        });
     });
 
     it('should list all deployments', function (done) {

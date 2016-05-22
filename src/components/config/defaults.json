@@ -22,6 +22,7 @@
                 "blueprints": {
                     "blueprintToRead": "nodecellar1",
                     "blueprintToDeploy": "nodecellar1",
+                    "groupsBlueprint": "groups",
                     "nodeToClick": "mongod",
                     "sections": {
                         "topology": {
@@ -62,6 +63,7 @@
                     "deploymentToDelete": {
                         "id": "deployment_to_delete"
                     },
+                    "groupsDeployment": "groups",
                     "nodeToClick": "mongod",
                     "sections": {
                         "topology": {
@@ -110,7 +112,7 @@
             },
             "nodes_spec": {
                 "firstBlueprint": "nodecellar1",
-                "deployedBlueprints": ["nodecellar1"],
+                "deployedBlueprints": ["nodecellar1", "groups"],
                 "installedDeployment": "installed_deployment",
                 "computeType": "cloudify.nodes.Compute"
             },

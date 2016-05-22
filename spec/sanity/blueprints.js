@@ -153,8 +153,14 @@ describe('blueprints page', function(){
         });
     });
 
+    describe('nodes view', function(){
+        it('should have groups', function(){
+            components.ui.blueprints.IndexPage.goToBlueprint({'name' : testConf.blueprints.groupsBlueprint});
+            components.ui.blueprints.BlueprintPage.goToNodes();
 
-
+            expect(components.ui.blueprints.NodesTab.getNodesGroups()).toEqual(['group2', 'mongo_and_node', 'group1', 'mongo_and_node']);
+        });
+    });
 
     //it('should open node details panel when clicking on node in network section', function (done) {
     //    logger.trace('start blueprint network section test');

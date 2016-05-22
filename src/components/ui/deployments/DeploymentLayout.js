@@ -15,3 +15,7 @@ exports.getNodePropertiesPanel = function(){
 exports.deleteDeployment = function() {
     new common.ActionsDropdown().clickMenuOption('Delete');
 };
+
+exports.executeDeployment = function() {
+    new common.ActionsDropdown().clickMenuOption('Execute Workflow');
+};
