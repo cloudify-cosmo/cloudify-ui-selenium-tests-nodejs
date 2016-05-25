@@ -22,6 +22,7 @@ describe('blueprints page', function(){
 
         it('should have all sections', function (done) {
             components.ui.blueprints.BlueprintPage.goToNodes();
+            components.ui.blueprints.BlueprintPage.goToPlugins();
             components.ui.blueprints.BlueprintPage.goToSource();
             browser.sleep(1000).then(done);
         });

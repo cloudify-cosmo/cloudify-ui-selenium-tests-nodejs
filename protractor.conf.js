@@ -1,6 +1,17 @@
+var tempFolderPath = '/tmp';
+// var tempFolderPath = 'C:\\Users\\Alex\\AppData\\Local\\Temp\\'; // Windows
+
 var capabilities = {
     'browserName': 'chrome',
-    'chromeOptions': {'args': ['--disable-extensions']}
+    'chromeOptions': {
+        args: ['--disable-extensions'],
+        prefs: {
+            'download': {
+                'prompt_for_download': false,
+                'default_directory': tempFolderPath
+            }
+        }
+    }
 };
 
 var timeout = parseInt(process.env.TIMEOUT || "600000",10);
@@ -27,6 +38,7 @@ exports.config = {
         sanity: [ 'spec/normalize.js',
             'spec/sanity/blueprints.js',
             'spec/sanity/deployments.js',
+            'spec/sanity/plugins.js',
             'spec/sanity/events.js',
             'spec/sanity/nodesInstances.js',
             'spec/sanity/maintenance.js',
@@ -37,6 +49,7 @@ exports.config = {
         prerequisites: [ 'spec/normalize.js', 'spec/sanity/_prerequisites.js' ],
         blueprints: [  'spec/normalize.js', 'spec/sanity/blueprints.js'  ],
         deployments: [  'spec/normalize.js', 'spec/sanity/deployments.js' ],
+        plugins: [  'spec/normalize.js', 'spec/sanity/plugins.js' ],
         events: [ 'spec/normalize.js', 'spec/sanity/events.js' ],
         hotkeys: [ 'spec/normalize.js', 'spec/sanity/hotkeys.js' ],
         nodesInstances: [ 'spec/normalize.js', 'spec/sanity/nodesInstances.js' ],
@@ -52,7 +65,7 @@ exports.config = {
 
     // A base URL for your application under test. Calls to protractor.get()
     // with relative paths will be prepended with this.
-    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://localhost:1616',
+    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://localhost:9000',
 
     jasmineNodeOpts: {
         onComplete: null,
