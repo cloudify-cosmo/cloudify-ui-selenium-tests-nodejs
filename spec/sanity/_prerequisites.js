@@ -59,16 +59,14 @@ describe('prepare test assumptions', function() {
     it('should create and install a deployment "installed_deployment" based on "nodecellar1" blueprint', function() {
         addDeployment(
             configBlueprints.blueprints.blueprintToDeploy,
-            configDeployments.deployment.deploymentToRead.id,
-            'install'
+            configDeployments.deployment.deploymentToRead.id
         );
     });
 
     it('should create and install a deployment "installed_deployment2" based on "nodecellar1" blueprint', function() {
         addDeployment(
             configEvents.blueprintWithEvents,
-            configEvents.secondInstalledDeployment.id,
-            'install'
+            configEvents.secondInstalledDeployment.id
         );
     });
 
@@ -85,15 +83,8 @@ describe('prepare test assumptions', function() {
 
     it('should create a deployment "hotkeys_deployment" based on "nodecellar1" blueprint', function() {
         addDeployment(
-            configHotkeys.anyBlueprint,
+            configBlueprints.blueprints.blueprintToDeploy,
             configHotkeys.executingDeployment
         );
-    });
-
-    afterAll(function() {
-        // wait for deployments to finish installing
-        components.ui.layout.goToDeployments();
-        components.ui.deployments.IndexPage.waitForExecutionToFinish(configDeployments.deployment.deploymentToRead);
-        components.ui.deployments.IndexPage.waitForExecutionToFinish(configEvents.secondInstalledDeployment);
     });
 });
