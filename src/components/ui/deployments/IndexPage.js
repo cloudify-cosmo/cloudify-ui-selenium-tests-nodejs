@@ -141,7 +141,7 @@ exports.executeWorkflowAndWaitUntilDone = function(opts){
     var executeWorkflowDialog = require('./ExecuteWorkflowDialog');
     exports.route();
     exports.executeWorkflow(opts.deployment);
-    executeWorkflowDialog.selectWorkflow(opts.workflow);
+    executeWorkflowDialog.workflows.select(opts.workflow);
     executeWorkflowDialog.submit();
     exports.waitForExecutionToFinish(opts.deployment);
 
@@ -152,7 +152,7 @@ exports.executeWorkflowWithoutWaitingUntilDone = function(opts){
     var executeWorkflowDialog = require('./ExecuteWorkflowDialog');
     exports.route();
     exports.executeWorkflow(opts.deployment);
-    executeWorkflowDialog.selectWorkflow(opts.workflow);
+    executeWorkflowDialog.workflows.select(opts.workflow);
     executeWorkflowDialog.submit();
 };
 

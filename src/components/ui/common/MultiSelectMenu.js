@@ -6,12 +6,13 @@ var filters = require('./../../Utils/Filters');
 function MultiSelectMenu (baseElement, isMulti){
     var base = baseElement;
     var self = this;
+    isMulti = isMulti === false ? false : true;
 
     /**
      * @description clicks the arrow to toggle closing and opening multiSelectMenu options
      */
     function toggleMenu(){
-        base.element(by.css('.msArrow')).click();
+        base.$('.msArrow').click();
     }
 
     /**
@@ -21,10 +22,11 @@ function MultiSelectMenu (baseElement, isMulti){
     function selectDropdownOption( optionName ) {
         logger.trace('selecting dropdown by', optionName );
         self.toggle();
-        var repeater = 'option in filteredItems';
-        filters.filterByText(base.all(by.repeater(repeater)), optionName)
+        filters.filterByText(base.all(by.css('.select-item')), optionName)
             .first().click();
-        self.toggle();
+        if(isMulti){
+            self.toggle();
+        }
     }
 
     /**
@@ -70,10 +72,24 @@ function MultiSelectMenu (baseElement, isMulti){
 
     function getAllOptionsText(){
         self.toggle();
-        return base.all(by.css('li')).getText().then(function(texts){
+        return base.all(by.css('li>div')).getText().then(function(texts){
             self.toggle();
             return texts;
         });
+    }
+
+    function getMarked(){
+        return base.$('.markNav');
+    }
+
+    function getMarkedText(){
+        return self.getMarked().getText().then(function(text){
+            return text;
+        });
+    }
+
+    function filter(value){
+        base.$('input.no-click').sendKeys(value);
     }
 
     this.toggle = toggleMenu;
@@ -82,6 +98,10 @@ function MultiSelectMenu (baseElement, isMulti){
     this.getSelected = getSelectedOptions;
     this.getSelectedText = getSelectedOptionsText;
     this.getOptionsTexts = getAllOptionsText;
+    this.getMarked = getMarked;
+    this.getMarkedText = getMarkedText;
+    this.filter = filter;
+
 }
 
 

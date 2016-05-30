@@ -26,6 +26,10 @@ exports.arrowDown = function(){
     browser.actions().sendKeys(Key.chord(Key.ARROW_DOWN)).perform();
 };
 
+exports.arrowUp = function(){
+    browser.actions().sendKeys(Key.chord(Key.ARROW_UP)).perform();
+};
+
 exports.openCheatSheet = function(){
     browser.actions().sendKeys(Key.chord('?')).perform();
 };

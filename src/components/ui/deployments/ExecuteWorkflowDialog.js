@@ -1,16 +1,9 @@
 'use strict';
 
+var MultiSelectMenu = require('../common/MultiSelectMenu');
 
-
-exports.selectWorkflow = function( name ){
-    var workflowName = element(by.model('workflowName'));
-    workflowName.$('.msArrow').click();
-    workflowName.$$('li').filter(function(item){
-        return item.getText().then(function(text){
-            return text.toLowerCase().trim() === name.toLowerCase();
-        });
-    }).first().click();
-};
+exports.workflows = new MultiSelectMenu($('.select-workflow .multiSelectMenu'), false);
+exports.scalingResources = new MultiSelectMenu($('.select-resource .multiSelectMenu'), false);
 
 /**
  *
@@ -23,6 +16,13 @@ exports.setDetails = function( opts ){
     }
 };
 
+var confirmButton = $('[ng-click="executeWorkflow()"]');
 exports.submit = function(){
-    return $('[ng-click="executeWorkflow()"]').click();
+    return confirmButton.click();
+};
+
+exports.isSubmitDisabled = function(){
+    return confirmButton.getAttribute('disabled').then(function(attr){
+        return attr ? true : false;
+    });
 };
