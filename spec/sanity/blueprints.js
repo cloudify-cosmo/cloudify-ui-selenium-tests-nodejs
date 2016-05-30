@@ -48,7 +48,7 @@ describe('blueprints page', function(){
             browser.get('/#/blueprint/nodecellar1/source');
             browser.ignoreSynchronization = true;
             BlueprintPage.Source.getLoadingMessage().then(function(result) {
-                expect(result).toBe('Generating Blueprint Source View...');
+                expect(result).toBe('Generating blueprint Source View...');
             });
 
             browser.sleep(0).then(function(){
