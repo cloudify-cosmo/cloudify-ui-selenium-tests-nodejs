@@ -107,12 +107,13 @@ describe('deployments page', function () {
         browser.sleep(1000).then(done);
     });
 
-    it('should go into deployment and verify all section exists', function (done) {
+    it('should go into deployment and verify all sections exist', function (done) {
 
         components.ui.deployments.IndexPage.goToDeployment(testConf.deployment.deploymentToRead);
         components.ui.deployments.DeploymentPage.goToNodes();
         components.ui.deployments.DeploymentPage.goToExecutions();
         components.ui.deployments.DeploymentPage.goToInputsOutputs();
+        components.ui.deployments.DeploymentPage.goToPlugins();
         components.ui.deployments.DeploymentPage.goToSource();
         components.ui.deployments.DeploymentPage.goToMonitoring();
 
