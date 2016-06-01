@@ -8,6 +8,8 @@ var tempFolderPath = '/tmp';
 // var tempFolderPath = 'C:\\Users\\Alex\\AppData\\Local\\Temp\\'; // Windows
 
 describe('plugins page', function() {
+    var testPlugin = {package_name: 'cloudify-ldap-plugin'};
+
     beforeEach(function() { logger.info('running from ' + __filename); });
 
     beforeAll(function() { components.ui.LoginPage.goTo().login('admin', 'admin'); });
@@ -55,30 +57,29 @@ describe('plugins page', function() {
     //});
 
     it('should download plugin', function(done) {
-        element.all(by.repeater('plugin in displayedPlugins'))
-            .first()
-            .element(by.css('.id')).getText()
-            .then(function(pluginId) {
-                var path = tempFolderPath + pluginId + '.tar.gz';
+        components.ui.plugins.IndexPage.getPlugin(testPlugin)
+            .then(function(plugin) {
+                plugin.element(by.css('.id')).getText()
+                    .then(function(pluginId) {
+                        var path = tempFolderPath + pluginId + '.tar.gz';
 
-                components.ui.plugins.IndexPage.downloadPlugin({id: pluginId});
+                        components.ui.plugins.IndexPage.downloadPlugin(testPlugin);
 
-                browser.driver.wait(function() {
-                    return fs.existsSync(path);
-                }, 5000).then(function() {
-                    expect(fs.existsSync(path)).toBe(true);
-                });
+                        browser.driver.wait(function() {
+                            return fs.existsSync(path);
+                        }, 10000).then(function() {
+                            expect(fs.existsSync(path)).toBe(true);
+                            done();
+                        });
+                    });
             });
-
-        browser.sleep(1000).then(done);
     });
 
     it('should delete plugin', function(done) {
-        var packageName = 'cloudify-ldap-plugin';
-
-        components.ui.plugins.IndexPage.deletePlugin({package_name: packageName});
-        expect(components.ui.plugins.IndexPage.getPlugin({package_name: packageName}, true)).toBeUndefined('delete plugin should refresh plugins');
-
-        browser.sleep(1000).then(done);
+        components.ui.plugins.IndexPage.deletePlugin(testPlugin);
+        browser.sleep(3000).then(function() {
+            expect(components.ui.plugins.IndexPage.getPlugin(testPlugin, true)).toBeUndefined('delete plugin should refresh plugins');
+            done();
+        });
     });
 });
