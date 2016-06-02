@@ -41,6 +41,7 @@ exports.config = {
             'spec/sanity/plugins.js',
             'spec/sanity/events.js',
             'spec/sanity/nodesInstances.js',
+            'spec/sanity/snapshots.js',
             'spec/sanity/maintenance.js',
             'spec/sanity/hotkeys.js'
         ],
@@ -53,6 +54,7 @@ exports.config = {
         events: [ 'spec/normalize.js', 'spec/sanity/events.js' ],
         hotkeys: [ 'spec/normalize.js', 'spec/sanity/hotkeys.js' ],
         nodesInstances: [ 'spec/normalize.js', 'spec/sanity/nodesInstances.js' ],
+        snapshots: [ 'spec/normalize.js', 'spec/sanity/snapshots.js' ],
         maintenance: [ 'spec/normalize.js', 'spec/sanity/maintenance.js' ],
         custom: [ 'spec/normalize.js', process.env.CFY_SPEC ]
     },
@@ -74,5 +76,9 @@ exports.config = {
         includeStackTrace: true,
         defaultTimeoutInterval: timeout,
         allScriptsTimeout: timeout
+    },
+
+    onPrepare: function() {
+        browser.tempFolderPath = tempFolderPath;
     }
 };

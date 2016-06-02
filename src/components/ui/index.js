@@ -8,3 +8,4 @@ exports.nodesInstances = require('./nodesInstances');
 exports.LoginPage = require('./LoginPage');
 exports.hotkeys = require('./hotkeys');
 exports.maintenance = require('./maintenance');
+exports.snapshots = require('./snapshots');
