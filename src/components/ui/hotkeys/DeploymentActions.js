@@ -13,3 +13,7 @@ exports.cancelExecution = function(){
 exports.delete = function(){
     browser.actions().sendKeys(Key.chord(Key.SHIFT, 'd')).perform();
 };
+
+exports.updateDeployment = function(){
+    browser.actions().sendKeys(Key.chord('u')).perform();
+};

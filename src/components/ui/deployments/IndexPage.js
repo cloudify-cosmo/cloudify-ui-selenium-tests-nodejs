@@ -165,3 +165,20 @@ exports.selectDeployment = function(indexOrName){
 };
 
 exports.getSelectedDeploymentIndex = common.IndexTable.getSelectedItemIndex;
+
+exports.isDeploymentUpdating = function(indexOrName){
+    if( typeof indexOrName === 'number') {
+        $$('.deployment-action-selector').get(indexOrName).$('.executingWorkflow span[ng-if="currentUpdate"]').isPresent();
+    }else {
+        var deploymentIndex;
+        return $$('[ng-click="select(deployment)"] .id a').each(function(ele, index){
+            ele.getText().then(function(text){
+                if(text === indexOrName){
+                    deploymentIndex = index;
+                }
+            });
+        }).then(function(){
+            return $$('.deployment-action-selector').get(deploymentIndex).$('.executingWorkflow span[ng-if="currentUpdate"]').isPresent();
+        });
+    }
+};

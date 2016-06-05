@@ -138,6 +138,13 @@ describe('Website hotkeys', function(){
                     expect($('#startExecutionDialog').isPresent()).toBe(true);
                 });
 
+                it('should open update deployment dialog', function(){
+                    components.ui.deployments.IndexPage.selectDeployment(0);
+                    hotkeys.DeploymentActions.updateDeployment();
+
+                    expect($('.update-deployment-dialog').isPresent()).toBe(true);
+                });
+
                 it('should open delete dialog', function(){
                     components.ui.deployments.IndexPage.selectDeployment(0);
                     hotkeys.DeploymentActions.delete();
@@ -157,8 +164,12 @@ describe('Website hotkeys', function(){
                     expect($('#startExecutionDialog').isPresent()).toBe(true);
                 });
 
+                it('should open update deployment dialog', function(){
+                    components.ui.deployments.IndexPage.selectDeployment(0);
+                    hotkeys.DeploymentActions.updateDeployment();
 
-
+                    expect($('.update-deployment-dialog').isPresent()).toBe(true);
+                });
                 it('should open delete dialog', function(){
                     hotkeys.DeploymentActions.delete();
                     expect($('.delete-dialog').isPresent()).toBe(true);

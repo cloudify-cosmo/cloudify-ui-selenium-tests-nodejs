@@ -19,3 +19,11 @@ exports.deleteDeployment = function() {
 exports.executeDeployment = function() {
     new common.ActionsDropdown().clickMenuOption('Execute Workflow');
 };
+
+exports.updateDeployment = function() {
+    new common.ActionsDropdown().clickMenuOption('Update');
+};
+
+exports.isDeploymentUpdating = function(){
+    return $('.deployment-action-selector .executingWorkflow span[ng-if="currentUpdate"]').isPresent();
+};

@@ -64,6 +64,9 @@
                     "deploymentToRead": {
                         "id": "installed_deployment"
                     },
+                    "deploymentToUpdate": {
+                        "id": "bomber"
+                    },
                     "deploymentToDelete": {
                         "id": "deployment_to_delete"
                     },

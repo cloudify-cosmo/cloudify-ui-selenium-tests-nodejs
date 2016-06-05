@@ -66,7 +66,7 @@ describe('nodes instances page', function() {
             nodesInstances.filters.blueprints.select(config.firstBlueprint);
             expect(nodesInstances.filters.deployments.getSelectedText()).toEqual([]);
             expect(nodesInstances.filters.types.getSelectedText()).toEqual([]);
-            expect(nodesInstances.filters.freeText.getText()).toBe('');
+            expect(nodesInstances.filters.freeText.getValue()).toBe('');
         });
     });
 });

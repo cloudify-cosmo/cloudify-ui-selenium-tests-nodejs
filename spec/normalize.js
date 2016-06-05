@@ -16,6 +16,9 @@ jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({
 beforeEach(function(){
     browser.manage().timeouts().pageLoadTimeout(10000);
     browser.driver.manage().window().maximize(); // we will test smaller resolutions in the future
+    browser.getCapabilities().then(function (cap) {
+        browser.browserName = cap.caps_.browserName;
+    });
 });
 
 browser.getLogger = function(name){
