@@ -159,9 +159,8 @@
                 "message": {
                     "activating": "Cloudify is undergoing maintenance, some operations may not be available",
                     "activated": "Cloudify is undergoing maintenance and will be available again shortly"
-                }
-
-
+                },
+                "executingDeployment": "groups"
             }
         },
         "quickstart": {

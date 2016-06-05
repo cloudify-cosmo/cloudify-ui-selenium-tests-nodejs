@@ -6,6 +6,7 @@ var config = components.config.tests.sanity.maintenance_spec;
 describe('maintenance mode', function() {
     beforeEach(function() {
         maintenance.route();
+        browser.waitForAngular();
     });
 
     it('should route to maintenance settings page', function(){
@@ -41,5 +42,35 @@ describe('maintenance mode', function() {
         expect(maintenance.message.isPresent()).toBe(false);
         expect(maintenance.page.getStatusText()).toBe(config.page.status.deactivated);
         expect(maintenance.page.getButtonText()).toBe(config.page.button.deactivated);
+    });
+
+    describe('remaining executions', function(){
+        it('should setup an installing deployment', function(){
+            components.ui.deployments.IndexPage.route();
+
+            (function installDeployment (){
+                components.ui.deployments.IndexPage.executeWorkflowWithoutWaitingUntilDone({
+                    deployment: {
+                        id: config.executingDeployment
+                    },
+                    workflow: 'install'
+                });
+            })();
+        });
+
+        it('should load remaining executions', function(){
+            maintenance.page.openMaintenanceDialog();
+            maintenance.dialog.confirm();
+            expect(maintenance.page.getExecutingDeploymentNames()).toEqual([config.executingDeployment]);
+        });
+
+        it('should cancel remaining executions', function(){
+            maintenance.page.cancelExecution(config.executingDeployment);
+            expect(maintenance.page.getExecutingStatuses()).toEqual(['Cancelling']);
+
+            //deactivate maintenance mode
+            maintenance.page.openMaintenanceDialog();
+            maintenance.dialog.confirm();
+        });
     });
 });
