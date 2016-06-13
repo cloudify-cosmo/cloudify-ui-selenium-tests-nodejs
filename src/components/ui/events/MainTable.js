@@ -11,7 +11,6 @@ mainTable.countRows = function() {
 
 mainTable.clickEvent = function(eventRowNum){
     var eventRow = element.all(by.css('.eventsTable tbody tr[data-ng-click]')).get(eventRowNum);
-    //utils.view.scrollIntoView(eventRow); // it doesn't work properly
     eventRow.click();
 };
 

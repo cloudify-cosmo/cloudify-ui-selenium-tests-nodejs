@@ -114,21 +114,21 @@
             "events_spec": {
                 "blueprintWithEvents": "nodecellar1",
                 "blueprintWithoutEvents": "nodecellar_undeployed",
+                "bomberBlueprint": "bomber",
                 "secondInstalledDeployment": {
                     "id": "installed_deployment2"
                 },
                 "firstDeployment": "installed_deployment [nodecellar1]",
                 "secondDeployment": "installed_deployment2 [nodecellar1]",
                 "logLevelWithEvents": "INFO",
-                "logLevelWithoutEvents": "ERROR",
                 "eventTypeWithEvents": "Workflow started",
                 "eventTypeWithoutEvents": "policy",
                 "logLevelsOptions": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
                 "eventTypesOptions": [ "policy", "Processing Trigger", "Trigger Failed", "Trigger Succeeded", "Task failed", "Task rescheduled", "Task started", "Task ended successfully", "Task sent", "Workflow Cancelled", "Workflow Event", "Workflow failed", "Workflow node event", "Workflow staged", "Workflow started", "Workflow ended successfully" ]
             },
-            "nodes_spec": {
+            "nodesInstances_spec": {
                 "firstBlueprint": "nodecellar1",
-                "deployedBlueprints": ["nodecellar1", "groups"],
+                "deployedBlueprints": ["nodecellar1", "groups", "bomber"],
                 "installedDeployment": "installed_deployment",
                 "computeType": "cloudify.nodes.Compute"
             },

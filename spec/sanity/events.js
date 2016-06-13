@@ -109,6 +109,7 @@ describe('logs & events page', function() {
             waitingForDebounce();
             expect(events.filters.blueprints.getSelectedText()).toEqual([config.blueprintWithoutEvents]);
             expect(events.mainTable.countRows()).toBe(0);
+            expect(events.mainTable.countRows()).not.toBe(noFiltersEventsCount);
 
             //Choosing another blueprint with events
             events.filters.blueprints.select(config.blueprintWithEvents);
@@ -116,7 +117,7 @@ describe('logs & events page', function() {
             var blueprints = events.filters.blueprints.getSelectedText();
             expect(blueprints).toContain(config.blueprintWithEvents);
             expect(blueprints).toContain(config.blueprintWithoutEvents);
-            expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
+            expect(events.mainTable.countRows()).not.toBe(0);
 
             browser.sleep(1000).then(done);
         });
@@ -135,30 +136,36 @@ describe('logs & events page', function() {
             browser.sleep(1000).then(done);
         });
 
-        // TODO: bring this test back up https://cloudifysource.atlassian.net/browse/CFY-4899
-        //it('should filter by logs levels', function(done){
-        //    //getting number of events on startup
-        //    var noFiltersEventsCount = events.mainTable.countRows();
-        //    //Choosing a level with no events
-        //    events.filters.logLevels.select(config.logLevelWithoutEvents);
-        //    waitingForDebounce();
-        //    expect(events.filters.logLevels.getSelectedText()).toEqual([config.logLevelWithoutEvents]);
-        //    expect(events.mainTable.countRows()).toBe(0);
-        //
-        //    ////Choosing another level with events
-        //    events.filters.logLevels.select(config.logLevelWithEvents);
-        //    waitingForDebounce();
-        //    expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithEvents);
-        //    expect(events.filters.logLevels.getSelectedText()).toContain(config.logLevelWithoutEvents);
-        //    expect(events.mainTable.countRows()).toBe(noFiltersEventsCount);
-        //
-        //    //checking events data to be all as was filtered
-        //    events.mainTable.logLevel.getValues().then(function(values){
-        //        expect(isAllValuesEqualTo(values,config.logLevelWithEvents)).toBe(true);
-        //    });
-        //
-        //    browser.sleep(1000).then(done);
-        //});
+        it('should filter by log levels', function(done){
+            function checkValues(logLevel) {
+                events.mainTable.logLevel.getValues().then(function (values) {
+                    expect(isAllValuesEqualTo(values, logLevel)).toBe(true);
+                });
+            }
+            events.filters.blueprints.select(config.bomberBlueprint);
+            for(var i=0; i<config.logLevelsOptions.length; i++){
+                var currentLogLevel = config.logLevelsOptions[i];
+                if(currentLogLevel !== 'INFO'){
+                    //pick filter
+                    events.filters.logLevels.select(currentLogLevel);
+                    waitingForDebounce();
+                    expect(events.filters.logLevels.getSelectedText()).toEqual([currentLogLevel]);
+                    expect(events.mainTable.countRows()).toBe(20);
+
+                    //checking events data to be all as was filtered
+                    //Using closure to keep the log level
+                    checkValues(currentLogLevel);
+
+                    //Unpick it
+                    events.filters.logLevels.select(currentLogLevel);
+                    waitingForDebounce();
+
+                    if(i === config.logLevelsOptions.length -1){
+                        browser.sleep(1000).then(done);
+                    }
+                }
+            }
+        });
 
         it('should filter by event types', function(done){
             //Choosing an event type with no events
@@ -353,7 +360,7 @@ describe('logs & events page', function() {
             //pick random filters
             events.filters.blueprints.select(config.blueprintWithEvents);
             events.filters.deployments.select(config.firstDeployment);
-            events.filters.logLevels.select(config.logLevelWithoutEvents);
+            events.filters.logLevels.select(config.logLevelWithEvents);
             //click clear filters button
             events.filters.clearFilters();
             //check filters has no selected options
@@ -458,22 +465,21 @@ describe('logs & events page', function() {
             browser.sleep(1000).then(done);
         });
 
-        // TODO: bring this test back up https://cloudifysource.atlassian.net/browse/CFY-4899
-        //it('should have log specific fields', function(done){
-        //    //making sure all items are logs
-        //    events.filters.logLevels.select(config.logLevelWithEvents);
-        //    waitingForDebounce();
-        //    events.mainTable.clickEvent(1);
-        //    events.mainTable.getEventInfo(1).then(function(eventInfo){
-        //        expect(Object.keys(eventInfo)).toContain('Log Timestamp');
-        //        expect(Object.keys(eventInfo)).toContain('Logger');
-        //        expect(Object.keys(eventInfo)).toContain('Log Level');
-        //        expect(Object.keys(eventInfo)).not.toContain('Event Timestamp');
-        //        expect(Object.keys(eventInfo)).not.toContain('Event Type');
-        //    });
-        //
-        //    browser.sleep(1000).then(done);
-        //});
+        it('should have log specific fields', function(done){
+            //making sure all items are logs
+            events.filters.logLevels.select(config.logLevelWithEvents);
+            waitingForDebounce();
+            events.mainTable.clickEvent(6);
+            events.mainTable.getEventInfo(6).then(function(eventInfo){
+                expect(Object.keys(eventInfo)).toContain('Log Timestamp');
+                expect(Object.keys(eventInfo)).toContain('Logger');
+                expect(Object.keys(eventInfo)).toContain('Log Level');
+                expect(Object.keys(eventInfo)).not.toContain('Event Timestamp');
+                expect(Object.keys(eventInfo)).not.toContain('Event Type');
+            });
+
+            browser.sleep(1000).then(done);
+        });
 
         it('should have event specific fields', function(done){
             //making sure all items are events
@@ -495,16 +501,14 @@ describe('logs & events page', function() {
             var timestampRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3}$/;
 
             //checking for logs date fields
-            // TODO: bring back logLevel Testing
-            //events.filters.logLevels.select(config.logLevelWithEvents);
+            events.filters.logLevels.select(config.logLevelWithEvents);
             waitingForDebounce();
-            events.mainTable.clickEvent(1);
-            events.mainTable.getEventInfo(1).then(function(eventInfo){
+            events.mainTable.clickEvent(6);
+            events.mainTable.getEventInfo(6).then(function(eventInfo){
                 expect(Date.parse(eventInfo['Registered Timestamp'])).not.toBe(NaN);
                 expect(eventInfo['Registered Timestamp']).toMatch(timestampRegex);
-                // TODO: bring back logLevel Testing
-                //expect(Date.parse(eventInfo['Log Timestamp'])).not.toBe(NaN);
-                //expect(eventInfo['Log Timestamp']).toMatch(timestampRegex);
+                expect(Date.parse(eventInfo['Log Timestamp'])).not.toBe(NaN);
+                expect(eventInfo['Log Timestamp']).toMatch(timestampRegex);
             });
 
             events.filters.clearFilters();
@@ -513,9 +517,9 @@ describe('logs & events page', function() {
             //checking for events date fields
             events.filters.eventTypes.select(config.eventTypeWithEvents);
             waitingForDebounce();
-            //TODO: Make sure when https://cloudifysource.atlassian.net/browse/CFY-4338 bug is fixed, to open the additional info tab
-            //events.mainTable.clickEvent(1);
-            events.mainTable.getEventInfo(1).then(function(eventInfo){
+            ////TODO: Make sure when https://cloudifysource.atlassian.net/browse/CFY-4338 bug is fixed, to open the additional info tab
+            events.mainTable.clickEvent(3);
+            events.mainTable.getEventInfo(3).then(function(eventInfo){
                 expect(Date.parse(eventInfo['Registered Timestamp'])).not.toBe(NaN);
                 expect(eventInfo['Registered Timestamp']).toMatch(timestampRegex);
                 expect(Date.parse(eventInfo['Event Timestamp'])).not.toBe(NaN);
