@@ -25,6 +25,7 @@
         "afterEach" : false,
         "afterAll" : false,
         "it" : false,
+        "xit" : false,
         "element" : false,
         "by" : false,
         "browser" : false,

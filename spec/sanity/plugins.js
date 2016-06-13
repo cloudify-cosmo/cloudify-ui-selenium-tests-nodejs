@@ -42,7 +42,7 @@ describe('plugins page', function() {
         browser.sleep(1000).then(done);
     });
 
-    // todo turn this on when a better way of getting plugin usage is ready
+    // todo: turn this on when a better way of getting plugin usage is ready
     //it('should go to a single plugin view', function(done) {
     //    element.all(by.repeater('plugin in displayedPlugins'))
     //        .first()
@@ -56,7 +56,8 @@ describe('plugins page', function() {
     //    browser.sleep(1000).then(done);
     //});
 
-    it('should download plugin', function(done) {
+    // todo: download functionality doesn't work in phantomjs
+    xit('should download plugin', function(done) {
         components.ui.plugins.IndexPage.getPlugin(testPlugin)
             .then(function(plugin) {
                 plugin.element(by.css('.id')).getText()
@@ -77,7 +78,7 @@ describe('plugins page', function() {
 
     it('should delete plugin', function(done) {
         components.ui.plugins.IndexPage.deletePlugin(testPlugin);
-        browser.sleep(3000).then(function() {
+        browser.sleep(10000).then(function() {
             expect(components.ui.plugins.IndexPage.getPlugin(testPlugin, true)).toBeUndefined('delete plugin should refresh plugins');
             done();
         });
