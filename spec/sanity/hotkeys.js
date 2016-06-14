@@ -293,7 +293,7 @@ describe('Website hotkeys', function(){
             });
 
             it('should tab all through the dialog', function() {
-                components.ui.blueprints.IndexPage.selectBlueprint(0);
+                components.ui.blueprints.IndexPage.selectBlueprint(1);
                 hotkeys.BlueprintActions.deploy();
 
                 //autofocus input on open
@@ -363,9 +363,6 @@ describe('Website hotkeys', function(){
             hotkeys.ItemsNavigation.next();
             expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(2);
 
-            hotkeys.ItemsNavigation.next();
-            expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(2);
-
             hotkeys.ItemsNavigation.prev();
             expect(components.ui.blueprints.IndexPage.getSelectedBlueprintIndex()).toBe(1);
 
@@ -377,7 +374,7 @@ describe('Website hotkeys', function(){
 
             hotkeys.ItemsNavigation.next();
             hotkeys.Globals.enter();
-            expect(browser.getCurrentUrl()).toContain(config.anyBlueprint);
+            expect(browser.getCurrentUrl()).toContain(blueprintsConfig.blueprints.groupsBlueprint);
 
             browser.get('/#/deployments');
             browser.waitForAngular();
@@ -403,8 +400,8 @@ describe('Website hotkeys', function(){
 
             hotkeys.Paging.next();
             expect(components.ui.events.page.mainTable.pagination.isPageActive(2)).toBe(true);
-            hotkeys.Paging.next();
-            expect(components.ui.events.page.mainTable.pagination.isPageActive(2)).toBe(true);
+            hotkeys.Paging.prev();
+            expect(components.ui.events.page.mainTable.pagination.isPageActive(1)).toBe(true);
             hotkeys.Paging.prev();
             expect(components.ui.events.page.mainTable.pagination.isPageActive(1)).toBe(true);
         });
@@ -450,6 +447,7 @@ describe('Website hotkeys', function(){
         it('should switch between raw and params view', function(){
             routeToBlueprints();
 
+            hotkeys.ItemsNavigation.next();
             hotkeys.ItemsNavigation.next();
             hotkeys.BlueprintActions.deploy();
             hotkeys.Globals.tab();
