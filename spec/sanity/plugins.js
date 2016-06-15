@@ -76,7 +76,7 @@ describe('plugins page', function() {
             });
     });
 
-    it('should delete plugin', function(done) {
+    xit('should delete plugin', function(done) {
         components.ui.plugins.IndexPage.deletePlugin(testPlugin);
         browser.sleep(10000).then(function() {
             expect(components.ui.plugins.IndexPage.getPlugin(testPlugin, true)).toBeUndefined('delete plugin should refresh plugins');
