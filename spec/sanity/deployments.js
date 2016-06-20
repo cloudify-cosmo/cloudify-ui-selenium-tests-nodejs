@@ -3,6 +3,7 @@
 var logger = require('log4js').getLogger('deployments_spec');
 var components = require('../../src/components');
 var testConf = components.config.tests.sanity.deployments_spec;
+var path = require('path');
 var hotkeys = components.ui.hotkeys;
 
 //var INSTALLED_DEPLOYMENT_NAME = 'installed_deployment';
@@ -98,6 +99,52 @@ describe('deployments page', function () {
                 browser.sleep(1000).then(done);
             });
         });
+
+        describe('update deployment', function(){
+            beforeEach(function(){
+                components.ui.deployments.DeploymentLayout.updateDeployment();
+                var inputsPath = path.resolve(__dirname, '../../src/resources/cloudify-nodecellar-inputs.yaml');
+                components.ui.deployments.UpdateDeploymentDialog.inputs.selectFile(inputsPath);
+                components.ui.deployments.UpdateDeploymentDialog.fileName.type('simple-blueprint.yaml');
+            });
+            it('should update deployment using url', function(){
+                // Works only on chrome , bug in phantom: https://github.com/ariya/phantomjs/issues/10993
+                if(browser.browserName !== 'chrome'){
+                    return;
+                }
+
+                components.ui.deployments.UpdateDeploymentDialog.archive.input.type('https://github.com/cloudify-cosmo/cloudify-nodecellar-example/archive/3.4m5-build.zip');
+                components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
+
+                expect(components.ui.deployments.UpdateDeploymentDialog.isUpdateError()).toBe(false);
+                expect($('.update-deployment-dialog').isPresent()).toBe(false);
+
+                expect(components.ui.deployments.DeploymentLayout.isDeploymentUpdating()).toBe(true);
+
+                components.ui.layout.goToDeployments();
+                expect(components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)).toBe(true);
+            });
+
+            it('should update deployment uploading archive', function(){
+                // Works only on chrome , bug in phantom: https://github.com/ariya/phantomjs/issues/10993
+                if(browser.browserName !== 'chrome'){
+                    return;
+                }
+                var archivePath = path.resolve(__dirname, '../../src/resources/updated-cloudify-nodecellar-example.zip');
+                components.ui.deployments.UpdateDeploymentDialog.archive.selectFile(archivePath);
+                components.ui.deployments.UpdateDeploymentDialog.selectCustomWorkflow();
+                components.ui.deployments.UpdateDeploymentDialog.workflowId.type('update');
+                components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
+
+                expect(components.ui.deployments.UpdateDeploymentDialog.isUpdateError()).toBe(false);
+                expect($('.update-deployment-dialog').isPresent()).toBe(false);
+
+                expect(components.ui.deployments.DeploymentLayout.isDeploymentUpdating()).toBe(true);
+
+                components.ui.layout.goToDeployments();
+                expect(components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)).toBe(true);
+            });
+        });
     });
 
     describe('single deployment (existing deployment)', function(){
@@ -172,6 +219,43 @@ describe('deployments page', function () {
                 });
             });
         });
+
+        describe('update deployment dialog', function(){
+            it('should open update dialog', function(){
+                components.ui.deployments.DeploymentLayout.updateDeployment();
+
+                expect($('.update-deployment-dialog').isPresent()).toBe(true);
+            });
+
+            it('should validate form', function(){
+                components.ui.deployments.DeploymentLayout.updateDeployment();
+                expect(components.ui.deployments.UpdateDeploymentDialog.isConfirmDisabled()).toBe(true);
+                components.ui.deployments.UpdateDeploymentDialog.archive.input.type('http://file');
+                expect(components.ui.deployments.UpdateDeploymentDialog.isConfirmDisabled()).toBe(false);
+                components.ui.deployments.UpdateDeploymentDialog.selectCustomWorkflow();
+                expect(components.ui.deployments.UpdateDeploymentDialog.isConfirmDisabled()).toBe(true);
+                components.ui.deployments.UpdateDeploymentDialog.workflowId.type('custom workflow');
+                expect(components.ui.deployments.UpdateDeploymentDialog.isConfirmDisabled()).toBe(false);
+            });
+
+            it('should update bomber', function(){
+                components.ui.layout.goToDeployments();
+                var deploymentName = testConf.deployment.deploymentToUpdate.id;
+                components.ui.deployments.IndexPage.goToDeployment({id: deploymentName});
+
+                components.ui.deployments.DeploymentLayout.updateDeployment();
+                components.ui.deployments.UpdateDeploymentDialog.archive.input.type('https://github.com/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/blob/master/src/resources/updated-bomber.zip?raw=true');
+                components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
+
+                expect(components.ui.deployments.UpdateDeploymentDialog.isUpdateError()).toBe(false);
+                expect($('.update-deployment-dialog').isPresent()).toBe(false);
+
+                expect(components.ui.deployments.DeploymentLayout.isDeploymentUpdating()).toBe(true);
+
+                components.ui.layout.goToDeployments();
+                expect(components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)).toBe(true);
+            });
+        });
     });
 
     it('should list all deployments', function (done) {
@@ -207,6 +291,12 @@ describe('deployments page', function () {
         components.ui.deployments.DeploymentPage.Topology.clickNode(testConf.deployment.nodeToClick);
         expect(panel.isDisplayed()).toEqual(true, 'panel should not exist');
         browser.sleep(1000).then(done);
+    });
+
+    it('should open update dialog', function(){
+        components.ui.deployments.DeploymentLayout.updateDeployment();
+
+        expect($('.update-deployment-dialog').isPresent()).toBe(true);
     });
 
     //xit('should open node details panel when clicking on node in network section', function (done) {

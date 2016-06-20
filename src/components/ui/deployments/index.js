@@ -6,3 +6,4 @@ exports.IndexPage = require('./IndexPage');
 exports.DeploymentLayout = require('./DeploymentLayout');
 exports.NodesTab = require('./NodesTab');
 exports.ExecuteWorkflowDialog = require('./ExecuteWorkflowDialog');
+exports.UpdateDeploymentDialog = require('./UpdateDeploymentDialog');

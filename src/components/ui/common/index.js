@@ -10,4 +10,5 @@ exports.ActionsDropdown = require('./ActionsDropdown');
 exports.Input = require('./Input');
 exports.Dialog = require('./Dialog');
 exports.IndexTable = require('./IndexTable');
+exports.UploadForm = require('./UploadForm');
 exports.Filters = require('./../../Utils/Filters');

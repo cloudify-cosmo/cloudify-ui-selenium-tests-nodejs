@@ -16,12 +16,12 @@ function Input (baseElement){
         base.clear();
     }
 
-    function getText(){
-        return base.getText();
+    function getValue(){
+        return base.getAttribute('value');
     }
 
     this.type = type;
     this.clear = clear;
-    this.getText = getText;
+    this.getValue = getValue;
 }
 module.exports = Input;
