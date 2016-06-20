@@ -124,6 +124,7 @@
                 "firstDeployment": "installed_deployment [nodecellar1]",
                 "secondDeployment": "installed_deployment2 [nodecellar1]",
                 "logLevelWithEvents": "INFO",
+                "logLevelWithoutEvents": "ERROR",
                 "eventTypeWithEvents": "Workflow started",
                 "eventTypeWithoutEvents": "policy",
                 "logLevelsOptions": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
@@ -164,6 +165,12 @@
                     "activated": "Cloudify is undergoing maintenance and will be available again shortly"
                 },
                 "executingDeployment": "groups"
+                }
+
+
+            },
+            "snapshots_spec": {
+                "snapshotUrl": "https://github.com/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/blob/master/src/resources/snapshot.zip"
             }
         },
         "quickstart": {
