@@ -165,7 +165,6 @@ describe('Website hotkeys', function(){
                 });
 
                 it('should open update deployment dialog', function(){
-                    components.ui.deployments.IndexPage.selectDeployment(0);
                     hotkeys.DeploymentActions.updateDeployment();
 
                     expect($('.update-deployment-dialog').isPresent()).toBe(true);

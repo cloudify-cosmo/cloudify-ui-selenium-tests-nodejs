@@ -165,16 +165,13 @@
                     "activated": "Cloudify is undergoing maintenance and will be available again shortly"
                 },
                 "executingDeployment": "groups"
-                }
-
-
             },
             "snapshots_spec": {
                 "snapshotUrl": "https://github.com/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/blob/master/src/resources/snapshot.zip"
             }
-        },
-        "quickstart": {
-            "deploymentName": "nodecellar"
         }
+    },
+    "quickstart": {
+        "deploymentName": "nodecellar"
     }
 }
