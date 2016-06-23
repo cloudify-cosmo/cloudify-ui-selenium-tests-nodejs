@@ -150,19 +150,19 @@
                         "activated": "activated"
                     },
                     "button": {
-                        "activated": "Deactivate Maintenance Mode",
-                        "deactivated": "Activate Maintenance Mode"
+                        "activated": "Turn off Maintenance Mode",
+                        "deactivated": "Turn on Maintenance Mode"
                     }
                 },
                 "dialog": {
                     "title": {
-                        "activated": "Deactivate Maintenance Mode",
-                        "deactivated": "Activate Maintenance Mode"
+                        "activated": "Turn off Maintenance Mode",
+                        "deactivated": "Turn on Maintenance Mode"
                     }
                 },
                 "message": {
-                    "activating": "Cloudify is undergoing maintenance, some operations may not be available",
-                    "activated": "Cloudify is undergoing maintenance and will be available again shortly"
+                    "activating": "Cloudify manager is entering maintenance mode, some operations may not be available",
+                    "activated": "Cloudify manager is in maintenance mode"
                 },
                 "executingDeployment": "groups"
             },

@@ -32,6 +32,10 @@ describe('snapshots page', function() {
     });
 
     it('should download snapshot', function(done) {
+        if(browser.browserName !== 'chrome') {
+            done();
+            return;
+        }
         components.ui.snapshots.page.downloadSnapshot(testSnapshotId);
 
         browser.driver.wait(function() {
