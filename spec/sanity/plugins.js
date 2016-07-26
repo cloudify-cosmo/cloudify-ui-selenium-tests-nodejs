@@ -4,9 +4,6 @@ var fs = require('fs');
 var logger = require('log4js').getLogger('plugins_spec');
 var components = require('../../src/components/index');
 
-var tempFolderPath = '/tmp';
-// var tempFolderPath = 'C:\\Users\\Alex\\AppData\\Local\\Temp\\'; // Windows
-
 describe('plugins page', function() {
     var testPlugin = {package_name: 'cloudify-ldap-plugin'};
 
@@ -62,7 +59,7 @@ describe('plugins page', function() {
             .then(function(plugin) {
                 plugin.element(by.css('.id')).getText()
                     .then(function(pluginId) {
-                        var path = tempFolderPath + pluginId + '.tar.gz';
+                        var path = browser.tempFolderPath + pluginId + '.tar.gz';
 
                         components.ui.plugins.IndexPage.downloadPlugin(testPlugin);
 
