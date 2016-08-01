@@ -3,7 +3,7 @@
 var common = require('../common');
 
 exports.closeEventsPanel = function() {
-    browser.actions().mouseDown($('[deployment-events] .dragBtn')).perform();
+    browser.actions().mouseDown($('[deployment-events] .head')).perform();
     browser.actions().mouseMove({x: 0, y: 700}).perform();
     browser.actions().mouseUp().perform();
 };
