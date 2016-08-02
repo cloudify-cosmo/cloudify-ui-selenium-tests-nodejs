@@ -48,7 +48,7 @@ describe('deployments page', function () {
 
         it('should not have any search queries in the url after creation', function(done){
 
-            expect(browser.getCurrentUrl()).toMatch(/.+topology$/);
+            expect(browser.getCurrentUrl()).not.toMatch(/\?/);
 
             browser.sleep(1000).then(done);
         });
