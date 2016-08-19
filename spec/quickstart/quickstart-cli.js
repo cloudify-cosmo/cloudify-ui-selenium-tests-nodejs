@@ -64,19 +64,19 @@ describe('CLI test', function () {
 
     it('should upload blueprint, create and install a deployment', function (done) {
         createSSH('/home/vagrant/cloudify')
-            .exec('bin/cfy blueprints upload -b nodecellar -p blueprints/cloudify-nodecellar-example/simple-blueprint.yaml', {
+            .exec('bin/cfy blueprints upload -b nodecellar blueprints/cloudify-nodecellar-example/simple-blueprint.yaml', {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
                     expect(out).toMatch('Uploaded blueprint, blueprint\'s id is: nodecellar');
                 }
-            }).exec('bin/cfy deployments create -d ' + config.tests.quickstart.deploymentName + ' -b nodecellar --inputs blueprints/inputs/nodecellar-singlehost.yaml', {
+            }).exec('bin/cfy deployments create ' + config.tests.quickstart.deploymentName + ' -b nodecellar --inputs blueprints/inputs/nodecellar-singlehost.yaml', {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
                     expect(out).toMatch('Deployment created, deployment\'s id is: ' + config.tests.quickstart.deploymentName);
                 }
-            }).exec('bin/cfy executions start -w install -d ' + config.tests.quickstart.deploymentName, {
+            }).exec('bin/cfy executions start install -d ' + config.tests.quickstart.deploymentName, {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
@@ -97,13 +97,13 @@ describe('CLI test', function () {
 
     it('should uninstall, delete the deployment and teardown', function (done) {
         createSSH('/home/vagrant/cloudify')
-            .exec('bin/cfy executions start -w uninstall -d nodecellar', {
+            .exec('bin/cfy executions start uninstall -d nodecellar', {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
                     expect(out).toMatch('Finished executing workflow \'uninstall\' on deployment \'' + config.tests.quickstart.deploymentName + '\'');
                 }
-            }).exec('bin/cfy deployments delete -d ' + config.tests.quickstart.deploymentName, {
+            }).exec('bin/cfy deployments delete ' + config.tests.quickstart.deploymentName, {
                 out: stdOptions.out,
                 exit: function (code, out, err) {
                     stdOptions.exit(code, out, err);
