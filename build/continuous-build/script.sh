@@ -16,7 +16,8 @@ echo "installing node"
 nvm install 0.10.35 # keep this in older version deliberately.
 
 # replace json file placeholders with environment variables. https://github.com/guy-mograbi-at-gigaspaces/node-replace-env-in-json-file
-curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
+#curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
+curl -L https://raw.githubusercontent.com/cloudify-cosmo/node-replace-env-in-json-file/master/inject.js | INJECT_FILE="${CONFIG_FILE}" node
 
 ## add inline editing for config.json
 
