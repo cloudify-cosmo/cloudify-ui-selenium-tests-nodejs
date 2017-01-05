@@ -28,9 +28,8 @@ pushd ${PROJECT_PARENT_DIR}
         ls -ll
         nvm install &> /dev/null  || echo "unable to run nvm install"
         echo "install npm dependencies"
-        ##npm install &> /dev/null
-        
-        ( nvm install &> /dev/null ) || echo "unable to install using nvm"
+        npm install &> /dev/null
+       
         npm config set registry http://registry.npmjs.org        
         echo "install build helper"
         npm -g install guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
