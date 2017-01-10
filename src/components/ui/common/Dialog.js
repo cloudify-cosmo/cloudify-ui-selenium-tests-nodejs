@@ -1,8 +1,8 @@
 'use strict';
 
-var logger = require('log4js').getLogger('Dialog');
+var logger = browser.getLogger('Dialog');
 
-exports.clickClose = function(){
+exports.clickClose = function() {
     //http://stackoverflow.com/questions/27905584/select-first-visible-element-in-protractor
     $$('.ngdialog-close').filter(function(item) { return item.isDisplayed();}).first().click();
     return browser.sleep(1000); // close effect..
@@ -10,11 +10,12 @@ exports.clickClose = function(){
 
 exports.close = exports.clickClose;
 
-exports.getErrorMessage = function(){
+exports.getErrorMessage = function() {
+    return browser.sleep(3000).then(function() {
+        logger.info('getting error message');
 
-    browser.sleep(3000).then(function(){ logger.info('getting error message'); });
-
-    //http://stackoverflow.com/questions/27905584/select-first-visible-element-in-protractor
-
-    return $$('.ngdialog .error-message').filter(function(item){ return item.isDisplayed();}).first().getText();
+        return $$('.ngdialog .error-message').filter(function(item) {
+            return item.isDisplayed();
+        }).first().getText();
+    });
 };

@@ -1,21 +1,26 @@
 'use strict';
 
-var logger = require('log4js').getLogger('deployments_spec');
+var logger = browser.getLogger('deployments_spec');
 var components = require('../../src/components');
-var testConf = components.config.tests.sanity.deployments_spec;
 var path = require('path');
+
+var testConf = components.config.tests.sanity.deployments_spec;
+var creation = components.ui.common.creation;
 var hotkeys = components.ui.hotkeys;
+var storage = components.utils.localStorage;
+var EC = protractor.ExpectedConditions;
 
 var generateNewDeployment = function (blueprintName, inputs) {
     var deploymentName ='deployment_' + new Date().getTime();
     // lets deploy a blueprint to make this test rerunable.. I hate it, but what can we do
     // if deploying was a simple act, we would not care..
-    components.ui.layout.goToBlueprints();
-    components.ui.blueprints.IndexPage.createDeployment({ name : blueprintName });
-    components.ui.blueprints.CreateDeployment.setDetails({ name : deploymentName , 'raw' : inputs});
-    components.ui.blueprints.CreateDeployment.confirm();
+    creation.addDeployment(
+        blueprintName,
+        deploymentName,
+        inputs,
+        true
+    );
 
-    components.ui.deployments.DeploymentPage.waitForInitializingToStop();
     return deploymentName;
 };
 //var INSTALLED_DEPLOYMENT_NAME = 'installed_deployment';
@@ -107,60 +112,75 @@ describe('deployments page', function () {
         it('should update deployment using url', function(){
             components.ui.layout.goToDeployments();
             var deploymentName = testConf.deployment.deploymentToUpdate.id;
+            browser.ignoreSynchronization = true;
             components.ui.deployments.IndexPage.goToDeployment({id: deploymentName});
+            browser.wait(EC.presenceOf(element(by.css('.sections'))), 7000).then(function() {
+                components.ui.deployments.DeploymentPage.goToNodes();
+                browser.ignoreSynchronization = false;
 
-            components.ui.deployments.DeploymentLayout.updateDeployment();
-            components.ui.deployments.UpdateDeploymentDialog.archive.input.type('https://github.com/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/blob/master/src/resources/updated-bomber.tar.gz?raw=true');
-            components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
+                components.ui.deployments.DeploymentLayout.updateDeployment();
+                components.ui.deployments.UpdateDeploymentDialog.archive.input.type('https://github.com/cloudify-cosmo/cloudify-ui-selenium-tests-nodejs/blob/master/src/resources/updated-bomber.tar.gz?raw=true');
+                components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
 
-            expect(components.ui.deployments.UpdateDeploymentDialog.isUpdateError()).toBe(false);
-            expect($('.update-deployment-dialog').isPresent()).toBe(false);
+                expect(components.ui.deployments.UpdateDeploymentDialog.isUpdateError()).toBe(false);
 
-            expect(components.ui.deployments.DeploymentLayout.isDeploymentUpdating()).toBe(true);
+                components.ui.deployments.UpdateDeploymentDialog.clickClose();
 
-            components.ui.layout.goToDeployments();
-            expect(components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)).toBe(true);
-        });
-
-        it('should update deployment uploading archive', function(){
-            // Works only on chrome , bug in phantom: https://github.com/ariya/phantomjs/issues/10993
-            if(browser.browserName !== 'chrome'){
-                return;
-            }
-            var deploymentName = generateNewDeployment('nodecellar_to_update', {
-                'agent_private_key_path': 'ggg',
-                'agent_user': 'ggg',
-                'host_ip': 'ggg'
+                browser.wait(EC.stalenessOf($('.update-deployment-dialog')), 7000)
+                    .then(function() {
+                        expect(components.ui.deployments.DeploymentLayout.isDeploymentUpdating()).toBe(true);
+                        components.ui.layout.goToDeployments();
+                        expect(components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)).toBe(true);
+                    });
             });
-
-            components.ui.deployments.DeploymentLayout.updateDeployment();
-            components.ui.deployments.UpdateDeploymentDialog.fileName.type('simple-blueprint.yaml');
-            var inputsPath = path.resolve(__dirname, '../../src/resources/cloudify-nodecellar-inputs.yaml');
-            components.ui.deployments.UpdateDeploymentDialog.inputs.selectFile(inputsPath);
-            var archivePath = path.resolve(__dirname, '../../src/resources/updated-cloudify-nodecellar-example.zip');
-            components.ui.deployments.UpdateDeploymentDialog.archive.selectFile(archivePath);
-            components.ui.deployments.UpdateDeploymentDialog.selectCustomWorkflow();
-            components.ui.deployments.UpdateDeploymentDialog.workflowId.type('update');
-            components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
-
-            expect(components.ui.deployments.UpdateDeploymentDialog.isUpdateError()).toBe(false);
-            expect($('.update-deployment-dialog').isPresent()).toBe(false);
-
-            expect(components.ui.deployments.DeploymentLayout.isDeploymentUpdating()).toBe(true);
-
-            components.ui.layout.goToDeployments();
-            expect(components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)).toBe(true);
         });
+
+        xit('should update deployment uploading archive', function(){
+            // Works only in chrome, bug in phantom: https://github.com/ariya/phantomjs/issues/10993
+            if (browser.browserName === 'chrome') {
+                var deploymentName = generateNewDeployment('nodecellar_to_update', {
+                    'agent_private_key_path': 'ggg',
+                    'agent_user': 'ggg',
+                    'host_ip': 'ggg'
+                });
+
+                components.ui.deployments.DeploymentLayout.updateDeployment();
+                components.ui.deployments.UpdateDeploymentDialog.fileName.type('simple-blueprint.yaml');
+                var inputsPath = path.resolve(__dirname, '../../src/resources/cloudify-nodecellar-inputs.yaml');
+                components.ui.deployments.UpdateDeploymentDialog.inputs.selectFile(inputsPath);
+                var archivePath = path.resolve(__dirname, '../../src/resources/updated-cloudify-nodecellar-example.zip');
+                components.ui.deployments.UpdateDeploymentDialog.archive.selectFile(archivePath);
+                components.ui.deployments.UpdateDeploymentDialog.selectCustomWorkflow();
+                components.ui.deployments.UpdateDeploymentDialog.workflowId.type('update');
+                components.ui.deployments.UpdateDeploymentDialog.clickConfirm();
+
+                components.ui.deployments.UpdateDeploymentDialog.isUpdateError()
+                    .then(function(isPresent) { expect(isPresent).toBe(false); });
+                $('.update-deployment-dialog').isPresent()
+                    .then(function(isPresent) { expect(isPresent).toBe(false); });
+
+                components.ui.deployments.DeploymentLayout.isDeploymentUpdating()
+                    .then(function(isPresent) { expect(isPresent).toBe(true); });
+
+                components.ui.layout.goToDeployments();
+                components.ui.deployments.IndexPage.isDeploymentUpdating(deploymentName)
+                    .then(function(isPresent) { expect(isPresent).toBe(true); });
+            }
+        }).pend('Getting an error: The blueprint you provided for the deployment update contains changes currently unsupported by the deployment update mechanism. Unsupported changes: policy_types:cloudify.policies.types.host_failure policy_types:cloudify.policies.types.ewma_stabilized policy_types:cloudify.policies.types.threshold policy_triggers:cloudify.policies.triggers.execute_workflow');
     });
 
     describe('single deployment (existing deployment)', function(){
         beforeEach(function(){
+            browser.ignoreSynchronization = true;
             components.ui.deployments.IndexPage.goToDeployment({id: testConf.deployment.groupsDeployment});
+            browser.wait(EC.presenceOf(element(by.css('.sections'))), 7000).then(function() {
+                components.ui.deployments.DeploymentPage.goToNodes();
+                browser.ignoreSynchronization = false;
+            });
         });
 
         describe('nodes view', function(){
             it('should have groups', function(){
-                components.ui.deployments.DeploymentPage.goToNodes();
                 expect(components.ui.deployments.NodesTab.getNodesGroups()).toEqual(['group2', 'mongo_and_node', 'group1', 'mongo_and_node']);
             });
         });
@@ -267,17 +287,18 @@ describe('deployments page', function () {
     });
 
     it('should open node details panel when clicking on node in topology section', function (done) {
+        storage.set('cloudify_eventsMinimized', true); // collapse events widget by default
+        browser.ignoreSynchronization = true;
         components.ui.deployments.IndexPage.goToDeployment(testConf.deployment.deploymentToRead);
+        browser.sleep(2000);
         components.ui.deployments.DeploymentPage.goToTopology();
-
-        // drag Events list down for the nodes to be click-able
-
-
+        browser.sleep(2000);
         var panel = components.ui.deployments.DeploymentLayout.getNodePropertiesPanel();
         expect(panel.isDisplayed()).toEqual(false, 'panel should not exist');
-        components.ui.deployments.DeploymentLayout.closeEventsPanel();
+
         components.ui.deployments.DeploymentPage.Topology.clickNode(testConf.deployment.nodeToClick);
-        expect(panel.isDisplayed()).toEqual(true, 'panel should not exist');
+        expect(panel.isDisplayed()).toEqual(true, 'panel should exist');
+        browser.ignoreSynchronization = false;
         browser.sleep(1000).then(done);
     });
 

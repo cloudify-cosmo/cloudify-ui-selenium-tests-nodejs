@@ -1,5 +1,5 @@
 'use strict';
-//var logger = require('log4js').getLogger('Gruntfile');
+//var logger = browser.getLogger('Gruntfile');
 
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);

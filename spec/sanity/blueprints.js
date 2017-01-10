@@ -1,8 +1,10 @@
 'use strict';
 
-var logger = require('log4js').getLogger('blueprints_spec');
-var components = require('../../src/components/index');
+var logger = browser.getLogger('blueprints_spec');
+var components = require('../../src/components');
 
+var creation = components.ui.common.creation;
+var EC = protractor.ExpectedConditions;
 
 describe('blueprints page', function(){
     var testConf = components.config.tests.sanity.blueprints_spec;
@@ -62,41 +64,47 @@ describe('blueprints page', function(){
         it('should create a deployment, CREATE_DEPLOYMENT_EXISTS', function (done) {
             logger.trace('start create deployment test');
 
-            components.ui.blueprints.IndexPage.createDeployment({'name' : testConf.blueprints.blueprintToDeploy});
+            components.ui.blueprints.IndexPage.clickCreateDeployment({'name' : testConf.blueprints.blueprintToDeploy})
+                .then(components.ui.common.Dialog.clickClose); // lets test cancel on the way!
 
             var newDeploymentName = 'new-deployment-' + new Date().getTime();
 
-            components.ui.common.Dialog.clickClose(); // lets test cancel on the way!
-
-            function createDeployment( waitFor ) {
-
-                components.ui.blueprints.IndexPage.createDeployment({'name': testConf.blueprints.blueprintToDeploy});
-                components.ui.blueprints.CreateDeployment.setDetails({
-                    name: newDeploymentName,
-                    raw: components.config.tests.sanity.blueprints_spec.deployment
-                });
-                components.ui.blueprints.CreateDeployment.deploy();
-                if ( waitFor ) {
-                    components.ui.deployments.DeploymentPage.waitForInitializingToStop();
-                }
+            function createDeployment(waitForInitialization, isIgnoreExisting) {
+                creation.addDeployment(
+                    testConf.blueprints.blueprintToDeploy,
+                    newDeploymentName,
+                    components.config.tests.sanity.blueprints_spec.deploymentInputs,
+                    waitForInitialization,
+                    null,
+                    null,
+                    isIgnoreExisting
+                );
             }
 
             createDeployment(true);
 
-            browser.sleep(3000);
-            expect(browser.getCurrentUrl()).toContain('/deployment/', 'DEPLOY_REDIRECT should redirect to deployments');
+            browser.getCurrentUrl().then(function(url) {
+                expect(url).toContain('/deployment/', 'DEPLOY_REDIRECT should redirect to deployments');
+            });
 
-            components.ui.layout.goToBlueprints();
+            // try to create the same deployment again
+            createDeployment(false, true);
 
-            createDeployment(false);
+            browser.wait(EC.presenceOf(element(by.css('.ngdialog'))), 7000)
+                .then(function() {
+                    logger.trace('create deployment dialog appeared');
 
-            expect(components.ui.common.Dialog.getErrorMessage()).toContain('already', 'CFY-2902 duplicate name should cause error');
-            components.ui.common.Dialog.close();
+                    components.ui.common.Dialog.getErrorMessage().then(function(text) {
+                        expect(text).toContain('already', 'CFY-2902 duplicate name should cause error');
+                    });
+                    components.ui.common.Dialog.close();
 
-            components.ui.layout.goToDeployments();
-            components.ui.deployments.IndexPage.deleteDeployment({id:newDeploymentName});
+                    components.ui.layout.goToDeployments();
+                    components.ui.deployments.IndexPage.deleteDeployment({id:newDeploymentName});
+                    components.ui.deployments.DeleteDeployment.clickConfirm();
 
-            browser.sleep(1000).then(done);
+                    browser.sleep(1000).then(done);
+                });
         });
 
         it('should show deploy dialog after default button pressed', function (done) {

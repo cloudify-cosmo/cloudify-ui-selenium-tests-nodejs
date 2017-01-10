@@ -1,6 +1,6 @@
 'use strict';
 
-var logger = require('log4js').getLogger('DeploymentIndexPage');
+var logger = browser.getLogger('DeploymentIndexPage');
 var common = require('../common');
 var utils = require('../../Utils');
 
@@ -25,7 +25,7 @@ exports.getDeployments = function(){
  * @returns {webdriver.promise.Deferred.promise|*}
  */
 exports.getDeployment = function( opts, optional ){
-    logger.trace('getting deployment by ', opts );
+    logger.trace('getting deployment by', opts);
     return exports.getDeployments().filter(function(deployment){
         return deployment.element(by.css('.id')).getText().then(function( text ){
             return text === opts.id;
@@ -56,6 +56,7 @@ exports.goToDeployment = function( opts ){
  * @returns {*}
  */
 exports.deleteDeployment = function(opts) {
+    logger.trace('delete deployment dialog', opts);
     return exports.getDeployment(opts).then(function(deployment){
         new common.ActionsDropdown(deployment).clickMenuOption('Delete');
     });
@@ -86,17 +87,15 @@ exports.route = function(){
 
 
 /**
- *
  * assumption: execution must be still running when reaching here!
- *
- * @param {DeploymentOpts} opts
  */
 //
 exports.waitForExecutionToFinish = function(opts){
+    logger.trace('waiting for execution to finish');
 
     var progress = null;
     exports.getDeployment(opts).then(function(d){
-        progress = d.$('[ng-show="showProgress"]');
+        progress = d.$('[ng-show="isRunning() || currentUpdate"]');
     });
 
     browser.wait(function(){
@@ -119,9 +118,8 @@ exports.waitForExecutionToFinish = function(opts){
         }
     },600000); // 10 minutes for installation
     browser.sleep(1).then(function(){
-        logger.info('installation finished');
+        logger.info('execution finished');
     });
-
 };
 
 /**
@@ -137,6 +135,7 @@ exports.waitForExecutionToFinish = function(opts){
  * @param {string} opts.workflow name of workflow
  */
 exports.executeWorkflowAndWaitUntilDone = function(opts){
+    logger.trace('executing workflow');
 
     var executeWorkflowDialog = require('./ExecuteWorkflowDialog');
     exports.route();
@@ -148,6 +147,7 @@ exports.executeWorkflowAndWaitUntilDone = function(opts){
 };
 
 exports.executeWorkflowWithoutWaitingUntilDone = function(opts){
+    logger.trace('executing workflow without waiting until done');
 
     var executeWorkflowDialog = require('./ExecuteWorkflowDialog');
     exports.route();

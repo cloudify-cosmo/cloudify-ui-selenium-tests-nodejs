@@ -1,10 +1,14 @@
+// If chrome crashes without running tests, make sure you have chromedriver that corresponds to your Chrome version.
+// Check the latest version here https://sites.google.com/a/chromium.org/chromedriver/downloads and update the
+// postinstall section of package.json (chromedriver:version). Then run `npm run postinstall`
+
 var tempFolderPath = '/tmp';
 // var tempFolderPath = 'C:\\Users\\Alex\\AppData\\Local\\Temp\\'; // Windows
 
 var capabilities = {
     'browserName': 'chrome',
     'chromeOptions': {
-        args: ['--disable-extensions'],
+        args: ['--disable-extensions', '--start-maximized'],
         prefs: {
             'download': {
                 'prompt_for_download': false,
@@ -14,28 +18,32 @@ var capabilities = {
     }
 };
 
-var timeout = parseInt(process.env.TIMEOUT || "600000",10);
+var timeout = parseInt(process.env.TIMEOUT || "600000", 10);
+var browserType = process.env.BROWSER_TYPE;
 
-if ( !!process.env.BROWSER_TYPE ) {
-    if ( process.env.BROWSER_TYPE.toLowerCase() === 'phantomjs') {
+if (browserType) {
+    if (browserType.toLowerCase() === 'phantomjs') {
         capabilities = {
-            'browserName': 'phantomjs',
-            'platform': 'ANY',
-            'version': '',
+            browserName: 'phantomjs',
             //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
-            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false'/*, '--remote-debugger-port=9090'*/]
+            phantomjs: {
+                cli: {
+                    args: ['--proxy-type=none', '--ignore-ssl-errors=true', '--web-security=false'/*, '--remote-debugger-port=9090'*/]
+                }
+            }
         }
     }
 }
 
 exports.config = {
     // The address of a running selenium server.
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
 
     // Spec patterns are relative to the location of this config.
 
     suites: {
-        sanity: [ 'spec/normalize.js',
+        sanity: [
+            'spec/sanity/prerequisites.js',
             'spec/sanity/blueprints.js',
             'spec/sanity/deployments.js',
             'spec/sanity/plugins.js',
@@ -45,18 +53,18 @@ exports.config = {
             'spec/sanity/maintenance.js',
             'spec/sanity/hotkeys.js'
         ],
-        quickstart: ['spec/normalize.js', 'spec/quickstart/quickstart.js'],
-        'quickstart-cli': ['spec/normalize.js', 'spec/quickstart/quickstart-cli.js'],
-        prerequisites: [ 'spec/normalize.js', 'spec/sanity/_prerequisites.js' ],
-        blueprints: [  'spec/normalize.js', 'spec/sanity/blueprints.js'  ],
-        deployments: [  'spec/normalize.js', 'spec/sanity/deployments.js' ],
-        plugins: [  'spec/normalize.js', 'spec/sanity/plugins.js' ],
-        events: [ 'spec/normalize.js', 'spec/sanity/events.js' ],
-        hotkeys: [ 'spec/normalize.js', 'spec/sanity/hotkeys.js' ],
-        nodesInstances: [ 'spec/normalize.js', 'spec/sanity/nodesInstances.js' ],
-        snapshots: [ 'spec/normalize.js', 'spec/sanity/snapshots.js' ],
-        maintenance: [ 'spec/normalize.js', 'spec/sanity/maintenance.js' ],
-        custom: [ 'spec/normalize.js', process.env.CFY_SPEC ]
+        quickstart: ['spec/quickstart/quickstart.js'],
+        'quickstart-cli': ['spec/quickstart/quickstart-cli.js'],
+        prerequisites: ['spec/sanity/prerequisites.js'],
+        blueprints: ['spec/sanity/blueprints.js'],
+        deployments: ['spec/sanity/deployments.js'],
+        plugins: ['spec/sanity/plugins.js'],
+        events: ['spec/sanity/events.js'],
+        hotkeys: ['spec/sanity/hotkeys.js'],
+        nodesInstances: ['spec/sanity/nodesInstances.js'],
+        snapshots: ['spec/sanity/snapshots.js'],
+        maintenance: ['spec/sanity/maintenance.js'],
+        custom: [process.env.CFY_SPEC]
     },
 
 
@@ -79,6 +87,60 @@ exports.config = {
     },
 
     onPrepare: function() {
+        // At this point, global 'protractor' object will be set up, and
+        // jasmine will be available.
+        var jasmineReporters = require('jasmine-reporters');
+        var windowWidth = 1920;
+        var windowHeight = 1080;
+        var window = browser.manage().window();
+        var recordingSet = false;
+
         browser.tempFolderPath = tempFolderPath;
+        browser.getLogger = function(name) {
+            return require('log4js').getLogger(name);
+        };
+
+        browser.manage().timeouts().pageLoadTimeout(10000);
+        browser.getCapabilities()
+            .then(function(capabilities) {
+                browser.browserName = capabilities.caps_.browserName;
+                browser.platform = capabilities.caps_.platform;
+
+                return window.setSize(windowWidth, windowHeight);
+            })
+            .then(function getUpdatedWindowSize() {
+                return window.getSize();
+            })
+            .then(function showWindowSize(dimensions) {
+                console.log('Running in', browser.browserName, 'on', browser.platform, 'at', dimensions.width + 'x' + dimensions.height);
+            });
+
+        jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({
+            verbosity: 3,
+            color: true,
+            showStack: true
+        }));
+
+        beforeEach(function() {
+            if (process.env.RECORD && !recordingSet) {
+                var fs = require('fs-extra');
+                var folderPath = '/tmp/protractor';
+
+                recordingSet = true;
+                fs.emptyDirSync(folderPath);
+                setInterval(function() {
+                    if (browser.ignoreSynchronization) { // does not work well when not synced.. don't know why.
+                        return;
+                    }
+                    try {
+                        browser.takeScreenshot().then(function(png) {
+                            var stream = fs.createWriteStream(folderPath + '/screenshot-' + new Date().getTime() + '.png');
+                            stream.write(new Buffer(png, 'base64'));
+                            stream.end();
+                        });
+                    } catch(e) { }
+                }, 500);
+            }
+        });
     }
 };

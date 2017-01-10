@@ -1,6 +1,6 @@
 'use strict';
 
-var logger = require('log4js').getLogger('BlueprintIndexPage');
+var logger = browser.getLogger('BlueprintIndexPage');
 var common = require('../common');
 
 exports.getBlueprints = function(){
@@ -27,7 +27,7 @@ exports.getBlueprints = function(){
  * @returns {webdriver.promise.Deferred.promise|*}
  */
 exports.getBlueprint = function( opts, optional ){
-    logger.trace('getting blueprint by ', opts );
+    logger.trace('getting blueprint by', opts);
     return exports.getBlueprints().filter(function(blueprint){
         return blueprint.element(by.css('.name')).getText().then(function( text ){
             return text === opts.name;
@@ -57,7 +57,8 @@ exports.goToBlueprint = function( opts ){
  * @param {BlueprintOpts} opts
  * @returns {*}
  */
-exports.createDeployment = function(opts) {
+exports.clickCreateDeployment = function(opts) {
+    logger.trace('clicking create deployment');
     return exports.getBlueprint(opts).then(function(blueprint){
         new common.ActionsDropdown(blueprint).clickMenuOption('Create Deployment');
         return browser.sleep(1000); //fade in
@@ -105,7 +106,7 @@ exports.deleteBlueprint = function(opts) {
 };
 
 exports.selectBlueprint = function(index){
-  $$('[ng-click="select(blueprint)"]').get(index).click();
+    $$('[ng-click="select(blueprint)"]').get(index).click();
 };
 
 exports.route = function(){

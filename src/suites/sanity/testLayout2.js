@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var components = require('../../components');
-var logger = require('log4js').getLogger('testLayout');
+var logger = browser.getLogger('testLayout');
 
 describe('layout', function () {
 

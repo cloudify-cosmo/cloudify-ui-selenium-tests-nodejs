@@ -5,7 +5,7 @@
 */
 'use strict';
 
-var logger = require('log4js').getLogger('Actions');
+var logger = browser.getLogger('Actions');
 
 /**
  * @description selects a dropdown option according to the opts specification

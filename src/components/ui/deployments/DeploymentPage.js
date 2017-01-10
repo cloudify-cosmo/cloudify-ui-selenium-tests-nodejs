@@ -1,11 +1,11 @@
 'use strict';
 
-//var logger = require('log4js').getLogger('Deployments.Page');
+var logger = browser.getLogger('DeploymentPage');
 var common = require('../common');
 var components = require('../../index');
-var testConf = components.config.tests.sanity.deployments_spec;
 
-var logger = require('log4js').getLogger('DeploymentPage');
+var testConf = components.config.tests.sanity.deployments_spec;
+var EC = protractor.ExpectedConditions;
 
 exports.Topology = common.Topology;
 
@@ -87,6 +87,7 @@ exports.Topology = common.Topology;
 //};
 
 function goToSection(sectionName) {
+    logger.trace('navigating to ' + sectionName + ' tab');
     return common.TabNavigation($('.sections')).goTo(sectionName);
 }
 
@@ -119,31 +120,34 @@ exports.goToMonitoring = function () {
 };
 
 
+exports.waitForInitializationToStop = function() {
+    logger.trace('waiting for initialization to stop');
 
-exports.waitForInitializingToStop = function(){
+    browser.ignoreSynchronization = true;
 
-    browser.wait(function(){ // make sure we are in deployments
-        return browser.getCurrentUrl().then(function(url){
-            return url.indexOf('deployment') >= 0;
+    var urlChangedToDeploymentView = function() {
+        return browser.getCurrentUrl().then(function(url) {
+            return /deployment\//.test(url);
         });
-    },60000);
+    };
 
-    browser.sleep(2000).then(function(){
-        logger.info('url shows deployments');
+    browser.wait(urlChangedToDeploymentView, 7000).then(function() {
+        logger.trace('redirected to deployment view');
     });
 
-    browser.wait(function(){ // wait for initializing to finish
-        return $('body').getText().then(function( text ){
+    return browser.sleep(1500)
+        .then(function() {
+            return browser.wait(EC.and(
+                EC.stalenessOf(element(by.css('[ng-if="isInitializing()"]'))),
+                EC.stalenessOf(element(by.css('[data-ng-if="isInitializing()"]')))
+            ), 7000);
+        })
+        .then(function() {
+            logger.trace('deployment is initialized');
 
-            return text.toLowerCase().indexOf('initializing') <  0;
+            components.ui.deployments.DeploymentPage.goToNodes(); // in case if there are problems with topology tab
+            browser.ignoreSynchronization = false;
         });
-    }, 80000 ).then(function(){
-        //$('body').getText().then(function(text){
-            //logger.info('body text is ' + text);
-        //});
-        logger.info('deployment is ready for deletion');
-    });
-
 };
 
 /**
