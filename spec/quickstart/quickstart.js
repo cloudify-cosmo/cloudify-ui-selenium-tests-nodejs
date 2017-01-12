@@ -25,6 +25,7 @@ var logger = browser.getLogger('blueprints_spec');
 var components = require('../../src/components/index');
 var url = require('url');
 
+var creation = components.ui.common.creation;
 var BLUEPRINT_NAME = 'nodecellar';
 var DEPLOYMENT_NAME = BLUEPRINT_NAME;
 
@@ -63,22 +64,12 @@ describe('quickstart', function(){
         logger.info('loading blueprints page');
         browser.get('/#/blueprints');
         logger.info('creating deployment');
-        components.ui.blueprints.IndexPage.createDeployment({name:BLUEPRINT_NAME});
-        logger.info('setting deployment details');
-        components.ui.blueprints.CreateDeployment.setDetails(
-            {
-                name: DEPLOYMENT_NAME,
-                raw: {
-                        agent_private_key_path: '/home/vagrant/.ssh/id_rsa',
-                        agent_user: 'vagrant',
-                        host_ip: '10.10.1.10'
-                    }
-            }
+        creation.addDeployment(
+            BLUEPRINT_NAME,
+            DEPLOYMENT_NAME,
+            components.config.tests.sanity.blueprints_spec.deploymentInputs,
+            true
         );
-        logger.info('submitting create deployment form');
-        components.ui.blueprints.CreateDeployment.submit();
-        logger.info('wait for deployment to initialize.. might take some time');
-        components.ui.deployments.DeploymentPage.waitForInitializingToStop();
     });
 
     it('step 5 - should run install on the application', function(done){

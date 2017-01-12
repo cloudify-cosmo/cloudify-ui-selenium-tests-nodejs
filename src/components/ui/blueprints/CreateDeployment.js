@@ -1,7 +1,7 @@
 'use strict';
 
 
-//var logger = require('log4js').getLogger('Blueprints.CreateDeployments');
+var logger = browser.getLogger('Blueprints.CreateDeployments');
 
 
 /**
@@ -35,12 +35,12 @@ exports.setRaw = exports.setParams;
  * Click on create button on create deployment dialog to complete the creation of new deployment
  * @returns {promise}
  */
-exports.deploy = function() {
-    return element(by.css('#deployBlueprintDialog .deployButtons button')).click();
-};
+exports.confirm = function() {
+    logger.trace('confirming');
 
-exports.submit = exports.deploy;
-exports.confirm = exports.deploy;
+    element(by.css('#deployBlueprintDialog .deployButtons button')).click();
+    return browser.sleep(100);
+};
 
 /**
  * @param {object} opts
@@ -48,13 +48,15 @@ exports.confirm = exports.deploy;
  * @param {string} opts.name name of blueprint
  */
 exports.setDetails = function( opts ){
-      if ( opts.name ){
-          exports.setName(opts.name);
-      }
+    logger.trace('setting deployment details');
+
+    if ( opts.name ){
+        exports.setName(opts.name);
+    }
 
     if ( opts.raw ){
         exports.clickOnRaw();
         exports.setRaw(opts.raw);
     }
-    return browser.sleep(1); // return a promise that will run last..
+    return browser.sleep(100); // return a promise that will run last..
 };

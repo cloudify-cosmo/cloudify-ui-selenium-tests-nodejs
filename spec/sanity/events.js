@@ -1,6 +1,8 @@
 'use strict';
-var logger = require('log4js').getLogger('events');
-var components = require('../../src/components/index');
+
+var logger = browser.getLogger('events');
+var components = require('../../src/components');
+
 var events = components.ui.events.page;
 var config = components.config.tests.sanity.events_spec;
 
@@ -12,7 +14,7 @@ describe('logs & events page', function() {
 
     //protractor fails to wait for debounce
     function waitingForDebounce(){
-        return browser.sleep(500);
+        browser.sleep(1500);
     }
 
     function isAllValuesEqualTo(array, value) {

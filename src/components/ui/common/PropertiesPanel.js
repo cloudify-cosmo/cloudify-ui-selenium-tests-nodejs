@@ -1,6 +1,6 @@
 'use strict';
 
-var logger = require('log4js').getLogger('blueprints_spec');
+var logger = browser.getLogger('blueprints_spec');
 var TabNavigation = require('./TabNavigation');
 var components = require('../../index');
 var testConf = components.config.tests.sanity.blueprints_spec;

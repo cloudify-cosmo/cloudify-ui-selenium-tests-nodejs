@@ -9,21 +9,20 @@
  *         SideMenu.goTo( 'Deployments' );
  *     </code>
  * </pre>
- * @param base base element for component
  * @constructor
+ * @param viewName
  */
 
-module.exports = {
-    getViews: function () {
-        return element.all(by.css('.navbar li a'));
-    },
-    goTo: function (viewName) {
-        var views = this.getViews().filter(function (view) {
-            return view.getText().then(function (text) {
+var logger = browser.getLogger('SideMenu');
+
+exports.goTo = function(viewName) {
+    logger.trace('changing view to ' + viewName);
+
+    element.all(by.css('.navbar li a'))
+        .filter(function(view) {
+            return view.getText().then(function(text) {
                 return text.toLowerCase() === viewName.toLowerCase();
             });
-        });
-        expect(views.count()).toBe(1, 'view ' + viewName + ' should exist');
-        views.click();
-    }
+        })
+        .click();
 };

@@ -1,8 +1,8 @@
 'use strict';
 
 var fs = require('fs');
-var logger = require('log4js').getLogger('plugins_spec');
-var components = require('../../src/components/index');
+var logger = browser.getLogger('plugins_spec');
+var components = require('../../src/components');
 
 describe('plugins page', function() {
     var testPlugin = {package_name: 'cloudify-ldap-plugin'};
@@ -54,23 +54,27 @@ describe('plugins page', function() {
     //});
 
     // todo: download functionality doesn't work in phantomjs
-    xit('should download plugin', function(done) {
-        components.ui.plugins.IndexPage.getPlugin(testPlugin)
-            .then(function(plugin) {
-                plugin.element(by.css('.id')).getText()
-                    .then(function(pluginId) {
-                        var path = browser.tempFolderPath + pluginId + '.tar.gz';
+    it('should download plugin', function(done) {
+        if (browser.browserName === 'chrome') {
+            components.ui.plugins.IndexPage.getPlugin(testPlugin)
+                .then(function(plugin) {
+                    plugin.element(by.css('.id')).getText()
+                        .then(function(pluginId) {
+                            var path = browser.tempFolderPath + pluginId + '.tar.gz';
 
-                        components.ui.plugins.IndexPage.downloadPlugin(testPlugin);
+                            components.ui.plugins.IndexPage.downloadPlugin(testPlugin);
 
-                        browser.driver.wait(function() {
-                            return fs.existsSync(path);
-                        }, 10000).then(function() {
-                            expect(fs.existsSync(path)).toBe(true);
-                            done();
+                            browser.driver.wait(function() {
+                                return fs.existsSync(path);
+                            }, 10000).then(function() {
+                                expect(fs.existsSync(path)).toBe(true);
+                                done();
+                            });
                         });
-                    });
-            });
+                });
+        } else {
+            done();
+        }
     });
 
     it('should delete plugin', function(done) {

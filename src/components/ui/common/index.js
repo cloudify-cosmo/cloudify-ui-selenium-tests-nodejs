@@ -12,3 +12,4 @@ exports.Dialog = require('./Dialog');
 exports.IndexTable = require('./IndexTable');
 exports.UploadForm = require('./UploadForm');
 exports.Filters = require('./../../Utils/Filters');
+exports.creation = require('./Creation');

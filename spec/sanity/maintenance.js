@@ -1,5 +1,7 @@
 'use strict';
-var components = require('../../src/components/index');
+
+var components = require('../../src/components');
+
 var maintenance = components.ui.maintenance;
 var config = components.config.tests.sanity.maintenance_spec;
 

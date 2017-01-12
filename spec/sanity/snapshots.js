@@ -1,7 +1,8 @@
 'use strict';
 
 var fs = require('fs');
-var components = require('../../src/components/index');
+var components = require('../../src/components');
+
 var snapshots = components.ui.snapshots;
 var config = components.config.tests.sanity.snapshots_spec;
 
@@ -32,18 +33,18 @@ describe('snapshots page', function() {
     });
 
     it('should download snapshot', function(done) {
-        if(browser.browserName !== 'chrome') {
-            done();
-            return;
-        }
-        components.ui.snapshots.page.downloadSnapshot(testSnapshotId);
+        if (browser.browserName === 'chrome') {
+            components.ui.snapshots.page.downloadSnapshot(testSnapshotId);
 
-        browser.driver.wait(function() {
-            return fs.existsSync(testSnapshotPath);
-        }, 20000).then(function() {
-            expect(fs.existsSync(testSnapshotPath)).toBe(true);
+            browser.driver.wait(function() {
+                return fs.existsSync(testSnapshotPath);
+            }, 20000).then(function() {
+                expect(fs.existsSync(testSnapshotPath)).toBe(true);
+                done();
+            });
+        } else {
             done();
-        });
+        }
     });
 
     it('should delete created snapshot', function(done) {

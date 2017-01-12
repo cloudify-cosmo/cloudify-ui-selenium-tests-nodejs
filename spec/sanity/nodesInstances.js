@@ -1,5 +1,7 @@
 'use strict';
-var components = require('../../src/components/index');
+
+var components = require('../../src/components');
+
 var nodesInstances = components.ui.nodesInstances;
 var config = components.config.tests.sanity.nodesInstances_spec;
 
@@ -13,7 +15,7 @@ describe('nodes instances page', function() {
             expect(nodesInstances.filters.blueprints.getSelectedText()).toBe(config.firstBlueprint);
         });
 
-       it('should show deployed blueprints', function(){
+        it('should show deployed blueprints', function(){
             expect(nodesInstances.filters.blueprints.getOptionsTexts()).toEqual(config.deployedBlueprints);
         });
     });

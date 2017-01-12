@@ -4,28 +4,29 @@
   "description": "system tests for cloudify-ui",
   "dependencies": {
     "async": "^0.9.0",
+    "eyes.protractor": "0.0.38",
     "fs-extra": "^0.24.0",
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "^0.10.0",
+    "grunt-mocha-test": "^0.12.7",
     "grunt-protractor-runner": "~3.0.0",
     "grunt-protractor-webdriver": "~0.2.0",
+    "jasmine-reporters": "~2.1.0",
     "jshint-stylish": "^1.0.0",
+    "karma-phantomjs-launcher": "^1.0.2",
     "load-grunt-tasks": "~3.1.0",
     "lodash": "^2.4.1",
     "log4js": "^0.6.21",
+    "mocha": "^3.2.0",
     "pkg-up": "^1.0.0",
     "protractor": "~3.0.0",
-    "selenium-webdriver": "~2.44.0"
-  },
-  "devDependencies": {
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-mocha-test": "^0.12.7",
-    "jasmine-reporters": "~2.1.0",
-    "eyes.protractor": "0.0.38",
     "simple-ssh": "0.8.8"
   },
   "scripts": {
-    "install": "node ./node_modules/protractor/bin/webdriver-manager update"
+    "chromedriver:version": "sed -i.bak 's/\"chromedriver\": \"[0-9\\.]*\"/\"chromedriver\": \"2.27\"/' node_modules/protractor/config.json",
+    "selenium:version": "sed -i.bak 's/\"selenium\": \"[0-9\\.]*\"/\"selenium\": \"2.48.2\"/' node_modules/protractor/config.json",
+    "webdriver:update": "node ./node_modules/protractor/bin/webdriver-manager update --standalone",
+    "postinstall": "npm run chromedriver:version && npm run selenium:version && npm run webdriver:update"
   },
   "engines": {
     "node": ">=0.8.0"
