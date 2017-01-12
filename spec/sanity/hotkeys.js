@@ -1,14 +1,17 @@
 'use strict';
-var logger = require('log4js').getLogger('hotkeys_spec');
-var components = require('../../src/components/index');
+
+var logger = browser.getLogger('hotkeys_spec');
+var components = require('../../src/components');
+
 var hotkeys = components.ui.hotkeys;
 var config = components.config.tests.sanity.hotkeys_spec;
 var blueprintsConfig = components.config.tests.sanity.blueprints_spec;
 var deploymentsConfig = components.config.tests.sanity.deployments_spec;
-
 var routeToBlueprints = components.ui.blueprints.IndexPage.route;
 var routeToDeployments = components.ui.deployments.IndexPage.route;
 var routeToLogs = components.ui.events.page.route;
+var deployment = components.ui.deployments.DeploymentPage;
+var dialog = components.ui.common.Dialog;
 
 var sendKeys = function(keys){
     browser.actions().sendKeys(keys).perform();
@@ -155,8 +158,12 @@ describe('Website hotkeys', function(){
 
             describe('Deployment page', function(){
                 beforeEach(function(){
+                    browser.ignoreSynchronization = true;
                     browser.get('/#/deployment/'+config.notExecutingDeployment+'/topology');
-                    browser.waitForAngular();
+                    browser.sleep(1000).then(function() {
+                        deployment.goToNodes(); // doesn't work on topology tab for some reason
+                        browser.ignoreSynchronization = false;
+                    });
                 });
 
                 it('should open execute dialog', function(){
@@ -169,9 +176,14 @@ describe('Website hotkeys', function(){
 
                     expect($('.update-deployment-dialog').isPresent()).toBe(true);
                 });
+
                 it('should open delete dialog', function(){
                     hotkeys.DeploymentActions.delete();
                     expect($('.delete-dialog').isPresent()).toBe(true);
+                });
+
+                afterEach(function() {
+                    dialog.close();
                 });
             });
         });

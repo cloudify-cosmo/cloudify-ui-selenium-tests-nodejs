@@ -1,6 +1,5 @@
 'use strict';
 
-var logger = require('log4js').getLogger('Layout');
 var common = require('./common');
 
 /**
@@ -20,7 +19,6 @@ exports.getSpecLink = function(){
 };
 
 exports.goToView = function(viewName) {
-    logger.trace('changing view to ' + viewName);
     return common.SideMenu.goTo(viewName);
 };
 

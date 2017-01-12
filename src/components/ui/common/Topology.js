@@ -1,6 +1,6 @@
 'use strict';
 
-var logger = require('log4js').getLogger('Topology');
+var logger = browser.getLogger('Topology');
 
 /**
  * @description

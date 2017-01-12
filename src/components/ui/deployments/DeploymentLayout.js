@@ -1,8 +1,11 @@
 'use strict';
 
 var common = require('../common');
+var logger = browser.getLogger('DeploymentLayout');
 
 exports.closeEventsPanel = function() {
+    logger.trace('minimizing events widget');
+
     browser.actions().mouseDown($('[deployment-events] .head')).perform();
     browser.actions().mouseMove({x: 0, y: 700}).perform();
     browser.actions().mouseUp().perform();
@@ -21,7 +24,9 @@ exports.executeDeployment = function() {
 };
 
 exports.updateDeployment = function() {
-    new common.ActionsDropdown().clickMenuOption('Update');
+    logger.trace('update deployment');
+
+    return new common.ActionsDropdown().clickMenuOption('Update');
 };
 
 exports.isDeploymentUpdating = function(){

@@ -4,7 +4,7 @@
 
 'use strict';
 
-var logger = require('log4js').getLogger('CLI');
+var logger = browser.getLogger('CLI');
 var SSH = require('simple-ssh');
 var fs = require('fs');
 var config = require('../../src/components/config');

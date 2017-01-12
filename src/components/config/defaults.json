@@ -48,16 +48,16 @@
                         "relationships": "relationships"
                     }
                 },
-                "deployment": {
+                "deploymentInputs": {
                     "agent_private_key_path": "/home/vagrant/.ssh/id_rsa",
                     "agent_user": "vagrant",
                     "host_ip": "10.10.1.10"
                 }
             },
             "deployments_spec": {
-                "delete_deployment" : {
-                    "blueprint_to_deploy" : {
-                        "id" : "nodecellar1"
+                "delete_deployment": {
+                    "blueprint_to_deploy": {
+                        "id": "nodecellar1"
                     }
                 },
                 "deployment": {
@@ -143,8 +143,8 @@
                 "executingDeployment": "hotkeys_deployment"
             },
             "maintenance_spec": {
-                "page":{
-                    "status":{
+                "page": {
+                    "status": {
                         "deactivated": "deactivated",
                         "activating": "activating",
                         "activated": "activated"

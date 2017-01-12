@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var components = require('../../components');
-var logger = require('log4js').getLogger('testBlueprints');
+var logger = browser.getLogger('testBlueprints');
 
 describe('Blueprints', function () {
 
@@ -150,7 +150,7 @@ describe('Blueprints', function () {
         // load blueprint page
         components.ui.page.loadBlueprints();
         // create new instance of create deployment
-        components.ui.blueprints.createDeployment().then(function(createDeployment){
+        components.ui.blueprints.clickCreateDeployment().then(function(createDeployment){
             // set options for this instance
             createDeployment.setOptions(components.config.deployment).then(function(){
                 // open new create deployment dialog

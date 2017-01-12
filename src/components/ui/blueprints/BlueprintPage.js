@@ -1,8 +1,11 @@
 'use strict';
 
-var common = require('../common');
+var logger = browser.getLogger('BlueprintPage');
 var components = require('../../index');
+var common = require('../common');
+
 var testConf = components.config.tests.sanity.blueprints_spec;
+
 exports.Topology = common.Topology;
 exports.PropertiesPanel = common.PropertiesPanel;
 exports.NodesTable = common.NodesTable;
@@ -16,6 +19,7 @@ exports.Source = common.Source;
  * @param sectionName
  */
 function goToSection( sectionName ){
+    logger.trace('navigating to ' + sectionName + ' tab');
     return common.TabNavigation($('.sections')).goTo(sectionName);
 }
 

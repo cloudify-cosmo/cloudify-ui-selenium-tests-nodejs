@@ -1,6 +1,6 @@
 'use strict';
 
-var logger = require('log4js').getLogger('PluginIndexPage');
+var logger = browser.getLogger('PluginIndexPage');
 var common = require('../common');
 
 exports.getPlugins = function() {

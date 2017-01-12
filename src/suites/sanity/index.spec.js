@@ -1,7 +1,7 @@
 'use strict';
 
 var components = require('../../components');
-var logger = require('log4js').getLogger('index.spec');
+var logger = browser.getLogger('index.spec');
 
 describe('Sanity suite', function () {
     this.timeout(components.config.timeout);

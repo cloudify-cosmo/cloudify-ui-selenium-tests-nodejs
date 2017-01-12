@@ -1,5 +1,5 @@
 'use strict';
-var logger = require('log4js').getLogger('Actions');
+var logger = browser.getLogger('Actions');
 var filters = require('./../../Utils/Filters');
 
 

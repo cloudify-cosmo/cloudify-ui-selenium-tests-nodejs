@@ -2,7 +2,7 @@
 
 var q = require('q');
 var driver = require('../../driver/index');
-//var logger = require('log4js').getLogger('Deployments.Actions');
+//var logger = browser.getLogger('Deployments.Actions');
 var css = require('selenium-webdriver').By.css;
 var async = require('async');
 

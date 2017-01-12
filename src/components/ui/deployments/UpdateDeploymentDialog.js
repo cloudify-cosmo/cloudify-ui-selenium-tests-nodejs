@@ -1,11 +1,15 @@
 'use strict';
+
 var Input = require('../common/Input');
 var UploadForm = require('../common/UploadForm');
+var logger = browser.getLogger('UpdateDeploymentDialog');
+
 var dialog = $('.update-deployment-dialog');
 var confirmButton = dialog.$$('.confirmationButtons button').get(1);
 var cancelButton = dialog.$$('.confirmationButtons button').get(0);
 
 exports.clickConfirm = function(){
+    logger.trace('confirming');
     confirmButton.click();
 };
 
@@ -14,6 +18,7 @@ exports.clickCancel = function(){
 };
 
 exports.clickClose = function(){
+    logger.trace('closing update dialog');
     element.all(by.css('.ngdialog-close')).click();
 };
 
@@ -50,6 +55,5 @@ exports.selectCustomWorkflow = function () {
 exports.workflowId = new Input(dialog.$('#workflow-id'));
 
 exports.isUpdateError = function(){
-    var errorMessage = dialog.$('.error-message');
-    return errorMessage.isPresent();
+    return dialog.$('.error-message').isPresent();
 };
